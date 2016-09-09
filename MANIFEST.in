@@ -1,0 +1,5 @@
+include bracelet-generator bracelet-generator.py CHANGELOG.txt README.txt COPYING.txt bracelet-generator.desktop preinst.py uninstall.py bracelet-generator.svg
+recursive-include BraceletGenerator/*
+recursive-include documentation *
+recursive-include examples *
+recursive-include po *

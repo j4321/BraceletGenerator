@@ -1,0 +1,372 @@
+# Bracelet Generator - An easy way to design friendship bracelet patterns
+# Copyright (C) 2014-2016 Juliette Monsel
+# This file is distributed under the same license as the Bracelet Generator package.
+# Juliette Monsel <j_4321@sfr.fr>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 00:09+0200\n"
+"PO-Revision-Date: 2016-08-21 19:21+0200\n"
+"Last-Translator: Juliette Monsel <j_4321@sfr.fr>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: BraceletGenerator/couleurs.py:41 BraceletGenerator/bracelet.py:179
+msgid "Color Manager"
+msgstr "Gestionnaire de couleurs"
+
+#: BraceletGenerator/couleurs.py:82
+msgid "Default color"
+msgstr "Couleur par défaut"
+
+#: BraceletGenerator/couleurs.py:97
+msgid "String colors"
+msgstr "Couleurs des fils"
+
+#: BraceletGenerator/about.py:36
+msgid "About Bracelet Generator"
+msgstr "À propos de Bracelet Générateur"
+
+#: BraceletGenerator/about.py:51
+#, python-format
+msgid "Bracelet Generator %(version)s"
+msgstr "Bracelet Générateur %(version)s"
+
+#: BraceletGenerator/about.py:53
+msgid "Friendship bracelet patterns designer"
+msgstr "Générateur de patrons de bracelets brésiliens"
+
+#: BraceletGenerator/about.py:56 BraceletGenerator/about.py:80
+msgid "License"
+msgstr "Licence"
+
+#: BraceletGenerator/about.py:57 BraceletGenerator/about.py:112
+msgid "Close"
+msgstr "Fermer"
+
+#: BraceletGenerator/about.py:95
+msgid ""
+"Bracelet Generator is free software: you can redistribute it and/or modify "
+"it under the terms of the GNU General Public License as published by the "
+"Free Software Foundation, either version 3 of the License, or (at your "
+"option) any later version.\n"
+"\n"
+msgstr ""
+"Bracelet Générateur est un logiciel libre ; vous pouvez le diffuser et/ou le "
+"modifier suivant les termes de la Licence Publique Générale GNU telle que "
+"publiée par la Free Software Foundation ; soit la version 3 de cette "
+"licence, soit (à votre convenance) une version ultérieure.\n"
+"\n"
+
+#: BraceletGenerator/about.py:97
+msgid ""
+"Bracelet Generator is distributed in the hope that it will be useful, but "
+"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+"or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
+"more details.\n"
+"\n"
+msgstr ""
+"Bracelet Générateur est diffusé dans l'espoir qu'il sera utile, mais SANS "
+"AUCUNE GARANTIE ; sans même une garantie implicite de COMMERCIALISATION ou "
+"d'ADÉQUATION À UN USAGE PARTICULIER. Voyez la Licence Publique Générale GNU "
+"pour plus de détails.\n"
+"\n"
+
+#: BraceletGenerator/about.py:99
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"this program. If not, see http://www.gnu.org/licenses/."
+msgstr ""
+"Vous devriez avoir reçu une copie de la Licence Publique Générale GNU avec "
+"ce programme. Sinon, consultez http://www.gnu.org/licenses/."
+
+#: BraceletGenerator/constantes.py:222
+msgid "Information"
+msgstr ""
+
+#: BraceletGenerator/constantes.py:222
+msgid ""
+"This software has been developped using Tcl/Tk 8.6, but you are using an "
+"older version. Therefore there might be errors and the images will have a "
+"poor quality. Please consider upgrading your Tcl/Tk version."
+msgstr ""
+"Ce logiciel a été développé avec Tcl/Tk 8.6, mais vous utilisez une "
+"version plus ancienne. De ce fait, il peut y avoir des erreurs et les "
+"images seront de mauvaise qualité. Il est conseillé de mettre à jour Tcl/Tk."
+
+#: BraceletGenerator/constantes.py:290 BraceletGenerator/bracelet.py:105
+#: BraceletGenerator/bicolore.py:115
+msgid "Open"
+msgstr "Ouvrir"
+
+#: BraceletGenerator/constantes.py:325 BraceletGenerator/bracelet.py:116
+#: BraceletGenerator/bicolore.py:127
+msgid "Save As"
+msgstr "Enregistrer sous"
+
+#: BraceletGenerator/bracelet.py:53
+msgid "Bracelet Generator"
+msgstr "Bracelet Générateur"
+
+#: BraceletGenerator/bracelet.py:101
+msgid "New"
+msgstr "Nouveau"
+
+#: BraceletGenerator/bracelet.py:108 BraceletGenerator/bicolore.py:118
+msgid "Recent Files"
+msgstr "Fichiers récents"
+
+#: BraceletGenerator/bracelet.py:113 BraceletGenerator/bicolore.py:123
+msgid "Save"
+msgstr "Enregistrer"
+
+#: BraceletGenerator/bracelet.py:118 BraceletGenerator/bicolore.py:130
+msgid "Shift+Ctrl+S"
+msgstr "Maj+Ctrl+S"
+
+#: BraceletGenerator/bracelet.py:120 BraceletGenerator/bracelet.py:1505
+msgid "Export"
+msgstr "Exporter"
+
+#: BraceletGenerator/bracelet.py:124
+msgid "Quit"
+msgstr "Quitter"
+
+#: BraceletGenerator/bracelet.py:136 BraceletGenerator/bicolore.py:144
+msgid "Undo"
+msgstr "Annuler"
+
+#: BraceletGenerator/bracelet.py:139 BraceletGenerator/bicolore.py:147
+msgid "Redo"
+msgstr "Rétablir"
+
+#: BraceletGenerator/bracelet.py:143 BraceletGenerator/bicolore.py:162
+msgid "Add Row"
+msgstr "Ajouter deux lignes"
+
+#: BraceletGenerator/bracelet.py:148 BraceletGenerator/bicolore.py:167
+msgid "Delete Row"
+msgstr "Supprimer deux lignes"
+
+#: BraceletGenerator/bracelet.py:154 BraceletGenerator/bicolore.py:173
+msgid "Add String"
+msgstr "Ajouter un fil"
+
+#: BraceletGenerator/bracelet.py:159 BraceletGenerator/bicolore.py:178
+msgid "Delete String"
+msgstr "Supprimer un fil"
+
+#: BraceletGenerator/bracelet.py:165
+msgid "Create a Two-Colored Motif"
+msgstr "Créer un motif bicolore"
+
+#: BraceletGenerator/bracelet.py:170 BraceletGenerator/bicolore.py:248
+msgid "Vertical Symmetry"
+msgstr "Symétrie verticale"
+
+#: BraceletGenerator/bracelet.py:174 BraceletGenerator/bicolore.py:252
+msgid "Horizontal Symmetry"
+msgstr "Symétrie horizontale"
+
+#: BraceletGenerator/bracelet.py:194 BraceletGenerator/bracelet.py:206
+#: BraceletGenerator/bicolore.py:258 BraceletGenerator/bicolore.py:271
+msgid "Help"
+msgstr "Aide"
+
+#: BraceletGenerator/bracelet.py:196 BraceletGenerator/bicolore.py:261
+msgid "Online Help"
+msgstr "Aide en ligne"
+
+#: BraceletGenerator/bracelet.py:199 BraceletGenerator/bicolore.py:265
+msgid "About"
+msgstr "À propos"
+
+#: BraceletGenerator/bracelet.py:203 BraceletGenerator/bicolore.py:268
+msgid "File"
+msgstr "Fichier"
+
+#: BraceletGenerator/bracelet.py:204 BraceletGenerator/bicolore.py:269
+msgid "Edit"
+msgstr "Édition"
+
+#: BraceletGenerator/bracelet.py:205
+msgid "Language"
+msgstr "Langue"
+
+#: BraceletGenerator/bracelet.py:255 BraceletGenerator/bicolore.py:354
+msgid "Rows: "
+msgstr "Lignes : "
+
+#: BraceletGenerator/bracelet.py:267 BraceletGenerator/bicolore.py:366
+msgid "Strings: "
+msgstr "Fils : "
+
+#: BraceletGenerator/bracelet.py:1349
+msgid ""
+"The pattern has not been saved. Do you want to save it before replacing it "
+"by a new one?"
+msgstr ""
+"Le patron n'est pas enregistré. Voulez-vous l'enregistrer avant de le "
+"remplacer par un nouveau ?"
+
+#: BraceletGenerator/bracelet.py:1390 BraceletGenerator/bracelet.py:1542
+msgid ""
+"The pattern has not been saved. Do you want to save it before replacing it "
+"by another one?"
+msgstr ""
+"Le patron n'est pas enregistré. Voulez-vous l'enregistrer avant de le "
+"remplacer par un autre ?"
+
+#: BraceletGenerator/bracelet.py:1425 BraceletGenerator/bracelet.py:1428
+#: BraceletGenerator/bracelet.py:1452 BraceletGenerator/bracelet.py:1534
+#: BraceletGenerator/bicolore.py:891 BraceletGenerator/bicolore.py:895
+#: BraceletGenerator/bicolore.py:950
+msgid "Error"
+msgstr "Erreur"
+
+#: BraceletGenerator/bracelet.py:1426
+#, python-format
+msgid "The file %(name)s is not a valid pattern file."
+msgstr "%(name)s n'est pas un fichier de patron valide."
+
+#: BraceletGenerator/bracelet.py:1429 BraceletGenerator/bicolore.py:896
+#, python-format
+msgid "The file %(name)s does not exists."
+msgstr "Le fichier %(name)s n'existe pas."
+
+#: BraceletGenerator/bracelet.py:1453
+#, python-format
+msgid "%(extension)s is not a valid extension for a pattern file."
+msgstr ""
+".%(extension)s n'est pas une extension valide pour un fichier de patron."
+
+#: BraceletGenerator/bracelet.py:1535
+#, python-format
+msgid "The pattern cannot be exported in .%(extension)s"
+msgstr "Le patron ne peut pas être exporté en .%(extension)s"
+
+#: BraceletGenerator/bracelet.py:1589
+msgid "The pattern has not been saved. Do you want to save it before closing?"
+msgstr ""
+"Le patron n'est pas enregistré. Voulez-vous l'enregistrer avant de quitter ?"
+
+#: BraceletGenerator/bracelet.py:1713
+msgid "The language setting will take effect after restarting the application"
+msgstr "Le changement de langue prendra effet au prochain démarrage."
+
+#: BraceletGenerator/bicolore.py:51
+msgid "Motif Editor"
+msgstr "Éditeur de motifs"
+
+#: BraceletGenerator/bicolore.py:132
+msgid "Generate Pattern"
+msgstr "Générer le patron"
+
+#: BraceletGenerator/bicolore.py:137
+msgid "Quit Editor"
+msgstr "Quitter l'éditeur"
+
+#: BraceletGenerator/bicolore.py:151
+msgid "Clear"
+msgstr "Effacer"
+
+#: BraceletGenerator/bicolore.py:155 BraceletGenerator/bicolore.py:1114
+msgid "Background Color"
+msgstr "Couleur d'arrière plan"
+
+#: BraceletGenerator/bicolore.py:158 BraceletGenerator/bicolore.py:1134
+msgid "Foreground Color"
+msgstr "Couleur du motif"
+
+#: BraceletGenerator/bicolore.py:187
+msgid "North"
+msgstr "Nord"
+
+#: BraceletGenerator/bicolore.py:192
+msgid "North-East"
+msgstr "Nord-Est"
+
+#: BraceletGenerator/bicolore.py:197
+msgid "East"
+msgstr "Est"
+
+#: BraceletGenerator/bicolore.py:202
+msgid "South-East"
+msgstr "Sud-Est"
+
+#: BraceletGenerator/bicolore.py:207
+msgid "South"
+msgstr "Sud"
+
+#: BraceletGenerator/bicolore.py:212
+msgid "South-West"
+msgstr "Sud-Ouest"
+
+#: BraceletGenerator/bicolore.py:217
+msgid "West"
+msgstr "Ouest"
+
+#: BraceletGenerator/bicolore.py:222
+msgid "North-West"
+msgstr "Nord-Ouest"
+
+#: BraceletGenerator/bicolore.py:228
+msgid "Shift Motif"
+msgstr "Translater le motif"
+
+#: BraceletGenerator/bicolore.py:233
+msgid "Shift ..."
+msgstr "Translations ..."
+
+#: BraceletGenerator/bicolore.py:237
+msgid "Rotate Counter-Clockwise"
+msgstr "Rotation anti-horaire"
+
+#: BraceletGenerator/bicolore.py:242
+msgid "Rotate Clockwise"
+msgstr "Rotation horaire"
+
+#: BraceletGenerator/bicolore.py:270
+msgid "Transform"
+msgstr "Transformation"
+
+#: BraceletGenerator/bicolore.py:549
+msgid "Shift"
+msgstr "Translater"
+
+#: BraceletGenerator/bicolore.py:892
+#, python-format
+msgid "The file %(name)s is not a valid two-colored motif file."
+msgstr "%(name)s n'est pas un fichier de motif bicolore valide."
+
+#: BraceletGenerator/bicolore.py:903
+msgid "Do you really want to clear the motif?"
+msgstr "Voulez-vous vraiment effacer le motif ?"
+
+#: BraceletGenerator/bicolore.py:951
+#, python-format
+msgid ".%(extension)s is not a valid extension for a two-colored motif file."
+msgstr ""
+".%(extension)s n'est pas une extension de fichier de motif bicolore valide."
+
+#: BraceletGenerator/bicolore.py:1061
+msgid ""
+"The two-colored motif has not been saved. Do you want to save it before "
+"generating the pattern?"
+msgstr ""
+"Le motif bicolore n'est pas enregistré. Voulez-vous l'enregistrer avant de "
+"générer le patron ?"
+
+#: BraceletGenerator/bicolore.py:1179
+msgid ""
+"The two-colored motif has not been saved. Do you want to save it before "
+"closing?"
+msgstr ""
+"Le motif bicolore n'est pas enregistré. Voulez-vous l'enregistrer avant de "
+"quitter ?"

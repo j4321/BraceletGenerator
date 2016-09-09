@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.3.0
+Encoding=UTF-8
+Name=BraceletGenerator
+Comment_fr="Générateur de patrons de bracelet brésiliens"
+Comment="Friendship bracelet patterns designer"
+Exec=path_to_bracelet-generator-1.3.0-src/bracelet-generator.py
+Icon=path_to_bracelet-generator-1.3.0-src/bracelet-generator.svg
+Terminal=false
+Type=Application
+Path=path_to_bracelet-generator-1.3.0-src
+Categories=Graphics
+StartupNotify=false
+MimeType=application/x-bracelet;application/x-bicolor
