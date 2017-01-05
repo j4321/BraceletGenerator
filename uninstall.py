@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding:Utf-8 -*-
 
-# Uninstall BraceletGenerator 1.3.0
+# Uninstall BraceletGenerator >= 1.3.0 (only if installed with setup.py)
 
 import os
 import sys
@@ -25,7 +25,7 @@ if os.path.exists(menu_entry):
 config = os.path.join(local_path, "BraceletGenerator")
 if os.path.exists(config):
     l = os.listdir(config)
-    to_delete = [f for f in l if (l[-3:] == "log" or l[-6:] == "config")]
+    to_delete = [f for f in l if (l[-3:] in ["log", "ini"] or l[-6:] == "config")]
     for f in to_delete:
         os.remove(os.path.join(config, f))
     if not os.listdir(config):

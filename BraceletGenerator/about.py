@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,18 +23,18 @@ Window displaying the information about the software
 
 from tkinter import Text, Toplevel
 from tkinter.ttk import Button, Label, Style
-from BraceletGenerator.constantes import open_image, BG_COLOR, STYLE, VERSION, IM_ICON48, set_icon, lang, webOpen
-_ = lang.gettext
+from BraceletGenerator.constantes import open_image, BG_COLOR, STYLE, VERSION, IM_ICON48, set_icon, LANG, webOpen
+#_ = LANG.gettext
 
 class About(Toplevel):
     """ Toplevel de l'application principale donnant les informations à
         propos du logiciel """
-    def __init__(self, parent, **options):
+    def __init__(self, master, **options):
         """ créer le Toplevel 'À propos de Bracelet Generator' """
-        Toplevel.__init__(self, parent, **options)
+        Toplevel.__init__(self, master, **options)
 
         self.title(_("About Bracelet Generator"))
-        self.parent = parent
+        self.transient(master)
         self.grab_set()
         self.configure(bg=BG_COLOR)
 
@@ -51,8 +51,8 @@ class About(Toplevel):
                   text=_("Bracelet Generator %(version)s")
                   % ({"version": VERSION})).grid(row=1, columnspan=2)
         Label(self, text=_("Friendship bracelet patterns designer")).grid(row=2, columnspan=2, padx=10)
-        Label(self, text="Copyright (C) Juliette Monsel 2014-2016").grid(row=3, columnspan=2)
-        Label(self, text="j_4321@sfr.fr").grid(row=4, columnspan=2)
+        Label(self, text="Copyright (C) Juliette Monsel 2014-2017").grid(row=3, columnspan=2)
+        Label(self, text="j_4321@protonmail.com").grid(row=4, columnspan=2)
         Button(self, text=_("License"), command=self._license).grid(row=5, column=0, pady=20, padx=4)
         Button(self, text=_("Close"), command=self.exit).grid(row=5, column=1, pady=20, padx=4)
 
@@ -65,8 +65,8 @@ class About(Toplevel):
 
     def exit(self):
         """ ferme la fenêtre """
-        if self.parent:
-            self.parent.focus_set()
+        if self.master:
+            self.master.focus_set()
         self.destroy()
 
     def _license(self):

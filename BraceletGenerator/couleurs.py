@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you self.can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -22,24 +22,25 @@ Color management dialog
 
 from tkinter import Toplevel, Canvas, PhotoImage
 from tkinter.ttk import Button, Label, Style, Separator, Frame, Scrollbar
-from BraceletGenerator.constantes import BG_COLOR, STYLE, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, lang
-_ = lang.gettext
+from BraceletGenerator.constantes import BG_COLOR, STYLE, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, LANG
+_ = LANG.gettext
 
 class Couleurs(Toplevel):
     """ Toplevel de l'application principale permettant de gérer les colors
         utilisées """
 
-    def __init__(self, parent, coul_def, colors, **options):
+    def __init__(self, master, coul_def, colors, **options):
         """ créer le gestionnaire de colors
             coul_def : color par défaut,
             colors : set des colors du bracelet
         """
         # Initialisation Toplevel
-        Toplevel.__init__(self, parent, **options)
+        Toplevel.__init__(self, master, **options)
 
 
         self.title(_("Color Manager"))
         self.resizable(0,1)
+        self.transient(master)
         self.grab_set()
         self.configure(bg=BG_COLOR)
         self.rowconfigure(0,weight=1)
@@ -146,7 +147,7 @@ class Couleurs(Toplevel):
     def change_color(self, button):
         image = button.image
         c_coul = "#%02x%02x%02x" % image.get(0,0)
-        n_coul = askcolor(c_coul, parent=self)
+        n_coul = askcolor(c_coul, master=self)
         if n_coul:
             fill(image, n_coul)
             # otherwise the image is not refreshed in windows unless the button takes focus

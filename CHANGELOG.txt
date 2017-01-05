@@ -1,39 +1,35 @@
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
-Bracelet Generator is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Bracelet Generator is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
------------------------Bracelet Generator 1.3-----------------------------
-- Version 1.3.2
-
-    Bug correction: mousescrolling was not working in Windows 
-    and the mouse buttons were not correctly boundin OS X
+* Bracelet Generator 1.4
     
-    Added compatibility with Tcl/Tk 8.5 for Mac OS X since python does not
-    support Tcl/Tk 8.6 on this platform.
-
-- Version 1.3.1
-
-    Bug correction: error when opening the "about" toplevel
+    - Version 1.4.0
     
-    Bug correction: error when opening a file that does not exist
+        1. New feature
+        
+            - Export the pattern to text format
     
-    Replaced .pdf offline help by a .html page
-    
-- Version 1.3.0
+        2. Bug correction
+            
+            - mouse-scrolling was in Windows 
+            - mouse button bindings in OS X
+        
+        3. Compatibility
+        
+            - Added compatibility with Tcl/Tk 8.5 since python does not
+              support Tcl/Tk 8.6 on OS X.
+        
+* Bracelet Generator 1.3
 
-    Changes between 1.3 and 1.2
+    - Version 1.3.1
+
+        Bug correction: error when opening the "about" toplevel
+        
+        Bug correction: error when opening a file that does not exist
+        
+        Replaced .pdf offline help by a .html page
+        
+    - Version 1.3.0
 
         1. Switch to python3 instead of python2 because it is the future of python 
            and there are less string encoding issues than with python2
@@ -72,20 +68,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               the canvas in .png or .jpg (PIL and ghostscript are enough).
               Therefore, the path to 'convert' is useless now.
 
------------------------Bracelet Generator 1.2-----------------------------
+* Bracelet Generator 1.2
 
-- Version 1.2.2
+    - Version 1.2.2
 
-    Little correction of the export function
-    
-- Version 1.2.1
+        Little correction of the export function
+        
+    - Version 1.2.1
 
-    Bug correction concerning the path to the convert function of ImageMagick
-    (necessary to export to .png).
+        Bug correction concerning the path to the convert function of ImageMagick
+        (necessary to export to .png).
 
-- Version 1.2.0
-
-    Changes between 1.2 and 1.1
+    - Version 1.2.0
 
         1. Improvements
 

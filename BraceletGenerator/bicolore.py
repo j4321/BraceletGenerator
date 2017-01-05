@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,17 +17,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Two - colored pattern generator
+Two-colored pattern generator
 """
 
 from pickle import Pickler, Unpickler
 from tkinter import Toplevel, Menu, Canvas, PhotoImage
-from tkinter.ttk import Button, Entry, Label, Style, Scrollbar, Frame
+from tkinter.ttk import Button, Entry, Label, Style, Frame
 from tkinter.messagebox import showerror
 from tkinter.messagebox import askyesno, askyesnocancel
 from BraceletGenerator.constantes import *
 from BraceletGenerator.about import About
-_ = lang.gettext
+from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
+#_ = LANG.gettext
 
 BICOLOR_LOG = os.path.join(LOCAL_PATH, "Bicolor%i.log")
 i = 0
@@ -37,18 +38,19 @@ BICOLOR_LOG %= i
 
 class Bicolore(Toplevel):
     """ classe de l'application éditeur de motif bicolore """
-    def __init__(self, parent=None, row_nb=10, string_nb=8,
+    def __init__(self, master, row_nb=10, string_nb=8,
                  bg='#ffffff', fg="#ff0000", fichier="", **options):
         """ créer le Toplevel permettant d'éditer des motifs bicolores
             pour ensuite en générer le patron """
         self.colors = [bg, fg]
 
         # création et paramétrage de la fenêtre
-        Toplevel.__init__(self, parent, **options)
+        Toplevel.__init__(self, master, **options)
         g, x, y = self.master.geometry().split("+")
         self.geometry("+%s+%s" % (x,y))
 
         self.title(_("Motif Editor"))
+        self.transient(master)
         self.grab_set()
         self.configure(bg=BG_COLOR)
         set_icon(self)
@@ -397,37 +399,37 @@ class Bicolore(Toplevel):
         self._init_canvas()
 
         # keybindings
-        self.bind("<Control-o>", self.open, add=True)
-        self.bind("<Control-q>", self.exit, add=True)
-        self.bind("<Control-s>", self.save, add=True)
-        self.bind("<Control-Shift-S>", self.saveas, add=True)
-        self.bind("<Control-g>", self.generate, add=True)
-        self.bind("<Control-z>", self.undo, add=True)
-        self.bind("<Control-y>", self.redo, add=True)
-        self.bind("<Control-x>", self.clear, add=True)
-        self.bind("<Control-b>", self.set_bg, add=True)
-        self.bind("<Control-f>", self.set_fg, add=True)
-        self.bind("<Control-m>", self.shift_motif, add=True)
-        self.bind("<Up>", lambda event: self.shift("n"), add=True)
-        self.bind("<Down>", lambda event: self.shift("s"), add=True)
-        self.bind("<Right>", lambda event: self.shift("e"), add=True)
-        self.bind("<Left>", lambda event: self.shift("w"), add=True)
-        self.bind("<Control-KP_8>", lambda event: self.shift("n"), add=True)
-        self.bind("<Control-KP_2>", lambda event: self.shift("s"), add=True)
-        self.bind("<Control-KP_6>", lambda event: self.shift("e"), add=True)
-        self.bind("<Control-KP_4>", lambda event: self.shift("w"), add=True)
-        self.bind("<Control-KP_9>", lambda event: self.shift("ne"), add=True)
-        self.bind("<Control-KP_1>", lambda event: self.shift("sw"), add=True)
-        self.bind("<Control-KP_3>", lambda event: self.shift("se"), add=True)
-        self.bind("<Control-KP_7>", lambda event: self.shift("nw"), add=True)
-        self.bind("<KP_Add>", self.add_row, add=True)
-        self.bind("<KP_Subtract>", self.del_row, add=True)
-        self.bind("<Control-KP_Add>", self.add_string, add=True)
-        self.bind("<Control-KP_Subtract>", self.del_string, add=True)
-        self.bind("<plus>", self.add_row, add=True)
-        self.bind("<minus>", self.del_row, add=True)
-        self.bind("<Control-plus>", self.add_string, add=True)
-        self.bind("<Control-minus>", self.del_string, add=True)
+        self.bind("<Control-o>", self.open)
+        self.bind("<Control-q>", self.exit)
+        self.bind("<Control-s>", self.save)
+        self.bind("<Control-Shift-S>", self.saveas)
+        self.bind("<Control-g>", self.generate)
+        self.bind("<Control-z>", self.undo)
+        self.bind("<Control-y>", self.redo)
+        self.bind("<Control-x>", self.clear)
+        self.bind("<Control-b>", self.set_bg)
+        self.bind("<Control-f>", self.set_fg)
+        self.bind("<Control-m>", self.shift_motif)
+        self.bind("<Up>", lambda event: self.shift("n"))
+        self.bind("<Down>", lambda event: self.shift("s"))
+        self.bind("<Right>", lambda event: self.shift("e"))
+        self.bind("<Left>", lambda event: self.shift("w"))
+        self.bind("<Control-KP_8>", lambda event: self.shift("n"))
+        self.bind("<Control-KP_2>", lambda event: self.shift("s"))
+        self.bind("<Control-KP_6>", lambda event: self.shift("e"))
+        self.bind("<Control-KP_4>", lambda event: self.shift("w"))
+        self.bind("<Control-KP_9>", lambda event: self.shift("ne"))
+        self.bind("<Control-KP_1>", lambda event: self.shift("sw"))
+        self.bind("<Control-KP_3>", lambda event: self.shift("se"))
+        self.bind("<Control-KP_7>", lambda event: self.shift("nw"))
+        self.bind("<KP_Add>", self.add_row)
+        self.bind("<KP_Subtract>", self.del_row)
+        self.bind("<Control-KP_Add>", self.add_string)
+        self.bind("<Control-KP_Subtract>", self.del_string)
+        self.bind("<plus>", self.add_row)
+        self.bind("<minus>", self.del_row)
+        self.bind("<Control-plus>", self.add_string)
+        self.bind("<Control-minus>", self.del_string)
         self.bind("<Control-l>", lambda event: self.rotate("ccw"),
                   add=True)
         self.bind("<Control-r>", lambda event: self.rotate("cw"),
@@ -436,13 +438,12 @@ class Bicolore(Toplevel):
                   add=True)
         self.bind("<Control-h>", lambda event: self.symmetrize("horizontal"),
                   add=True)
-        self.bind('<Key-F1>', help, add=True)
-        self.bind('<Control-Key-F1>', help_web, add=True)
+        self.bind('<Key-F1>', help)
+        self.bind('<Control-Key-F1>', help_web)
 
         for key in MOUSEWHEEL:
             self.bind(key, self._mouse_scroll)
 
-        self.bind("<Configure>", self._resize, add=True)
         self.row_nb_entry.bind("<Return>", self.change_row_nb)
         self.row_nb_entry.bind("<FocusOut>", self.change_row_nb)
         self.string_nb_entry.bind("<Return>", self.change_string_nb)
@@ -580,8 +581,8 @@ class Bicolore(Toplevel):
                command=lambda: self.shift("s")).grid(row=2, column=1)
         Button(top, image=top.icon_move_se,
                command=lambda: self.shift("se")).grid(row=2, column=2)
-        top.bind("<Control-z>", self.undo, add=True)
-        top.bind("<Control-y>", self.redo, add=True)
+        top.bind("<Control-z>", self.undo)
+        top.bind("<Control-y>", self.redo)
 
     def shift(self, direction, write_log=True):
         """ translate le motif
@@ -748,7 +749,7 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[1] - 10,
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
-        self._resize()
+
 
 
 
@@ -822,7 +823,7 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[1] - 10,
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
-        self._resize()
+
         self.is_saved = False
 
     def open(self, event=None, fichier=""):
@@ -884,7 +885,7 @@ class Bicolore(Toplevel):
                                                              self.can.bbox('all')[1] - 10,
                                                              self.can.bbox('all')[2] + 10,
                                                              self.can.bbox('all')[3] + 10])
-                            self._resize()
+
 
 
                     else:  # il y a eu une erreur
@@ -1086,28 +1087,6 @@ class Bicolore(Toplevel):
         if self.is_scrollable:
             self.can.yview_scroll(mouse_wheel(event), "units")
 
-    def _resize(self, event=None):
-        """ gestion du redimmensionnement de la fenêtre """
-        dim = self.can.winfo_geometry().split("+")[0]
-        w, h = dim.split("x")
-        w = int(w)
-        h = int(h)
-        _, _, w2, h2 = self.can.cget("scrollregion").split(" ")
-        w2 = int(w2)
-        h2 = int(h2)
-        if w2 > w:
-            self.scroll_horiz.grid(row=2, columnspan=9, sticky="ew")
-            self.is_scrollable = True
-        else:
-            self.scroll_horiz.grid_forget()
-            self.is_scrollable = False
-        if h2 > h:
-            self.scroll_vert.grid(row=1, column=10, sticky="ns")
-            self.is_scrollable = True
-        else:
-            self.scroll_vert.grid_forget()
-            self.is_scrollable = False
-
     def set_bg(self, event=None, write_log=True, bg=None):
         """ change la color du fond """
         if bg is None:
@@ -1246,7 +1225,6 @@ class Bicolore(Toplevel):
                                       self.can.bbox('all')[1] - 10,
                                       self.can.bbox('all')[2] + 10,
                                       self.can.bbox('all')[3] + 10])
-        self._resize()
         self.is_saved = False
 
         if write_log:
@@ -1275,8 +1253,6 @@ class Bicolore(Toplevel):
                                              self.can.bbox('all')[1] - 10,
                                              self.can.bbox('all')[2] + 10,
                                              self.can.bbox('all')[3] + 10])
-
-            self._resize()
             self.is_saved = False
 
             if write_log:
@@ -1333,7 +1309,6 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
 
-        self._resize()
         self.is_saved = False
 
         if write_log:
@@ -1358,7 +1333,6 @@ class Bicolore(Toplevel):
                                              self.can.bbox('all')[2] + 10,
                                              self.can.bbox('all')[3] + 10])
 
-            self._resize()
             self.is_saved = False
 
             if write_log:
@@ -1366,15 +1340,6 @@ class Bicolore(Toplevel):
                 with open(BICOLOR_LOG, "a") as log:
                     log.write("del_string %s\n" % (motif))
 
-
     def get_result(self):
         """renvoie le résultat """
         return self.result
-
-
-# def bicolore(parent, row_nb=10, string_nb=8, bg='#ffffff', fg='#ff0000', fichier=""):
-    # """ affiche la fenêtre de génération d'un motif bicolore
-        # pour bracelet brésilien et renvoie:
-        # row_nb, string_nb, colors ([bg, fg]), motif """
-    # bic = Bicolore(parent, row_nb, string_nb, bg, fg, fichier)
-    # return bic.get_result()

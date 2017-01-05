@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,16 +23,17 @@ bracelet class for Bracelet Generator
 from pickle import Pickler, Unpickler
 from PIL import Image
 from tkinter import Tk, Menu, StringVar, Canvas, IntVar
-from tkinter.ttk import Button, Label, Style, Scrollbar, Frame, Entry
+from tkinter.ttk import Button, Label, Style, Frame, Entry
 from tkinter.messagebox import showerror, showinfo
 from tkinter.messagebox import askyesnocancel
+from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 from BraceletGenerator.constantes import *
 from BraceletGenerator.noeud import Noeud
 from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
 from BraceletGenerator.about import About
 from subprocess import Popen
-_ = lang.gettext
+#_ = LANG.gettext
 
 BRACELET_LOG = os.path.join(LOCAL_PATH, "BraceletGenerator%i.log")
 i = 0
@@ -79,6 +80,7 @@ class Bracelet(Tk):
         self.m_moins = open_image(file=IM_MOINS_M, master=self)
         self.m_exit = open_image(master=self, file=IM_EXIT_M)
         self.m_export = open_image(master=self, file=IM_EXPORT_M)
+        self.m_export_txt = open_image(master=self, file=IM_EXPORT_TXT_M)
         self.m_new = open_image(master=self, file=IM_NEW_M)
         self.m_open = open_image(master=self, file=IM_OUVRIR_M)
         self.m_saveas = open_image(master=self, file=IM_SAVEAS_M)
@@ -117,9 +119,12 @@ class Bracelet(Tk):
                                    compound="left", command=self.saveas,
                                    accelerator=_("Shift+Ctrl+S"))
         self.menu_file.add_separator()
-        self.menu_file.add_command(label=_("Export"), image=self.m_export,
+        self.menu_file.add_command(label=_("Export as picture"), image=self.m_export,
                                    compound="left", command=self.export,
                                    accelerator="Ctrl+E")
+        self.menu_file.add_command(label=_("Export as text"), image=self.m_export_txt,
+                                   compound="left", command=self.export_txt,
+                                   accelerator="Shift+Ctrl+E")
         self.menu_file.add_separator()
         self.menu_file.add_command(label=_("Quit"), image=self.m_exit,
                                    compound="left", command=self.exit,
@@ -185,10 +190,10 @@ class Bracelet(Tk):
         self.langue = StringVar(self)
         self.langue.set(LANGUE[:2])
         self.menu_language.add_radiobutton(label="Français",
-                                         variable=self.langue,
-                                         value="fr", command=self._translate)
+                                           variable=self.langue,
+                                           value="fr", command=self._translate)
         self.menu_language.add_radiobutton(label="English", variable=self.langue,
-                                         value="en", command=self._translate)
+                                           value="en", command=self._translate)
         # Aide
         self.menu_help = Menu(menu, tearoff=0, bg=BG_COLOR)
         self.menu_help.add_command(label=_("Help"), image=self.m_help, command=help,
@@ -318,28 +323,28 @@ class Bracelet(Tk):
 
         # Raccourcis clavier
         self.bind('<Control-o>', self.open)
-        self.bind('<Control-n>', self.new, add=True)
-        self.bind('<Control-s>', self.save, add=True)
-        self.bind('<Control-Shift-S>', self.saveas, add=True)
-        self.bind('<Control-e>', self.export, add=True)
-        self.bind('<Control-q>', self.exit, add=True)
-        self.bind('<Control-z>', self.undo, add=True)
-        self.bind('<Control-y>', self.redo, add=True)
-        self.bind('<Control-b>', self.bicolore, add=True)
-        self.bind('<Control-c>', self.manage_colors, add=True)
-        self.bind('<Key-F1>', help, add=True)
-        self.bind('<Control-Key-F1>', help_web, add=True)
-        self.bind("<Configure>", self._redimensionne, add=True)
-        self.bind('<Control-h>', lambda event: self.symmetrize("horizontal"), add=True)
-        self.bind('<Control-v>', lambda event: self.symmetrize("vertical"), add=True)
-        self.bind("<KP_Add>", self.add_row, add=True)
-        self.bind("<KP_Subtract>", self.del_row, add=True)
-        self.bind("<Control-KP_Add>", self.add_string, add=True)
-        self.bind("<Control-KP_Subtract>", self.del_string, add=True)
-        self.bind("<plus>", self.add_row, add=True)
-        self.bind("<minus>", self.del_row, add=True)
-        self.bind("<Control-plus>", self.add_string, add=True)
-        self.bind("<Control-minus>", self.del_string, add=True)
+        self.bind('<Control-n>', self.new)
+        self.bind('<Control-s>', self.save)
+        self.bind('<Control-Shift-S>', self.saveas)
+        self.bind('<Control-e>', self.export)
+        self.bind('<Control-Shift-E>', self.export_txt)
+        self.bind('<Control-q>', self.exit)
+        self.bind('<Control-z>', self.undo)
+        self.bind('<Control-y>', self.redo)
+        self.bind('<Control-b>', self.bicolore)
+        self.bind('<Control-c>', self.manage_colors)
+        self.bind('<Key-F1>', help)
+        self.bind('<Control-Key-F1>', help_web)
+        self.bind('<Control-h>', lambda event: self.symmetrize("horizontal"))
+        self.bind('<Control-v>', lambda event: self.symmetrize("vertical"))
+        self.bind("<KP_Add>", self.add_row)
+        self.bind("<KP_Subtract>", self.del_row)
+        self.bind("<Control-KP_Add>", self.add_string)
+        self.bind("<Control-KP_Subtract>", self.del_string)
+        self.bind("<plus>", self.add_row)
+        self.bind("<minus>", self.del_row)
+        self.bind("<Control-plus>", self.add_string)
+        self.bind("<Control-minus>", self.del_string)
         self.row_nb_entry.bind("<Return>", self.change_row_nb)
         self.row_nb_entry.bind("<FocusOut>", self.change_row_nb)
         self.string_nb_entry.bind("<Return>", self.change_string_nb)
@@ -356,7 +361,7 @@ class Bracelet(Tk):
         self.init_canvas()
         self.is_saved = True
         self._logreinit()
-        self._redimensionne()
+
 
 
         if fichier:
@@ -854,7 +859,7 @@ class Bracelet(Tk):
             n = self.noeuds[i - 3][j]
             gout = n.get_g_out()
             self._change_color(i - 3, j, not gout, n.get_color(not gout))
-        self._redimensionne()
+
         bbox = self.can.bbox("all")
         self.can.configure(height=min(bbox[3] - bbox[1] + 20, self.height_max),
                            scrollregion=[bbox[0] - 10,
@@ -863,7 +868,7 @@ class Bracelet(Tk):
                                          bbox[3] + 10])
         self._actualise_motif()
         self.is_saved = False
-        self._redimensionne()
+
 
     def del_row(self, event=None, write_log=True):
         """ efface deux lignes """
@@ -901,7 +906,6 @@ class Bracelet(Tk):
                                              bbox[3] + 10])
             self.motif = self.motif[:-8]
             self._actualise_motif()
-            self._redimensionne()
             self.is_saved = False
             txt_g_out = ""
             txt_fil_noeud = ""
@@ -1038,7 +1042,7 @@ class Bracelet(Tk):
                                          bbox[2] + 10,
                                          bbox[3] + 10])
         self._actualise_motif()
-        self._redimensionne()
+
         self.is_saved = False
 
     def del_string(self, event=None, write_log=True):
@@ -1049,7 +1053,6 @@ class Bracelet(Tk):
             coul = self.can.itemcget(self.colors[-1], "fill")
             self.string_nb -= 1
             self.fin_noeud = (self.string_nb - 1)*30 + 80
-            nb = self.string_nb - 1
 
             self.can.delete(self.colors[-1])
             self.colors = self.colors[:-1]
@@ -1127,7 +1130,6 @@ class Bracelet(Tk):
                                              bbox[2] + 10,
                                              bbox[3] + 10])
             self._actualise_motif()
-            self._redimensionne()
             self.is_saved = False
             txt_g_out = ""
             txt_fil_noeud = ""
@@ -1295,30 +1297,6 @@ class Bracelet(Tk):
                                    activefill=active_color(c))
         self._actualise_motif()
         self.is_saved = True
-        self._redimensionne()
-
-    def _redimensionne(self, event=None):
-        """ gestion du redimmensionnement de la fenêtre """
-        dim = self.can.winfo_geometry().split("+")[0]
-        w, h = dim.split("x")
-        w = int(w)
-        h = int(h)
-#        _, _, w2, h2 = self.can.cget("scrollregion").split(" ")
-        _, _, w2, h2 = self.can.bbox("all")
-        w2 += 20
-        h2 += 20
-        if w2 > w:
-            self.scroll_horiz.grid(row=2, column=0, columnspan=7, sticky="ew")
-            self.is_scrollable = True
-        else:
-            self.scroll_horiz.grid_forget()
-            self.is_scrollable = False
-        if h2 > h:
-            self.scroll_vert.grid(row=1, column=7, sticky="ns")
-            self.is_scrollable = True
-        else:
-            self.scroll_vert.grid_forget()
-            self.is_scrollable = False
 
     def _log(self):
         """ annule la possibilté de faire redo une fois qu'on a
@@ -1487,7 +1465,7 @@ class Bracelet(Tk):
 #        """ remet tous les carreaux à la couleur de l'arrière plan """
 #        rep = askyesno("Question",
 #                       _("Do you really want to clear the pattern?"),
-#                       parent=self)
+#                       master=self)
 #        if rep:
 #            for i in range(self.string_nb):
 #                self._select_color(i, write_log=False, color=self.color)
@@ -1533,6 +1511,36 @@ class Bracelet(Tk):
         elif fichier:
             showerror(_("Error"),
                       _("The pattern cannot be exported in .%(extension)s") % ({"extension": ext}))
+
+    def export_txt(self, event=None):
+        """ export the pattern to text format:
+                * forward knot = 0
+                * backward knot = 1
+                * backward forward = 2
+                * forward backward = 3 """
+        if self.path_save:
+            initialdir, initialfile = os.path.split(self.path_save)
+            initialfile = os.path.splitext(initialfile)[0] + ".txt"
+        else:
+            initialdir=CONFIG.get("General", "last_path")
+            initialfile=""
+
+        fichier = asksaveasfilename(title=_("Export"),
+                                    defaultextension='.txt',
+                                    filetypes=[('TXT', '*.txt')],
+                                    initialdir=initialdir,
+                                    initialfile=initialfile)
+        if fichier:
+            CONFIG.set("General", "last_path", os.path.dirname(fichier))
+            rows = []
+            for row in self.noeuds:
+                knots = ["%i" % knot.get_code() for knot in row]
+                rows.append(" ".join(knots))
+
+            with open(fichier, "w") as file:
+                file.write(_("0: forward knot, 1: backward knot, 2: backward forward, 3: forward backward\n\n"))
+                file.write(_("strings: {string_nb}, rows: {row_nb}\n\n").format(string_nb=self.string_nb, row_nb=self.row_nb))
+                file.write("\n".join(rows))
 
     def bicolore(self, event=None, fichier=""):
         """ ouvre l'éditeur de motifs bicolores """
@@ -1709,7 +1717,7 @@ class Bracelet(Tk):
 
     def _translate(self):
         """ changement de la langue de l'interface """
-        showinfo("Information",
+        showinfo(_("Information"),
                  _("The language setting will take effect after restarting the application"))
         CONFIG.set("General", "language", self.langue.get())
 

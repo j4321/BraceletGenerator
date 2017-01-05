@@ -1,7 +1,7 @@
 #! /usr/bin/python2
 # -*- coding:Utf-8 -*-
 
-# Uninstall previous version if installed
+# Uninstall version 1.2 if installed
 
 import os
 import sys

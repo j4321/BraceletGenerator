@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,16 +25,17 @@ from BraceletGenerator.constantes import active_color
 
 
 class Noeud:
-    """ Noeud de bracelet brésilien """
-    def __init__(self, canvas, pos_x, pos_y, color_g='#FF0000', color_d='#FF0000', bord_g=False, bord_d=False, deb=False, fin=False, sans_noeud_deb=False, sans_noeud_fin=False):
-        """ crée un noeud de bracelet brésilien pour le générateur
-            color_g, color_d: colors des fils de gauche et de droite
-            utilisés pour faire le noeud
-            bord_g, bord_d: le noeud est sur le bord gauche / droit du bracelet
-            deb, fin: le noeud est sur la première / dernière ligne du bracelet
-            sansNoeud: ce noeud est sur un bord de l'avant dernière ligne
-            mais le fil de gauche / droite ne servira pas à faire un
-            autre noeud """
+    """ Friendship bracelet knot """
+    def __init__(self, canvas, pos_x, pos_y, color_g='#FF0000', color_d='#FF0000',
+                 bord_g=False, bord_d=False, deb=False, fin=False,
+                 sans_noeud_deb=False, sans_noeud_fin=False):
+        """ create a friendship bracelet knot for the generator
+            color_g, color_d: colors of the left and right strings used to tie
+            the knot.
+            bord_g, bord_d: the knot is on the left / right side of the bracelet
+            deb, fin: the knot is on the first / the last row of the bracelet
+            sansNoeud: the knot is on the second to last row but the outmost
+            string will not be used to tie a knot on the last row. """
 
         self.can = canvas
 
@@ -70,7 +71,7 @@ class Noeud:
                           [self.x + 5.5, self.y + 20.5,
                            self.x + 11.5, self.y + 20.5]]]]
 
-        # le noeud est - il sur un bord ?
+        # le noeud est-il sur un bord ?
         self.bords = dict(bord_g=bord_g, bord_d=bord_d, deb=deb, fin=fin,
                           sans_noeud_deb=sans_noeud_deb, sans_noeud_fin=sans_noeud_fin)
         # [fil entrant gauche (Gin), fil entrant droit (Din)]
@@ -245,16 +246,33 @@ class Noeud:
         self.can.itemconfigure(self.noeud, fill=self.color[self.fil_noeud],
                                activefill=active_color(self.color[self.fil_noeud]))
 
+    def get_code(self):
+        """
+            return the code associated with the knot for the export in text
+            format:
+                * forward knot = 0
+                * backward knot = 1
+                * backward forward = 2
+                * forward backward = 3
+        """
+        if self.g_out == 1:
+            if self.fil_noeud == 0:
+                return 0
+            else:
+                return 1
+        else:
+            if self.fil_noeud == 0:
+                return 3
+            else:
+                return 2
+
     def get_g_out(self):
-        """ renvoie self.g_out """
         return self.g_out
 
     def get_fil_noeud(self):
-        """ renvoie self.fil_noeud """
         return self.fil_noeud
 
     def get_noeud(self):
-        """ renvoie self.noeud """
         return self.noeud
 
     def get_image(self):

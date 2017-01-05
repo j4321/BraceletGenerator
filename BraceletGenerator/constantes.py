@@ -2,7 +2,7 @@
 # -*- coding:Utf-8 -*-
 """
 Bracelet Generator - An easy way to design friendship bracelet patterns
-Copyright 2014-2016 Juliette Monsel <j_4321@sfr.fr>
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Constants and global functions of Bracelet Generator
 """
 
-VERSION = "1.3.2"
+VERSION = "1.4.0"
 
 STYLE = 'clam'
 
@@ -34,6 +34,7 @@ from configparser import ConfigParser
 from webbrowser import open as webOpen
 from subprocess import  check_output, CalledProcessError
 
+
 PL = os.name
 
 from tkinter import filedialog
@@ -43,7 +44,7 @@ from tkinter import colorchooser
 
 APP_NAME = "BraceletGenerator"
 
-# Get the local directory since we are not installing anything
+# Get the local directory
 PATH = os.path.split(__file__)[0]
 LOCAL_PATH = os.path.expanduser("~")
 LOCAL_PATH = os.path.join(LOCAL_PATH, "BraceletGenerator")
@@ -90,9 +91,9 @@ gettext.find(APP_NAME, PATH_LOCALE)
 gettext.bind_textdomain_codeset(APP_NAME, "UTF-8")
 gettext.bindtextdomain(APP_NAME, PATH_LOCALE)
 gettext.textdomain(APP_NAME)
-lang = gettext.translation(APP_NAME, PATH_LOCALE,
+LANG = gettext.translation(APP_NAME, PATH_LOCALE,
                            languages=[LANGUE], fallback=True)
-_ = lang.gettext
+LANG.install()
 
 
 RECENT_FILES = CONFIG.get("General", "recent_files").split(",")
@@ -107,6 +108,8 @@ IM_EXIT_M = os.path.join(IMAGES_LOCATION, "exit_m.png")
 IM_EXIT = os.path.join(IMAGES_LOCATION, "exit.png")
 IM_EXPORT_M = os.path.join(IMAGES_LOCATION, "export_m.png")
 IM_EXPORT = os.path.join(IMAGES_LOCATION, "export.png")
+IM_EXPORT_TXT_M = os.path.join(IMAGES_LOCATION, "export_txt_m.png")
+IM_EXPORT_TXT = os.path.join(IMAGES_LOCATION, "export_txt.png")
 IM_NEW_M = os.path.join(IMAGES_LOCATION, "new_m.png")
 IM_NEW = os.path.join(IMAGES_LOCATION, "new.png")
 IM_OUVRIR_M = os.path.join(IMAGES_LOCATION, "ouvrir_m.png")
@@ -166,8 +169,8 @@ if platform == 'darwin' or PL == 'nt':
 else:
     BG_COLOR = '#cecece'
     CANVAS_COLOR = '#E8E8E8'
-   
-    
+
+
 # platform dependent mouse events
 if PL == "nt":
     def mouse_wheel(event):
@@ -191,7 +194,7 @@ else:
     MOUSEWHEEL = ["<Button - 4>", "<Button - 5>"]
     RIGHT_CLICK = '<Button-3>'
 
-    
+
 
 def save_config():
     """ sauvegarde du dictionnaire contenant la configuration du logiciel (langue ...) """
@@ -211,17 +214,22 @@ def help(event=None):
 def help_web(event=None):
     """ ouvre l'aide en ligne dans la langue de l'interface """
     if LANGUE[:2] == "fr":
-        webOpen("http://braceletgenerator.sourceforge.net/index_fr.html")
+        webOpen("https://braceletgenerator.sourceforge.io/index_fr.html")
     else:
-        webOpen("http://braceletgenerator.sourceforge.net/")
+        webOpen("https://braceletgenerator.sourceforge.io/")
 
 if TclVersion < 8.6:
     # then tkinter cannot import PNG files directly, we need to use PIL
-    from PIL import ImageTk
-    from tkinter.messagebox import showinfo
-    showinfo(_("Information"), _("This software has been developped using Tcl/Tk 8.6, but you are using an older version. Therefore there might be errors and the images will have a poor quality. Please consider upgrading your Tcl/Tk version."))
+    from PIL import Image, ImageTk
+    from BraceletGenerator.custom_messagebox import ob_checkbutton
+    if not CONFIG.has_option("General", "old_tcl_warning") or CONFIG.getboolean("General", "old_tcl_warning"):
+        ans = ob_checkbutton(title=_("Information"), style=STYLE,
+                             message=_("This software has been developped using Tcl/Tk 8.6, but you are using an older version. Please consider upgrading your Tcl/Tk version."),
+                             checkmessage=_("Do not show this message again."))
+        CONFIG.set("General", "old_tcl_warning", str(not ans))
+
     def open_image(file, master=None):
-        return ImageTk.PhotoImage(file=file, master=master)
+        return ImageTk.PhotoImage(Image.open(file), master=master)
 else:
     # no need of ImageTk dependency
     from tkinter import PhotoImage
