@@ -2,4 +2,4 @@ MANIFEST
 *.pyc
 dist
 build
-BraceletGenerator.egg-info
+*.egg-info

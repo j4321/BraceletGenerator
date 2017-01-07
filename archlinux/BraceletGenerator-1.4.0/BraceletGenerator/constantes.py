@@ -34,7 +34,6 @@ from configparser import ConfigParser
 from webbrowser import open as webOpen
 from subprocess import  check_output, CalledProcessError
 
-
 PL = os.name
 
 from tkinter import filedialog
@@ -44,8 +43,6 @@ from tkinter import colorchooser
 
 APP_NAME = "BraceletGenerator"
 
-# Get the local directory
-PATH = os.path.split(__file__)[0]
 LOCAL_PATH = os.path.expanduser("~")
 LOCAL_PATH = os.path.join(LOCAL_PATH, "BraceletGenerator")
 if not os.path.exists(LOCAL_PATH):
@@ -53,11 +50,11 @@ if not os.path.exists(LOCAL_PATH):
 
 PATH_CONFIG = os.path.join(LOCAL_PATH, 'BraceletGenerator.ini')
 
-IMAGES_LOCATION = os.path.join(PATH, 'images')
+IMAGES_LOCATION = "/usr/share/bracelet-generator/images"
 
-PATH_LOCALE = os.path.join(PATH, "locale")
+PATH_LOCALE = "/usr/share/locale"
 
-PATH_DOC = os.path.join(PATH, "doc")
+PATH_DOC = "/usr/share/doc/bracelet-generator"
 
 # lecture du fichier de configuration
 CONFIG = ConfigParser()

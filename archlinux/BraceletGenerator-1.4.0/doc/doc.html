@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <div id="langues">
+            English / <a href="doc_fr.html">Français</a>
+        </div>
+    </header>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="shortcut icon" href="../images/favicon.ico">       
+        <title>Bracelet Generator Documentation</title>
+        
+    </head>
+    
+    
+    <body>
+        <h1> <img src="../images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
+            Documentation
+            <img src="../images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
+        </h1>
+
+         <!-- Table of contents -->
+        <div id="tableofcontent">
+            <h2> Content </h2>
+            <ul >
+                <li> <a href="#pre"> Prerequisites </a> </li>
+                 
+                <li> <a href="#start"> Install </a> </li>
+
+                <ul>
+                    <li> <a href="#exe"> With the Executable for Windows </a> </li>
+                    <li> <a href="#deb"> With the Ubuntu/Debian Package</a> </li>
+                    <li> <a href="#deb"> With the Mac OS X Package</a> </li>
+                    <li> <a href="#py"> With the Source Code </a> </li>
+                </ul>
+                
+                <li> <a href="#lang"> Language </a> </li>
+                
+                <li> <a href="#user"> User Guide </a> </li>
+
+                <ul>
+                    <li> <a href="#main"> Main Window </a> </li>
+                    <li> <a href="#bicolor"> Two-Colored Motif Editor </a> </li>
+                    <li> <a href="#ex"> Examples </a> </li>
+                </ul>
+                
+                <li> <a href="#pb"> Troubleshooting </a> </li>
+            </ul>
+        </div>
+        
+        <div id="licence">
+            <p>
+                Copyright © 2014-2016 Juliette Monsel.
+            </p>
+            <p>
+                This program is free software: you can redistribute it and/or modify 
+                it under the terms of the GNU General Public License as published by
+                the Free Software Foundation, either version 3 of the License, or 
+                (at your option) any later version.
+            </p>
+            <p>
+                This program is distributed in the hope that it will be useful,
+                but WITHOUT ANY WARRANTY; without even the implied warranty of
+                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                GNU General Public License for more details.
+            </p>
+            <p>
+                You should have received a copy of the GNU General Public License
+                along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+            </p>
+        </div>
+        
+        <!-- Content -->
+
+        <div>
+            <p>
+                Visit <a href="https://sourceforge.net/projects/braceletgenerator/" target="_blank"> Bracelet Generator project page at Sourceforge </a> for the latest updates.
+            </p>
+
+            <h2 id="pre"> Prerequisites </h2>
+                <p>
+                    This software does not aim at teaching you how to make friendship bracelets. 
+                    It only enables you to create patterns easily. So if you do not know how to
+                    make the four types of knots, find a tutorial on the Internet first, for instance
+                    <a href="http://friendship-bracelets.net/tutorials.php" target="_blank"> friendship-bracelets.net </a>
+                </p>
+
+                <h3 id="download"> Download </h3>
+
+                    See the <a href="download.html">download</a> page.
+
+            <h2 id="start"> Install </h2>
+
+                <h3 id="exe"> With the Excutable for Windows </h3>
+                    <p>
+                        Launch bracelet-generator-x.y.z.exe and follow the instructions given by the installer
+                        (you will need the administrator rights).
+                    </p>
+                    
+                <h3 id="deb"> With the Ubuntu/Debian Package</h3>
+                    <p>
+                        First, you need to install a few dependencies if they are missing: python3-pil, python3-tk,
+                        ghostscript, zenity (optional). You can use the following command to check whether <i>package</i>
+                        is installed:
+                    </p>
+                    <p class="code">
+                        $ dpkg-query -W <i>package</i>
+                    </p>
+                    <p>
+                        Then, to install Bracelet Generator run:
+                    </p>
+                    <p class="code">
+                        $ sudo dpkg -i bracelet-generator-x.y.z_all.deb
+                    </p>
+                    
+                <h3 id="mac">With the Mac OS X Package</h3>
+                    <p>
+                        Unzip the archive. Move BraceletGenerator.app to the <tt>/Applications</tt>.
+                        To be able to export patterns in .png or .jpg, you need to install Ghostscript. 
+                        It can be done with brew:
+                        <p class="code">
+                            $ brew install ghostscript
+                        </p>
+                        Otherwise refer to <a href="http://ghostscript.com/"> Ghostscript website</a>.
+                    </p>
+                    
+                <h3 id="py"> With the Source Code </h3>
+                    <p>
+                        First, you need to install a few dependencies if they are missing:
+                        <ul>
+                            <li>Python 3</li>
+                            <li>Tkinter pour Python 3</li>
+                            <li>Pillow (Python Imaging Library)</li>
+                            <li>Ghostscript</li>
+                            <li>Zenity (optional, recommended for linux)</li>
+                        </ul>
+                    </p>
+
+                    <h4> Linux </h4>
+                        <p>
+                            Python 3 is certainly already installed, but you might need to install the others. The names of
+                            the packages vary between distributions. Here are the package names for:
+                            <ul>
+                                <li><b>Ubuntu :</b> python3-tk, python3-pil, ghostscript, zenity</li>
+                                <li><b>Archlinux :</b> tk, python-pillow, ghostscript, zenity</li>
+                            </ul>
+                        </p>
+                        You can also use pip to install Pillow (requires superuser rights):
+                        <p class="code">
+                            $ pip3 install pillow
+                        </p>
+                        <p>
+                            Unzip the archive and double click on bracelet-generator.py. <br>
+                            If nothing appends, right-click on the file and edit its properties to make it executable
+                            or run it with python: open a console in the exctracted folder and run
+                        </p>
+                        <p class="code">
+                            $ python3 bracelet-generator.py
+                        </p>
+                        </p>
+                        You can also install Bracelet Generator (need superuser rights) with
+                        <p class="code">
+                            $ python3 setup.py install
+                        </p>
+                        <p>
+                            Then, it can be launched from the console with
+                        </p>
+                        <p class="code">
+                            $ bracelet-generator
+                        </p>
+                        <p>
+                            If your distribution uses .desktop files to create menu entries, you can edit 
+                            the bracelet-generator.desktop file of the main folder. Replace <tt>path_to_bracelet-generator-x.y.z-src</tt>
+                            by the actual path of the folder and move the file to <tt>/.local/share/applications </tt> (work at
+                            least for Debian-based distributions and Archlinux).
+                        </p>
+
+                    <h4> Windows </h4>
+                        <p>
+                            Tkinter will be installed automatically with Python. But you will need to install its library Pillow
+                            separately. You also need to install Ghostscript.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>Python 3 :</b> go to <a href="https://www.python.org/downloads/">Python website</a> 
+                                and download the latest Python 3 version (be careful not
+                                to install a Python 2.x).
+                            </li>
+                            <li>
+                                <b>Pillow :</b> go to <a href="https://pypi.python.org/pypi/Pillow/3.3.1">Pillow page on PyPI</a>
+                                and download the version corresponding to your OS
+                                architecture and to the version of Python that you installed. For instance if you have a 64
+                                bits Windows (which is the most likely) and if you have installed Python 3.5.x, you should
+                                download <i>Pillow-3.3.1.win-amd64-py3.5.exe.</i>
+                            </li>
+                            <li>
+                                <b>Ghostscript :</b> go to 
+                                <a href="http://ghostscript.com/download/gsdnld.html">Ghostscript website</a>
+                                and download the version corresponding to your
+                                OS architecture.
+                            </li>
+                        </ul>
+                        <p>
+                            Unzip the archive and double click on bracelet-generator.py. <br />
+                            If nothing appends, you can try to define python as the default software to use to open it.
+                            
+                        </p>
+                        <p>
+                            The first time, the program will ask you what is the path leading to the function convert of
+                            ImageMagick. It will enable you to export the patterns in .png and .jpg. Usually, this path is very
+                            similar to <tt>C:\Program Files\ImageMagick\convert.exe</tt>.
+                        </p>
+                        
+                    <h4> Other Operating Systems </h4>
+                        <p>
+                            I have only tested Bracelet Generator under Ubuntu (16.04 LTS), Archlinux and Windows (7 and
+                            10) and Mac OS X (El Capitan), so I do not know which problems you might encounter on other operating systems.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>Python 3 :</b> go to <a href="https://www.python.org/downloads/">Python website</a> 
+                                and download the latest Python 3 version (be careful not
+                                to install a Python 2.x).
+                            </li>
+                            <li>
+                                <b>Pillow :</b> go to <a href="https://pypi.python.org/pypi/Pillow/3.3.1">Pillow page on PyPI</a>
+                                and download the version corresponding to your OS and to the version of Python that you installed. 
+                                If you cannot find it, see <a href="http://pillow.readthedocs.io/en/3.1.x/installation.html">Pillow documentation</a>. 
+                                You can also install pillow using pip:
+                                <p class="code">
+                                    $ pip3 install pillow
+                                </p>
+                            </li>
+                            <li>
+                                <b>Ghostscript :</b> go to 
+                                <a href="http://ghostscript.com/download/gsdnld.html">Ghostscript website</a>
+                                and download the version corresponding to your
+                                OS. You might need to download the source code and compile it yourself. 
+                                On OS X, you can install ghostscript with brew:
+                                <p class="code">
+                                    $ brew install Ghostscript
+                                </p>
+                            </li>
+                        </ul>
+                        <p>
+                            Tkinter is sometimes included in Python standard distribution or is available as a binary package
+                            (for Linux or BSD). If you are using Mac OS X , you can refer to
+                            <a href="https://www.python.org/download/mac/tcltk" target="_blank">https://www.python.org/download/mac/tcltk</a>.
+                        </p>
+                        <p>
+                            Unzip the archive and double click on bracelet-generator.py. <br>
+                            If nothing appends, you can try to define python as the default software to use to open it.
+                            You can also launch it from the command line with something similar too:
+                        </p>
+                        <p class="code">
+                            $ python3 bracelet-generator.py
+                        </p>
+                        
+        
+
+            <h2 id="lang"> Language </h2>
+                <p>
+                    The software supports French and English. I translated it with gettext so,
+                    if you want to add or improve a translation, you're welcome , the BraceletGenerator.pot
+                    file is in the po/ folder of the source code.
+                </p>
+            
+            <h2 id="user"> User Guide </h2>
+                
+                <h3 id="main"> Main Window </h3>
+                    <p>
+                        <figure>
+                            <img src="../images/main_en.png" alt="Bracelet Generator main window" class="image" />
+                        </figure>
+                        
+                        <ul class="liste">
+                            <li> To change the color of a string, just click on the small square above it.
+                                It will open a color chooser. </li>
+                            
+                            <li> 
+                                To change a knot, click on it. The four types of knots will come successively. 
+                                The succession of knots is reversed when using right click.
+                            </li> 
+
+                            <li> To add or remove rows / strings, just use the
+                                <img src="../images/plus.png" alt="plus button" class="bouton"> or
+                                <img src="../images/moins.png" alt="minus button" class="bouton"> buttons.
+                                You can also directly set the number of rows / strings in the entries next to the buttons 
+                                <img src="../images/plus.png" alt="plus button" class="bouton">
+                            </li> 
+                        </ul>
+                    </p>
+                    <h4> Toolbar </h4>
+                        <p class="liste">
+                            <img src="../images/new.png" alt="new pattern button" class="icone">  Create a new pattern (erase the current one). <br />
+                            <img src="../images/ouvrir.png" alt="open pattern button" class="icone">  Open a .bracelet file (erase the current pattern). <br />
+                            <img src="../images/sauver.png" alt="save pattern button" class="icone">  Save the current pattern. <br />
+                            <img src="../images/saveas.png" alt="save as button" class="icone">  Save the current pattern as a .bracelet file. <br />
+                            <img src="../images/export.png" alt="export pattern button" class="icone">  Export the current pattern as a .png, .jpg or .ps file. <br /> 
+                            <img src="../images/bicolore.png" alt="two-colored motif editor button" class="icone">  Open the two-colored motif editor.
+                            When the pattern will be generated, the previous pattern will be erased.<br />
+                            <img src="../images/sym_vertical.png" alt="vertical symmetry button" class="icone">  Perform a vertical symmetry of the pattern. <br />
+                            <img src="../images/sym_horizontal.png" alt="horizontal symmetry button" class="icone">  Perform a horizontal symmetry of the pattern. <br />
+                            <img src="../images/exit.png" alt="quit button" class="icone">  Quit.
+                        </p>
+                        
+                    <h4> Color Manager </h4>
+                        <p>
+                            The color manager enables you to change the default color
+                            of the strings and to change the color of all strings of a
+                            given color.<br />
+                            
+                            <figure>
+                                <img src="../images/couleurs.png" alt="color manager" class="image" />
+                            </figure>
+                        </p>
+
+                    
+                <h3 id="bicolor"> Two-Colored Motif Editor </h3>
+
+                    <p>
+                        The two-colored motif editor enables you to freely design a two-colored motif and then,
+                        the pattern is automatically generated. <br />
+                        
+                        <figure>
+                             <img src="../images/bicolore_en.png" alt="Two-colored motif editor window" class="image">
+                        </figure>
+
+
+                        <ul class="liste">
+                            <li> To change the color of a diamond, just click on it. </li>
+                            <li> To change the background / foreground color, click on <img src="../images/bg.png" alt="background color button" class="bouton">
+                            / <img src="../images/fg.png" alt="foreground color button" class="bouton">. </li>
+                            <li> To add or remove rows / strings, just use the <img src="../images/plus.png" alt="plus button" class="bouton"> or
+                                <img src="../images/moins.png" alt="minus button" class="bouton"> buttons.
+                                You can also directly set the number of rows / strings in the entries next to the buttons 
+                                <img src="../images/plus.png" alt="plus button" class="bouton">.
+                            </li>
+                        </ul>
+
+                     <h4> Toolbar </h4>
+                        <p class="liste">
+                            <img src="../images/ouvrir.png" alt="open pattern button" class="icone">  Open a .bicolor file (erase the current motif). <br />
+                            <img src="../images/sauver.png" alt="save pattern button" class="icone">  Save the current motif. <br />
+                            <img src="../images/export.png" alt="generate pattern button" class="icone">  Generate the pattern corresponding to the motif.
+                            It destroys the motif, so save it before if you want to edit it later. <br /> 
+                            <img src="../images/efface.png" alt="clear button" class="icone">  Clear the motif. Be careful, you cannot undo this operation. <br />
+                            <img src="../images/color.png" alt="color" class="icone">  Open the translation tool. <br />
+                            <img src="../images/rotation_gche.png" alt="left rotation button" class="icone">  Rotate the motif counter-clockwise. <br />
+                            <img src="../images/rotation_dte.png" alt="right rotation button" class="icone">  Rotate the motif clockwise. <br />
+                            <img src="../images/sym_vertical.png" alt="vertical symmetry button" class="icone">  Perform a vertical symmetry of the motif. <br />
+                            <img src="../images/sym_horizontal.png" alt="horizontal symmetry button" class="icone">  Perform a horizontal symmetry of the motif. <br />
+                            <img src="../images/exit.png" alt="quit button" class="icone">  Quit the editor.
+                        </p>
+                    
+                    <h4> Translation Tool </h4>
+                        <p>
+                            The translation tool enables you to shift periodically the motif in the directions given by the arrows.<br />
+                            
+                            <figure>
+                                <img src="../images/shifts.png" alt="outil de translation" class="image" />
+                            </figure>
+                        </p>
+                        
+                <h3 id="ex"> Examples </h3>
+                    <p>
+                        Some basic examples are given in the <a href="examples.zip">examples/</a> folder (located in
+                        <tt>/usr/share/bracelet-generator</tt> if you installed the .deb package, or in <tt>your_user_folder/BraceletGenerator</tt>
+                        if you installed the software from the sources or with the .exe), such as a chevron bracelet:<br />
+                        <img src="../images/chevrons.png" alt="chevrons bracelet pattern" class="image">
+                    </p>
+                    <p id="fin">
+                       Enjoy and create amazing patterns !
+                    </p>
+            <h2 id="pb"> Troubleshooting </h2>
+                    <p>
+                        If you encounter errors when trying to export a pattern in .png or .jpg, or if no file is created, 
+                        check whether Ghostscript is installed on your computer. If it is not the case, install it and export
+                        should work.
+                    </p>
+                    <p>
+                        If you encounter other problems, bugs or if you have comments, write me an email at <a href="mailto:j 4321@sfr.fr">j 4321@sfr.fr</a>.
+                    </p>
+        </div>
+    </body>
+</html>
