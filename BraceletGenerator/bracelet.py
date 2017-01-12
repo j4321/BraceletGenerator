@@ -1535,7 +1535,7 @@ class Bracelet(Tk):
             rows = []
             for row in self.noeuds:
                 knots = ["%i" % knot.get_code() for knot in row]
-                rows.append(" ".join(knots))
+                rows.append("".join(knots))
 
             with open(fichier, "w") as file:
                 file.write(_("0: forward knot, 1: backward knot, 2: backward forward, 3: forward backward\n\n"))

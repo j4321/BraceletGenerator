@@ -29,7 +29,6 @@ from BraceletGenerator.constantes import *
 from BraceletGenerator.about import About
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
-
 BICOLOR_LOG = os.path.join(LOCAL_PATH, "Bicolor%i.log")
 i = 0
 while os.path.exists(BICOLOR_LOG % (i)):
@@ -751,8 +750,6 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[3] + 10])
 
 
-
-
     def symmetrize(self, sens, write_log=True):
         """ symétrise le motif verticalement ou horizontalement """
 
@@ -823,7 +820,6 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[1] - 10,
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
-
         self.is_saved = False
 
     def open(self, event=None, fichier=""):
@@ -858,8 +854,8 @@ class Bicolore(Toplevel):
                             self.motif = dp.load()
                             fill(self.icon_bg, self.colors[0])
                             fill(self.icon_fg, self.colors[1])
-    #                        self.b_bg.configure(image=self.icon_bg)
-    #                        self.b_fg.configure(image=self.icon_fg)
+                            self.b_bg.configure(image=self.icon_bg)
+                            self.b_fg.configure(image=self.icon_fg)
                             for i in range(self.row_nb):
                                 self.carreaux.append([])
                                 if i % 2:  # ligne impaire
@@ -885,8 +881,6 @@ class Bicolore(Toplevel):
                                                              self.can.bbox('all')[1] - 10,
                                                              self.can.bbox('all')[2] + 10,
                                                              self.can.bbox('all')[3] + 10])
-
-
 
                     else:  # il y a eu une erreur
                         showerror(_("Error"),

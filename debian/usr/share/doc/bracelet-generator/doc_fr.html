@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <div id="langues">
+            <a href="doc.html">English</a> / Français
+        </div>
+    </header>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="shortcut icon" href="/usr/share/bracelet-generator/images/favicon.ico">
+        <title>Bracelet Générateur Documentation</title>
+
+    </head>
+
+    <body>
+
+        <h1> <img src="/usr/share/bracelet-generator/images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
+            Documentation
+            <img src="/usr/share/bracelet-generator/images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
+        </h1>
+
+
+         <!-- Table of contents -->
+        <div id="tableofcontent">
+            <h2> Contenu </h2>
+            <ul >
+                <li> <a href="#pre"> Prérequis </a> </li>
+
+                <li> <a href="#start"> Installation </a> </li>
+
+                <ul>
+                    <li> <a href="#exe"> Avec l'exécutable Windows </a> </li>
+                    <li> <a href="#deb"> Avec la version pour Ubuntu/Debian </a> </li>
+                    <li> <a href="#py"> Avec le code source</a> </li>
+                </ul>
+
+                <li> <a href="#lang"> Langage </a> </li>
+
+                <li> <a href="#user"> Guide d'utilisation </a> </li>
+
+                <ul>
+                    <li> <a href="#main"> Fenêtre principale </a> </li>
+                    <li> <a href="#bicolor"> Éditeur de motifs bicolores </a> </li>
+                    <li> <a href="#ex"> Exemples </a> </li>
+                </ul>
+
+                <li> <a href="#pb"> Résolution de problèmes </a> </li>
+            </ul>
+        </div>
+
+        <div id="licence">
+            <p>
+                Copyright © 2014-2016 Juliette Monsel.
+            </p>
+            <p>
+                Ce programme est un logiciel libre ; vous pouvez le diffuser et/ou
+                le modifier suivant les termes de la Licence Publique Générale GNU telle que
+                publiée par la Free Software Foundation ; soit la version 3 de cette licence,
+                soit (à votre convenance) une version ultérieure.
+            </p>
+            <p>
+                Ce programme est diffusé dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ;
+                sans même une garantie implicite de COMMERCIALISATION ou d'ADÉQUATION À UN USAGE PARTICULIER.
+                Voyez la Licence Publique Générale GNU pour plus de détails.
+            </p>
+            <p>
+                Vous devriez avoir reçu une copie de la Licence Publique Générale GNU avec ce programme.
+                Sinon, consultez <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+            </p>
+        </div>
+
+        <!-- Content -->
+
+        <div>
+            <p>
+                Allez voir <a href="https://sourceforge.net/projects/braceletgenerator/" target="_blank">la page du projet Bracelet Générateur sur Sourceforge</a>
+                 pour les dernières mises à jour.
+            </p>
+
+            <h2 id="pre"> Prérequis </h2>
+                <p>
+                    Le but de ce logiciel n'est pas de vous apprendre à faire des bracelets brésiliens mais de rendre la création de patrons
+                    plus facile. Donc, si vous ne savez pas faire les quatre types de nœuds, reportez vous à un tutoriel sur internet comme
+                    <a href="http://friendship-bracelets.net/tutorials.php" target="_blank"> friendship-bracelets.net </a> (en anglais), par exemple.
+                </p>
+
+                <h3 id="download"> Téléchargement </h3>
+                     Voir la page dédiée aux <a href="http://braceletgenerator.sourceforge.net/download_fr.html">téléchargements</a>.
+
+            <h2 id="start"> Installation </h2>
+
+                    <h3 id="exe"> Avec l'exécutable Windows </h3>
+                    <p>
+                        Lancez bracelet-generator-1.3.1.exe et suivez les instructions de l’installateur
+                        (il est nécessaire d’avoir les droits d’administrateur pour effectuer l’installation).
+                    </p>
+
+                <h3 id="deb"> Avec la version pour Ubuntu/Debian </h3>
+                    <p>
+                        Tout d’abord, il faut installer les dépendances manquantes parmi : python3-pil, python3-tk,
+                        ghostscript, zenity (optionnel). Pour vérifier si <i>package</i> est installé, vous pouvez utiliser la
+                        commande suivante :
+                    </p>
+                    <p class="code">
+                        $ dpkg-query -W <i>package</i>
+                    </p>
+                    <p>
+                        Ensuite, pour installer Bracelet Générator, lancez :
+                    </p>
+                    <p class="code">
+                        $ sudo dpkg -i bracelet-generator-1.3.1_all.deb
+                    </p>
+                    <p>
+                        Toutes les dépendances seront installées automatiquement. <br>
+                        Si tout c’est bien passé, un raccourci se trouve maintenant dans la catégorie Graphisme du menu.
+                        Vous pouvez aussi lancer le programme depuis le terminal en tapant bracelet-generator.
+                    </p>
+
+                <h3 id="py">Avec le code source</h3>
+                    <p>
+                        Tout d’abord, il faut installer les dépendances manquantes parmi :
+                        <ul>
+                            <li>Python 3</li>
+                            <li>Tkinter pour Python 3</li>
+                            <li>Pillow (Python Imaging Library)</li>
+                            <li>Ghostscript</li>
+                            <li>Zenity (optionnel, recommandé sous linux)</li>
+                        </ul>
+                    </p>
+
+                    <h4> Linux </h4>
+                        <p>
+                            Python 3 est certainement déjà installé, mais il faut peut-être installer les autres.
+                            Les noms des paquets varient selon les distributions.
+                            Voici les noms des paquets pour :
+                            <ul>
+                                <li><b>Ubuntu :</b> python3-tk, python3-pil, ghostscript, zenity</li>
+                                <li><b>Archlinux :</b> tk, python-pillow, ghostscript, zenity</li>
+                            </ul>
+                        </p>
+                        Vous pouvez aussi utiliser pip pour installer Pillow (requiert les droits de superutilisateur) :
+                        <p class="code">
+                            $ pip3 install pillow
+                        </p>
+                        <p>
+                            Décompressez l’archive et lancez bracelet-generator.py.
+                            S’il ne se passe rien, éditez les propriétés du fichier pour le rendre exécutable ou lancez le avec
+                            Python : ouvrez un terminal dans le dossier extrait et tapez
+                        </p>
+                        <p class="code">
+                            $ python3 bracelet-generator.py
+                        </p>
+                            Vous pouvez aussi installer Bracelet Générateur (requiert les droits de superutilisateur) avec
+                        <p class="code">
+                            $ python3 setup.py install
+                        </p>
+                        <p>
+                            Ensuite le logiciel peut être lancé depuis un terminal avec
+                        </p>
+                        <p class="code">
+                            $ bracelet-generator
+                        </p>
+                        <p>
+                            Si votre distribution linux utilise des fichier .desktop pour créer les entrées du menu, vous pouvez
+                            éditer le fichier bracelet-generator.desktop dans le dossier principal. Remplacez <i>path_to_bracelet-generator-1.3.1-src</i>
+                            par le chemin réel menant au dossier et placez le fichier dans <tt>/.local/share/applications</tt>
+                            (fonctionne au moins pour les distributions basées sur Debian et pour Archlinux).
+                        </p>
+                    <h4> Windows </h4>
+                        <p>
+                            Tkinter sera installé automatiquement avec Python.
+                            Mais il faudra installer le module Pillow séparément.
+                            Il faudra aussi installer Ghostscript.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>Python 3 :</b> rendez-vous sur <a href="https://www.python.org/downloads/">le site de Python</a>
+                                et installez la dernière version de Python 3 (attention, n'installez pas Python 2.x).
+                            </li>
+                            <li>
+                                <b>Pillow :</b> rendez-vous sur <a href="https://pypi.python.org/pypi/Pillow/3.3.1">la page de Pillow sur PyPI</a>
+                                et téléchargez la version correspondant à l'architecture de votre OS et à la version de Python que vous avez installé.
+                                Par exemple, si vous avez un Windows 64 bits (ce qui est le plus probable)
+                                et si vous avez installé Python 3.5.x, vous devez télécharger <i>Pillow-3.3.1.win-amd64-py3.5.exe.</i>
+                            </li>
+                            <li>
+                                <b>Ghostscript :</b> rendez-vous sur
+                                <a href="http://ghostscript.com/download/gsdnld.html">le site de Ghostscript</a>
+                                et téléchargez la version correspondant à l'architecture de votre OS.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Décompressez l'archive et lancez bracelet-generator.py.
+                            Si rien ne se passe, vous pouvez essayer de définir python comme le logiciel par défaut pour le lancer.
+                        </p>
+                        
+                    <h4> Autres systèmes d'exploitation </h4>
+                        <p>
+                            Je n'ai testé Bracelet Générateur que sous que sous Ubuntu (16.04 LTS), Archlinux et Windows (7 et 10),
+                            donc je ne sais pas quels problèmes vous pourriez rencontrer sous d’autres OS.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>Python 3 :</b> rendez-vous sur <a href="https://www.python.org/downloads/">le site de Python</a>
+                                et installez la dernière version de Python 3 (attention, n'installez pas Python 2.x).
+                            </li>
+                            <li>
+                                <b>Pillow :</b> rendez-vous sur <a href="https://pypi.python.org/pypi/Pillow/3.3.1">la page de Pillow sur PyPI</a>
+                                et téléchargez la version correspondant à votre OS et à la version de Python que vous avez installé.
+                                Si vous ne la trouvez pas, allez voir <a href="http://pillow.readthedocs.io/en/3.1.x/installation.html">la documentation de Pillow</a>.
+                            </li>
+                            <li>
+                                <b>Ghostscript :</b> rendez-vous sur
+                                <a href="http://ghostscript.com/download/gsdnld.html">le site de Ghostscript</a>
+                                et téléchargez la version correspondant à votre OS. 
+                                Vous aurez peut-être besoin de télécharger le code source et de le compiler vous-même.
+                            </li>
+                        </ul>
+                        <p>
+                            Tkinter est parfois inclus dans la distribution Python standard ou est disponible sous la forme
+                            d'un paquet binaire (pour Linux ou BSD). Si vous utilisez Mac OS X , vous pouvez vous référer à
+                            <a href="https://www.python.org/download/mac/tcltk" target="_blank">https://www.python.org/download/mac/tcltk</a>.
+                        </p>
+                        <p>
+                            Décompressez l'archive et lancez bracelet-generator.py. <br>
+                            S'il ne se passe rien, essayez de définir Python comme programme par défaut pour lancer cette application.
+                             Vous pouvez aussi le lancer depuis un terminal en tapant une commande similaire à :
+                        </p>
+                        <p class="code">
+                            $ python3 bracelet-generator.py
+                        </p>
+            <h2 id="lang"> Langue </h2>
+                <p>
+                    Le logiciel est en Français et en Anglais. J'ai utilisé gettext pour le traduire donc, si vous voulez ajouter
+                    ou améliorer une traduction, n'hésitez pas, le fichier BraceletGenerator.pot est disponible dans le dossier
+                    po/ du code source.
+                </p>
+
+            <h2 id="user"> Guide d'utilisation</h2>
+
+                <h3 id="main"> Fenêtre principale </h3>
+                    <p>
+                        <figure>
+                            <img src="/usr/share/bracelet-generator/images/main_fr.png" alt="Fenêtre principale de Bracelet Générateur" class="image" />
+                        </figure>
+
+                        <ul class="liste">
+                            <li> 
+                                Pour changer la couleur d'un fil, cliquez sur le petit carré situé juste au-dessus. 
+                                Un sélecteur de couleur s'ouvrira. 
+                            </li>
+
+                            <li> 
+                                Pour modifier un nœud, cliquez dessus. 
+                                Les quatre types de nœuds défileront successivement (défilement inversé avec clic droit). 
+                            </li>
+
+                            <li> 
+                                Pour ajouter ou enlever des lignes / fils, il suffit d'utiliser les boutons
+                                <img src="/usr/share/bracelet-generator/images/plus.png" alt="bouton plus" class="bouton"> ou
+                                <img src="/usr/share/bracelet-generator/images/moins.png" alt="bouton moins" class="bouton">. Vous pouvez également in-
+                                diquer directement le nombre de lignes / fils à côté
+                                des boutons <img src="/usr/share/bracelet-generator/images/plus.png" alt="bouton plus" class="bouton">.
+                            </li>
+                            <li> <img src="/usr/share/bracelet-generator/images/color.png" alt="bouton gestionnaire de couleurs" class="bouton"> Ouvrir le gestionnaire de couleurs.</li>
+                        </ul>
+                    </p>
+                    <h4> Barre d'outils </h4>
+                        <p class="liste">
+                            <img src="/usr/share/bracelet-generator/images/new.png" alt="new pattern button" class="icone">  Créer un nouveau patron (le patron en cours sera effacé). <br />
+                            <img src="/usr/share/bracelet-generator/images/ouvrir.png" alt="open pattern button" class="icone">  Ouvrir un fichier .bracelet (le patron en cours sera effacé). <br />
+                            <img src="/usr/share/bracelet-generator/images/sauver.png" alt="save pattern button" class="icone">  Enregistrer le patron. <br />
+                            <img src="/usr/share/bracelet-generator/images/saveas.png" alt="save as button" class="icone">  Enregistrer sous. <br />
+                            <img src="/usr/share/bracelet-generator/images/export.png" alt="export pattern button" class="icone">  Exporter le patron en .png, .jpg or .ps file. <br />
+                            <img src="/usr/share/bracelet-generator/images/bicolore.png" alt="two-colored motifs editor button" class="icone">  Ouvrir l'éditeur de motifs bicolores.
+                            Quand le patron sera généré, le patron précédent sera effacé.<br />
+                            <img src="/usr/share/bracelet-generator/images/sym_vertical.png" alt="vertical symmetry button" class="icone">  Symétrie verticale du patron. <br />
+                            <img src="/usr/share/bracelet-generator/images/sym_horizontal.png" alt="horizontal symmetry button" class="icone">  Symétrie horizontale du patron. <br />
+                            <img src="/usr/share/bracelet-generator/images/exit.png" alt="quit button" class="icone">  Quitter.
+                        </p>
+                    <h4> Gestionnaire de couleurs </h4>
+                        <p>
+                            Le gestionnaire de couleurs permet de changer la couleur
+                            par défaut des fils et de changer la couleur de tous les fils
+                            d’une couleur donnée.<br />
+                            
+                            <figure>
+                                <img src="/usr/share/bracelet-generator/images/couleurs_fr.png" alt="Gestionnaire de couleurs" class="image" />
+                            </figure>
+                        </p>
+                        
+
+
+                <h3 id="bicolor"> Éditeur de motifs bicolores </h3>
+
+                    <p>
+                        L'éditeur de motifs bicolores vous permet de créer librement un motif bicolore, et ensuite, le patron correspondant
+                        sera automatiquement généré.<br />
+                        
+                        <figure>
+                             <img src="/usr/share/bracelet-generator/images/bicolore_fr.png" alt="Two-colored motifs editor window" class="image">
+                        </figure>
+
+                        <ul class="liste">
+                            <li> Pour changer la couleur d'un carreau, cliquez dessus. </li>
+                            <li> 
+                                Pour changer la couleur du fond / du motif, cliquez sur 
+                                <img src="/usr/share/bracelet-generator/images/bg.png" alt="background color button" class="bouton">
+                                / <img src="/usr/share/bracelet-generator/images/fg.png" alt="foreground color button" class="bouton">. 
+                            </li>
+                            <li> 
+                                Pour ajouter ou supprimer des lignes / fils, utilisez les boutons <img src="/usr/share/bracelet-generator/images/plus.png" alt="plus button" class="bouton"> ou
+                                <img src="/usr/share/bracelet-generator/images/moins.png" alt="minus button" class="bouton">. Vous pouvez également in-
+                                diquer directement le nombre de lignes / fils à côté
+                                des boutons <img src="/usr/share/bracelet-generator/images/plus.png" alt="bouton plus" class="bouton">.
+                            </li>
+                        </ul>
+                    </p>
+
+                     <h4> Barre d'outils </h4>
+                        <p class="liste">
+                            <img src="/usr/share/bracelet-generator/images/ouvrir.png" alt="open pattern button" class="icone">  Ouvrir un fichier .bicolor (efface le motif en cours). <br />
+                            <img src="/usr/share/bracelet-generator/images/sauver.png" alt="save pattern button" class="icone">  Enregistrer le motif. <br />
+                            <img src="/usr/share/bracelet-generator/images/export.png" alt="generate pattern button" class="icone"> Générer le patron correspondant au motif qui sera alors détruit.
+                             Enregistrez le pour pouvoir le modifier plus tard. <br />
+                            <img src="/usr/share/bracelet-generator/images/efface.png" alt="clear button" class="icone">  Effacer le motif. Attention, vous ne pourrez pas revenir en arrière. <br />
+                            <img src="/usr/share/bracelet-generator/images/move.png" alt="move tool button" class="icone">  Ouvrir l’outil de translation. <br />
+                            <img src="/usr/share/bracelet-generator/images/rotation_gche.png" alt="left rotation button" class="icone">  Rotation du motif dans le sens anti-horaire. <br />
+                            <img src="/usr/share/bracelet-generator/images/rotation_dte.png" alt="right rotation button" class="icone">  Rotation du motif dans le sens horaire. <br />
+                            <img src="/usr/share/bracelet-generator/images/sym_vertical.png" alt="vertical symmetry button" class="icone">  Symétrie verticale du motif. <br />
+                            <img src="/usr/share/bracelet-generator/images/sym_horizontal.png" alt="horizontal symmetry button" class="icone">  Symétrie horizontale du motif. <br />
+                            <img src="/usr/share/bracelet-generator/images/exit.png" alt="quit button" class="icone">  Quitter l'éditeur.
+                        </p>
+                        
+                    <h4> Outil de translation </h4>
+                        <p>
+                            Cet outil permet de translater le motif de manière périodique dans les directions données par les flèches.<br />
+                            
+                            <figure>
+                                <img src="/usr/share/bracelet-generator/images/shifts.png" alt="outil de translation" class="image" />
+                            </figure>
+                        </p>
+
+                <h3 id="ex"> Exemples </h3>
+                    <p>
+                        Quelques exemples simples sont donnés dans le dossier <a href="examples.zip">examples/</a>, (situé dans
+                        <tt>/usr/share/bracelet-generator</tt> si vous avez installé le paquet .deb, ou dans 
+                        <tt>votre_dossier_utilisateur/BraceletGenerator</tt>
+                        si vous avez installé le logiciel depuis les sources ou avec le .exe), comme le bracelet à chevrons ci-dessous : <br />
+                        <img src="/usr/share/bracelet-generator/images/chevrons.png" alt="chevrons bracelet pattern" class="image">
+                    </p>
+                    <p id="fin">
+                       Bonne utilisation !
+                    </p>
+
+            <h2 id="pb"> Résolution de problèmes </h2>
+                    <p>
+                        Si vous rencontrez d’autres problèmes ou si vous avez des commentaires, envoyez-moi un email à <a href="mailto:j 4321@sfr.fr">j 4321@sfr.fr</a>.
+                    </p>
+        </div>
+    </body>
+</html>

@@ -11,7 +11,7 @@ Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
     
         2. Bug correction
             
-            - mouse-scrolling was in Windows 
+            - mouse-scrolling in Windows 
             - mouse button bindings in OS X
         
         3. Compatibility

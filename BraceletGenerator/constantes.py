@@ -34,7 +34,6 @@ from configparser import ConfigParser
 from webbrowser import open as webOpen
 from subprocess import  check_output, CalledProcessError
 
-
 PL = os.name
 
 from tkinter import filedialog

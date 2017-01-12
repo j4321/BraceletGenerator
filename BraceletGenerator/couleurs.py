@@ -4,7 +4,7 @@
 Bracelet Generator - An easy way to design friendship bracelet patterns
 Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
-Bracelet Generator is free software: you self.can redistribute it and/or modify
+Bracelet Generator is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.

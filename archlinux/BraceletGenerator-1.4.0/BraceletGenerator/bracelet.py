@@ -362,8 +362,6 @@ class Bracelet(Tk):
         self.is_saved = True
         self._logreinit()
 
-
-
         if fichier:
             self.open(fichier=fichier)
         else:
@@ -1042,7 +1040,6 @@ class Bracelet(Tk):
                                          bbox[2] + 10,
                                          bbox[3] + 10])
         self._actualise_motif()
-
         self.is_saved = False
 
     def del_string(self, event=None, write_log=True):
@@ -1535,7 +1532,7 @@ class Bracelet(Tk):
             rows = []
             for row in self.noeuds:
                 knots = ["%i" % knot.get_code() for knot in row]
-                rows.append(" ".join(knots))
+                rows.append("".join(knots))
 
             with open(fichier, "w") as file:
                 file.write(_("0: forward knot, 1: backward knot, 2: backward forward, 3: forward backward\n\n"))

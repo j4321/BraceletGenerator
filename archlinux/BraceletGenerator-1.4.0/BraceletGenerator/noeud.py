@@ -276,7 +276,6 @@ class Noeud:
         return self.noeud
 
     def get_image(self):
-        """ renvoie self.image """
         return self.image
 
     def get_bords(self, bord):

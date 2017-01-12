@@ -1,0 +1,8 @@
+###
+# shared-mime-info
+
+application/x-bracelet; description="BraceletGenerator friendship bracelet pattern"; nametemplate=%s.bracelet; priority=8
+application/x-bicolor; description="BraceletGenerator two-colored motif"; nametemplate=%s.bicolor; priority=8
+
+#
+###
