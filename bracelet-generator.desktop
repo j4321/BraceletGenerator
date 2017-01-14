@@ -2,12 +2,11 @@
 Version=1.4.0
 Encoding=UTF-8
 Name=BraceletGenerator
-Comment_fr="Générateur de patrons de bracelet brésiliens"
 Comment="Friendship bracelet patterns designer"
-Exec=bracelet-generator
+Exec=bracelet-generator %f
 Icon=bracelet-generator.svg
 Terminal=false
 Type=Application
 Categories=Graphics
 StartupNotify=false
-MimeType=application/x-bracelet;application/x-bicolor
+MimeType=application/x-braceletgenerator

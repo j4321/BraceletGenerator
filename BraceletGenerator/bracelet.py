@@ -1273,7 +1273,7 @@ class Bracelet(Tk):
             self.menu_file.entryconfigure(3, state="disabled")
 
         if file in RECENT_BICOLOR:
-            RECENT_BICOLOR.delete(file)
+            RECENT_BICOLOR.remove(file)
 
     def _importe(self, fils, g_out, fil_noeud):
         """ importe les informations sur le motif et actualise le bracelet """

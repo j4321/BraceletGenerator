@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-braceletgenerator">
+    <comment>BraceletGenerator pattern files </comment>
+    <icon name="bracelet-generator"/>
+    <glob pattern="*.bracelet"/>
+    <glob pattern="*.bicolor"/>
+  </mime-type>
+</mime-info>

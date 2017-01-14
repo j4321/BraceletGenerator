@@ -1,0 +1,10 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: bracelet-generator
+
+Files: debian/*
+Copyright: 2016-2017 Juliette Monsel <j_4321@protonmail.com>
+License: GPL-3+
+
+Files: *
+Copyright: 2014-2017 Juliette Monsel <j_4321@protonmail.com>
+License: GPL-3+

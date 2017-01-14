@@ -1,0 +1,24 @@
+bracelet-generator (1.4.0-1) unstable; urgency=low
+   
+   * New feature: Export the pattern to text format
+   * Compatibility: Added compatibility with Tcl/Tk 8.5 
+     since python does not support Tcl/Tk 8.6 on OS X.
+
+ -- Juliette Monsel <j_4321@protonmail.com>  Sat, 14 Jan 2017 17:57:54 +0100
+
+bracelet-generator (1.3.1-1) unstable; urgency=low
+   
+   * Make a working .deb
+   * Bug correction: error when opening the "About" toplevel
+   * Bug correction: error when opening a file that does not exist
+   * Corrected package architecture: put the documentation in 
+     /usr/share/doc/bracelet-generator
+   * Replaced .pdf offline help by a .html page
+
+ -- Juliette Monsel <j_4321@sfr.fr>  Wed, 31 Aug 2016 17:00:39 +0200
+
+bracelet-generator (1.3.0-1) unstable; urgency=low
+   
+   * First deb package
+   
+ -- Juliette Monsel <j_4321@sfr.fr>  Tue, 23 Aug 2016 14:05:51 +0200

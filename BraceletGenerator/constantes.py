@@ -44,7 +44,17 @@ from tkinter import colorchooser
 APP_NAME = "BraceletGenerator"
 
 # Get the local directory
-PATH = os.path.split(__file__)[0]
+if platform == 'linux' and os.path.exists("/usr/share/bracelet-generator"):
+    # the app has been installed
+    IMAGES_LOCATION = '/usr/share/bracelet-generator/images'
+    PATH_LOCALE = "/usr/share/locale"
+    PATH_DOC = '/usr/share/doc/bracelet-generator'
+else:
+    PATH = os.path.split(__file__)[0]
+    IMAGES_LOCATION = os.path.join(PATH, 'images')
+    PATH_LOCALE = os.path.join(PATH, "locale")
+    PATH_DOC = os.path.join(PATH, "doc")
+
 LOCAL_PATH = os.path.expanduser("~")
 LOCAL_PATH = os.path.join(LOCAL_PATH, "BraceletGenerator")
 if not os.path.exists(LOCAL_PATH):
@@ -52,19 +62,14 @@ if not os.path.exists(LOCAL_PATH):
 
 PATH_CONFIG = os.path.join(LOCAL_PATH, 'BraceletGenerator.ini')
 
-IMAGES_LOCATION = os.path.join(PATH, 'images')
-
-PATH_LOCALE = os.path.join(PATH, "locale")
-
-PATH_DOC = os.path.join(PATH, "doc")
-
-# lecture du fichier de configuration
+# configuration file 
 CONFIG = ConfigParser()
 if os.path.exists(PATH_CONFIG):
     CONFIG.read(PATH_CONFIG)
     LANGUE = CONFIG.get("General","language")
 else:
     LANGUE = ""
+    
     CONFIG.add_section("General")
     CONFIG.set("General", "last_path", LOCAL_PATH)
     CONFIG.set("General", "recent_files", "")
@@ -94,7 +99,7 @@ LANG = gettext.translation(APP_NAME, PATH_LOCALE,
                            languages=[LANGUE], fallback=True)
 LANG.install()
 
-
+# get recent files
 RECENT_FILES = CONFIG.get("General", "recent_files").split(",")
 if RECENT_FILES == [""]:
     RECENT_FILES = []
@@ -102,7 +107,7 @@ RECENT_BICOLOR = CONFIG.get("General", "recent_bicolor").split(",")
 if RECENT_BICOLOR == [""]:
     RECENT_BICOLOR = []
 
-# chemins des images
+# pictures
 IM_EXIT_M = os.path.join(IMAGES_LOCATION, "exit_m.png")
 IM_EXIT = os.path.join(IMAGES_LOCATION, "exit.png")
 IM_EXPORT_M = os.path.join(IMAGES_LOCATION, "export_m.png")
@@ -160,7 +165,7 @@ IM_SYM_VERT = os.path.join(IMAGES_LOCATION, "sym_vertical.png")
 IM_SYM_HORIZ_M = os.path.join(IMAGES_LOCATION, "sym_horizontal_m.png")
 IM_SYM_VERT_M = os.path.join(IMAGES_LOCATION, "sym_vertical_m.png")
 
-
+# colors
 if platform == 'darwin' or PL == 'nt':
     BG_COLOR = '#F0F0F0'
     CANVAS_COLOR = "#ffffff"

@@ -1,5 +1,7 @@
-include bracelet-generator *.txt *.rst bracelet-generator.desktop *.py bracelet-generator.svg
-recursive-include BraceletGenerator/*
-recursive-include documentation *
+include *.txt *.rst *.py bracelet-generator.* 
+include BraceletGenerator/locale/fr_FR/LC_MESSAGES/BraceletGenerator.mo
+include BraceletGenerator/locale/en_US/LC_MESSAGES/BraceletGenerator.mo
 recursive-include examples *
+recursive-include BraceletGenerator/images *
+recursive-include BraceletGenerator/doc *
 recursive-include po *

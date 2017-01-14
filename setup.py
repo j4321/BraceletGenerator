@@ -1,22 +1,29 @@
 #! /usr/bin/python3
 # -*- coding:Utf-8 -*-
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 from sys import platform
-
-files = ["images/*", "doc/*", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
+import os
 
 if platform == 'linux':
-    # icon and .desktop file
+    files = []
+    doc = [os.path.join("BraceletGenerator", "doc", f) for f in os.listdir("BraceletGenerator/doc")] 
+    doc.extend(["README.rst"])
+    images = [os.path.join("BraceletGenerator", "images", f) for f in os.listdir("BraceletGenerator/images")]
+    examples = [os.path.join("examples", f) for f in os.listdir("examples")]
     data_files = [("share/pixmaps", ["bracelet-generator.svg"]),
+                  ("share/locale/en_US/LC_MESSAGES/", ["BraceletGenerator/locale/en_US/LC_MESSAGES/BraceletGenerator.mo"]),
+                  ("share/locale/fr_FR/LC_MESSAGES/", ["BraceletGenerator/locale/fr_FR/LC_MESSAGES/BraceletGenerator.mo"]),
+                  ("share/doc/bracelet-generator", doc),
+                  ("share/man/man1", ["bracelet-generator.1.gz"]),
+                  ("share/bracelet-generator/images", images),
+                  ("share/bracelet-generator/examples", examples),
                   ("share/applications", ["bracelet-generator.desktop"])]
 else:
+    files = ["images/*", "doc/*", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
     data_files = []
     
-setup(name = "BraceletGenerator",
+setup(name = "bracelet-generator",
       version = "1.4.0",
       description = "Friendship bracelet pattern designer",
       author = "Juliette Monsel",
