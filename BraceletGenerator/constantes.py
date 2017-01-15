@@ -48,12 +48,14 @@ if platform == 'linux' and os.path.exists("/usr/share/bracelet-generator"):
     # the app has been installed
     IMAGES_LOCATION = '/usr/share/bracelet-generator/images'
     PATH_LOCALE = "/usr/share/locale"
-    PATH_DOC = '/usr/share/doc/bracelet-generator'
+    DOC = '/usr/share/doc/bracelet-generator/doc_install_linux.html'
+    DOC_FR = '/usr/share/doc/bracelet-generator/doc_fr_install_linux.html'
 else:
     PATH = os.path.split(__file__)[0]
     IMAGES_LOCATION = os.path.join(PATH, 'images')
     PATH_LOCALE = os.path.join(PATH, "locale")
-    PATH_DOC = os.path.join(PATH, "doc")
+    DOC = os.path.join(PATH, "doc", "doc.html")
+    DOC_FR = os.path.join(PATH, "doc", "doc_fr.html")
 
 LOCAL_PATH = os.path.expanduser("~")
 LOCAL_PATH = os.path.join(LOCAL_PATH, "BraceletGenerator")
@@ -209,9 +211,9 @@ def save_config():
 def help(event=None):
     """ ouvre l'aide en .html dans la langue de l'interface """
     if LANGUE[:2] == "fr":
-        webOpen(os.path.join(PATH_DOC, "doc_fr.html"))
+        webOpen(DOC_FR)
     else:
-        webOpen(os.path.join(PATH_DOC, "doc.html"))
+        webOpen(DOC)
 
 
 def help_web(event=None):

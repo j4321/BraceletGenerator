@@ -23,7 +23,7 @@ Window displaying the information about the software
 
 from tkinter import Text, Toplevel
 from tkinter.ttk import Button, Label, Style
-from BraceletGenerator.constantes import open_image, BG_COLOR, STYLE, VERSION, IM_ICON48, set_icon, LANG, webOpen
+from BraceletGenerator.constantes import open_image, BG_COLOR, STYLE, VERSION, IM_ICON48, set_icon, webOpen
 
 
 class About(Toplevel):

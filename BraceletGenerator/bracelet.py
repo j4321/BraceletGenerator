@@ -32,7 +32,6 @@ from BraceletGenerator.noeud import Noeud
 from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
 from BraceletGenerator.about import About
-from subprocess import Popen
 
 
 BRACELET_LOG = os.path.join(LOCAL_PATH, "BraceletGenerator%i.log")
@@ -1507,6 +1506,7 @@ class Bracelet(Tk):
             im = Image.open(TMP_PS)
             im.load(scale=6)
             im.save(fichier)
+            im.close()
             os.remove(TMP_PS)
         elif fichier:
             showerror(_("Error"),

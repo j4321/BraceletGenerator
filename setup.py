@@ -7,7 +7,9 @@ import os
 
 if platform == 'linux':
     files = []
-    doc = [os.path.join("BraceletGenerator", "doc", f) for f in os.listdir("BraceletGenerator/doc")] 
+    doc = ["BraceletGenerator/doc/doc_install_linux.html",
+           "BraceletGenerator/doc/doc_fr_install_linux.html",
+           "BraceletGenerator/doc/style.css"]
     doc.extend(["README.rst"])
     images = [os.path.join("BraceletGenerator", "images", f) for f in os.listdir("BraceletGenerator/images")]
     examples = [os.path.join("examples", f) for f in os.listdir("examples")]
@@ -17,10 +19,11 @@ if platform == 'linux':
                   ("share/doc/bracelet-generator", doc),
                   ("share/man/man1", ["bracelet-generator.1.gz"]),
                   ("share/bracelet-generator/images", images),
+                  ("share/doc/bracelet-generator/images", images),
                   ("share/bracelet-generator/examples", examples),
                   ("share/applications", ["bracelet-generator.desktop"])]
 else:
-    files = ["images/*", "doc/*", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
+    files = ["images/*", "doc/doc.html", "doc/doc_fr.html", "doc/style.css", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
     data_files = []
     
 setup(name = "bracelet-generator",
