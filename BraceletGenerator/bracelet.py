@@ -33,14 +33,6 @@ from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
 from BraceletGenerator.about import About
 
-
-BRACELET_LOG = os.path.join(LOCAL_PATH, "BraceletGenerator%i.log")
-i = 0
-while os.path.exists(BRACELET_LOG % (i)):
-    i += 1
-BRACELET_LOG %= i
-TMP_PS = os.path.join(LOCAL_PATH,".tmp.ps")
-
 class Bracelet(Tk):
     """ patron de bracelet brésilien """
 

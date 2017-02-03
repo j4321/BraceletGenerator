@@ -62,16 +62,33 @@ LOCAL_PATH = os.path.join(LOCAL_PATH, "BraceletGenerator")
 if not os.path.exists(LOCAL_PATH):
     os.mkdir(LOCAL_PATH)
 
+# bracelet log file
+BRACELET_LOG = os.path.join(LOCAL_PATH, "BraceletGenerator%i.log")
+i = 0
+while os.path.exists(BRACELET_LOG % (i)):
+    i += 1
+BRACELET_LOG %= i
+
+# temporary file
+TMP_PS = os.path.join(LOCAL_PATH,".tmp.ps")
+
+# bicolore log file
+BICOLOR_LOG = os.path.join(LOCAL_PATH, "Bicolor%i.log")
+i = 0
+while os.path.exists(BICOLOR_LOG % (i)):
+    i += 1
+BICOLOR_LOG %= i
+
 PATH_CONFIG = os.path.join(LOCAL_PATH, 'BraceletGenerator.ini')
 
-# configuration file 
+# configuration file
 CONFIG = ConfigParser()
 if os.path.exists(PATH_CONFIG):
     CONFIG.read(PATH_CONFIG)
     LANGUE = CONFIG.get("General","language")
 else:
     LANGUE = ""
-    
+
     CONFIG.add_section("General")
     CONFIG.set("General", "last_path", LOCAL_PATH)
     CONFIG.set("General", "recent_files", "")

@@ -29,13 +29,6 @@ from BraceletGenerator.constantes import *
 from BraceletGenerator.about import About
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
-
-BICOLOR_LOG = os.path.join(LOCAL_PATH, "Bicolor%i.log")
-i = 0
-while os.path.exists(BICOLOR_LOG % (i)):
-    i += 1
-BICOLOR_LOG %= i
-
 class Bicolore(Toplevel):
     """ classe de l'application éditeur de motif bicolore """
     def __init__(self, master, row_nb=10, string_nb=8,
