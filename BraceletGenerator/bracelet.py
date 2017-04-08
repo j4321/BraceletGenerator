@@ -20,18 +20,22 @@ along with this program.  If not, see <http: //www.gnu.org/licenses/>.
 
 bracelet class for Bracelet Generator
 """
+
+
+import os
 from pickle import Pickler, Unpickler
 from PIL import Image
-from tkinter import Tk, Menu, StringVar, Canvas, IntVar
+from tkinter import Tk, Menu, StringVar, Canvas
 from tkinter.ttk import Button, Label, Style, Frame, Entry
 from tkinter.messagebox import showerror, showinfo
 from tkinter.messagebox import askyesnocancel
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
-from BraceletGenerator.constantes import *
+import BraceletGenerator.constantes as cst
 from BraceletGenerator.noeud import Noeud
 from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
 from BraceletGenerator.about import About
+
 
 class Bracelet(Tk):
     """ patron de bracelet brésilien """
@@ -39,12 +43,11 @@ class Bracelet(Tk):
     def __init__(self, row_nb=4, string_nb=4, color="#ff0000", fichier=""):
         """ fichier: chemin du fichier où sont sauvegardées les données
             du patron """
-
         # root window
         Tk.__init__(self)
         self.title(_("Bracelet Generator"))
-        self.config(bg=BG_COLOR)
-        set_icon(self)
+        self.config(bg=cst.BG_COLOR)
+        cst.set_icon(self)
         self.minsize(400, 295)
         self.maxsize(width=self.winfo_screenwidth(),
                      height=self.winfo_screenheight())
@@ -52,45 +55,44 @@ class Bracelet(Tk):
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
         # fonction de validation des entrées
-        self._okfct = self.register(valide_entree_nb)
+        self._okfct = self.register(cst.valide_entree_nb)
 
-        # style
+        ### style
         self.style = Style(self)
-        self.style.theme_use(STYLE)
-        self.style.configure('TButton', background=BG_COLOR)
-        self.style.configure('TLabel', background=BG_COLOR)
-        self.style.configure('TFrame', background=BG_COLOR)
+        self.style.theme_use(cst.STYLE)
+        self.style.configure('TButton', background=cst.BG_COLOR)
+        self.style.configure('TLabel', background=cst.BG_COLOR)
+        self.style.configure('TFrame', background=cst.BG_COLOR)
         self.style.configure('flat.TButton', relief="flat",
-                             background=BG_COLOR)
-        self.style.configure("test.TButton", backgroun="white", padding=2)
+                             background=cst.BG_COLOR)
+        self.style.configure("test.TButton", padding=2)
 
-
-        # menu
-        # icônes
-        self.m_plus = open_image(file=IM_PLUS_M, master=self)
-        self.m_moins = open_image(file=IM_MOINS_M, master=self)
-        self.m_exit = open_image(master=self, file=IM_EXIT_M)
-        self.m_export = open_image(master=self, file=IM_EXPORT_M)
-        self.m_export_txt = open_image(master=self, file=IM_EXPORT_TXT_M)
-        self.m_new = open_image(master=self, file=IM_NEW_M)
-        self.m_open = open_image(master=self, file=IM_OUVRIR_M)
-        self.m_saveas = open_image(master=self, file=IM_SAVEAS_M)
-        self.m_sauve = open_image(master=self, file=IM_SAUVER_M)
-        self.m_undo = open_image(master=self, file=IM_UNDO)
-        self.m_redo = open_image(master=self, file=IM_REDO)
-        self.m_bicolore = open_image(master=self, file=IM_BICOLORE_M)
-        self.m_help = open_image(master=self, file=IM_AIDE)
-        self.m_about = open_image(master=self, file=IM_ABOUT)
-        self.m_sym_horizontal = open_image(master=self, file=IM_SYM_HORIZ_M)
-        self.m_sym_vertical = open_image(master=self, file=IM_SYM_VERT_M)
-        self.m_color = open_image(master=self, file=IM_COLOR_M)
+        ### menu
+        ### -- icônes
+        self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
+        self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
+        self.m_exit = cst.open_image(master=self, file=cst.IM_EXIT_M)
+        self.m_export = cst.open_image(master=self, file=cst.IM_EXPORT_M)
+        self.m_export_txt = cst.open_image(master=self, file=cst.IM_EXPORT_TXT_M)
+        self.m_new = cst.open_image(master=self, file=cst.IM_NEW_M)
+        self.m_open = cst.open_image(master=self, file=cst.IM_OUVRIR_M)
+        self.m_saveas = cst.open_image(master=self, file=cst.IM_SAVEAS_M)
+        self.m_sauve = cst.open_image(master=self, file=cst.IM_SAUVER_M)
+        self.m_undo = cst.open_image(master=self, file=cst.IM_UNDO)
+        self.m_redo = cst.open_image(master=self, file=cst.IM_REDO)
+        self.m_bicolore = cst.open_image(master=self, file=cst.IM_BICOLORE_M)
+        self.m_help = cst.open_image(master=self, file=cst.IM_AIDE)
+        self.m_about = cst.open_image(master=self, file=cst.IM_ABOUT)
+        self.m_sym_horizontal = cst.open_image(master=self, file=cst.IM_SYM_HORIZ_M)
+        self.m_sym_vertical = cst.open_image(master=self, file=cst.IM_SYM_VERT_M)
+        self.m_color = cst.open_image(master=self, file=cst.IM_COLOR_M)
 
         # barre de menus
         menu = Menu(self, tearoff=0, borderwidth=0,
-                         bg=BG_COLOR, activeborder=0)
-        # Fichier
-        self.menu_file = Menu(menu, tearoff=0, bg=BG_COLOR)
-        self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=BG_COLOR)
+                         bg=cst.BG_COLOR, activeborder=0)
+        ### -- Fichier
+        self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
+        self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
         self.menu_file.add_command(label=_("New"), image=self.m_new,
                                    compound="left", command=self.new,
                                    accelerator='Ctrl+N')
@@ -120,15 +122,15 @@ class Bracelet(Tk):
         self.menu_file.add_command(label=_("Quit"), image=self.m_exit,
                                    compound="left", command=self.exit,
                                    accelerator="Ctrl+Q")
-        if RECENT_FILES:
-            for file in RECENT_FILES:
+        if cst.RECENT_FILES:
+            for file in cst.RECENT_FILES:
                 self.menu_recent_files.add_command(label=file,
                                                    command=lambda fichier=file: self.open(fichier=fichier))
         else:
             self.menu_file.entryconfigure(3, state="disabled")
 
-        # Édition
-        self.menu_edit = Menu(menu, tearoff=0, bg=BG_COLOR)
+        ### -- Édition
+        self.menu_edit = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_edit.add_command(label=_("Undo"), image=self.m_undo,
                                    compound="left", command=self.undo,
                                    accelerator="Ctrl+Z")
@@ -176,26 +178,26 @@ class Bracelet(Tk):
                                       image=self.m_color, compound="left",
                                       command=self.manage_colors,
                                       accelerator="Ctrl+C")
-        # Langue
-        self.menu_language = Menu(menu, tearoff=0, bg=BG_COLOR)
+        ### -- Langue
+        self.menu_language = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.langue = StringVar(self)
-        self.langue.set(LANGUE[:2])
+        self.langue.set(cst.LANGUE[:2])
         self.menu_language.add_radiobutton(label="Français",
                                            variable=self.langue,
                                            value="fr", command=self._translate)
         self.menu_language.add_radiobutton(label="English", variable=self.langue,
                                            value="en", command=self._translate)
-        # Aide
-        self.menu_help = Menu(menu, tearoff=0, bg=BG_COLOR)
-        self.menu_help.add_command(label=_("Help"), image=self.m_help, command=help,
+        ### -- Aide
+        self.menu_help = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
+        self.menu_help.add_command(label=_("Help"), image=self.m_help, command=cst.help,
                                    compound="left", accelerator="F1")
         self.menu_help.add_command(label=_("Online Help"), image=self.m_help,
-                                   command=help_web, compound="left",
+                                   command=cst.help_web, compound="left",
                                    accelerator="Ctrl+F1")
         self.menu_help.add_command(label=_("About"), image=self.m_about,
                                    command=self.about, compound="left")
 
-        # Ajout des menus à la barre
+        ### -- Ajout des menus à la barre
         menu.add_cascade(label=_("File"), menu=self.menu_file)
         menu.add_cascade(label=_("Edit"), menu=self.menu_edit)
         menu.add_cascade(label=_("Language"), menu=self.menu_language)
@@ -203,17 +205,17 @@ class Bracelet(Tk):
         # affichage de la barre de menu
         self.config(menu=menu)
 
-        # toolbar
+        ### toolbar
         toolbar = Frame(self, height=24)
         toolbar.grid(row=0, sticky="ewn")
-        self.icon_exit = open_image(master=self, file=IM_EXIT)
-        self.icon_export = open_image(master=self, file=IM_EXPORT)
-        self.icon_new = open_image(master=self, file=IM_NEW)
-        self.icon_open = open_image(master=self, file=IM_OUVRIR)
-        self.icon_save = open_image(master=self, file=IM_SAUVER)
-        self.icon_bicolore = open_image(master=self, file=IM_BICOLORE)
-        self.icon_sym_horiz = open_image(master=self, file=IM_SYM_HORIZ)
-        self.icon_sym_vert = open_image(master=self, file=IM_SYM_VERT)
+        self.icon_exit = cst.open_image(master=self, file=cst.IM_EXIT)
+        self.icon_export = cst.open_image(master=self, file=cst.IM_EXPORT)
+        self.icon_new = cst.open_image(master=self, file=cst.IM_NEW)
+        self.icon_open = cst.open_image(master=self, file=cst.IM_OUVRIR)
+        self.icon_save = cst.open_image(master=self, file=cst.IM_SAUVER)
+        self.icon_bicolore = cst.open_image(master=self, file=cst.IM_BICOLORE)
+        self.icon_sym_horiz = cst.open_image(master=self, file=cst.IM_SYM_HORIZ)
+        self.icon_sym_vert = cst.open_image(master=self, file=cst.IM_SYM_VERT)
         Button(toolbar, image=self.icon_new, command=self.new,
                style='flat.TButton').grid(column=0, row=0)
         Button(toolbar, image=self.icon_open, command=self.open,
@@ -236,17 +238,16 @@ class Bracelet(Tk):
         Button(toolbar, image=self.icon_exit, command=self.exit,
                style='flat.TButton').grid(column=7, row=0)
 
-
-        # frame contenant le patron
+        ### frame contenant le patron
         pattern_frame = Frame(self, relief="sunken", borderwidth=1)
         pattern_frame.grid(row=1, sticky="nwes")
 
-        # toolbar2
+        ### toolbar2
         toolbar2 = Frame(pattern_frame, height=24)
         toolbar2.grid(row=0, column=0, sticky="ew")
-        self.icon_plus = open_image(master=self, file=IM_PLUS)
-        self.icon_moins = open_image(master=self, file=IM_MOINS)
-        self.icon_color = open_image(master=self, file=IM_COLOR)
+        self.icon_plus = cst.open_image(master=self, file=cst.IM_PLUS)
+        self.icon_moins = cst.open_image(master=self, file=cst.IM_MOINS)
+        self.icon_color = cst.open_image(master=self, file=cst.IM_COLOR)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=0,
                                                sticky="e", padx=(5,0))
@@ -279,7 +280,7 @@ class Bracelet(Tk):
                style="test.TButton").grid(row=0, column=8, columnspan=2,
                                           sticky="e", padx=10)
 
-        # propriétés du bracelet
+        ### propriétés du bracelet
         # color par défaut
         self.color = color
         # le nombre de lignes est toujours pair
@@ -288,12 +289,12 @@ class Bracelet(Tk):
         # savoir si l'éditeur de motifs bicolores est ouvert
         self.bicolore_on = False
 
-        # canvas
+        ### canvas
         self.height_max = pattern_frame.winfo_screenheight() - 180
         self.width_max = pattern_frame.winfo_screenwidth() - 50
 
         self.can = Canvas(pattern_frame, borderwidth=2, relief="groove",
-                          bg=CANVAS_COLOR)
+                          bg=cst.CANVAS_COLOR)
         self.can.grid(row=1, column=0, sticky="nsew", padx=1, pady=1)
 
         self.scroll_vert = Scrollbar(pattern_frame, command=self.can.yview,
@@ -307,12 +308,11 @@ class Bracelet(Tk):
         pattern_frame.rowconfigure(1, weight=1)
         pattern_frame.columnconfigure(0, weight=1)
 
-
         self.scroll_vert.grid(row=1, column=1, sticky="ns")
         self.scroll_horiz.grid(row=2, column=0, sticky="ew")
         self.is_scrollable = True
 
-        # Raccourcis clavier
+        ### Raccourcis clavier
         self.bind('<Control-o>', self.open)
         self.bind('<Control-n>', self.new)
         self.bind('<Control-s>', self.save)
@@ -325,7 +325,7 @@ class Bracelet(Tk):
         self.bind('<Control-b>', self.bicolore)
         self.bind('<Control-c>', self.manage_colors)
         self.bind('<Key-F1>', help)
-        self.bind('<Control-Key-F1>', help_web)
+        self.bind('<Control-Key-F1>', cst.help_web)
         self.bind('<Control-h>', lambda event: self.symmetrize("horizontal"))
         self.bind('<Control-v>', lambda event: self.symmetrize("vertical"))
         self.bind("<KP_Add>", self.add_row)
@@ -342,25 +342,20 @@ class Bracelet(Tk):
         self.string_nb_entry.bind("<FocusOut>", self.change_string_nb)
 
         # faire défiler le canvas à l'aide de la molette de la souris
-        for key in MOUSEWHEEL:
+        for key in cst.MOUSEWHEEL:
             self.bind(key, self._mouse_scroll)
 
         self.path_save = fichier
 
-
-        # Initialisation
+        ### Initialisation
         self.init_canvas()
         self.is_saved = True
         self._logreinit()
-
-
 
         if fichier:
             self.open(fichier=fichier)
         else:
             self.path_save = ""  # saved pattern path
-
-        self.mainloop()
 
     def __setattr__(self, name, value):
         """ gestion de la modification attributs, en particulier
@@ -382,7 +377,7 @@ class Bracelet(Tk):
         """ utilisation de la molette de la souris pour faire défiler
             verticalement le canvas """
         if self.is_scrollable:
-            self.can.yview_scroll(mouse_wheel(event), "units")
+            self.can.yview_scroll(cst.mouse_wheel(event), "units")
 
     def _attribue_carre(self, i):
         """ astuce pour réaliser les tag_bind dans une boucle """
@@ -393,15 +388,14 @@ class Bracelet(Tk):
         """ astuce pour réaliser les tag_bind dans une boucle """
         self.can.tag_bind(self.noeuds[i][j].get_noeud(), '<Button-1>',
                           lambda event: self._clic_noeud(i, j))
-        self.can.tag_bind(self.noeuds[i][j].get_noeud(), RIGHT_CLICK,
+        self.can.tag_bind(self.noeuds[i][j].get_noeud(), cst.RIGHT_CLICK,
                           lambda event: self._clic_noeud_inv(i, j))
         im = self.noeuds[i][j].get_image()
         for l in im:
             self.can.tag_bind(l, '<Button-1>',
                               lambda event: self._clic_noeud(i, j))
-            self.can.tag_bind(l, RIGHT_CLICK,
+            self.can.tag_bind(l, cst.RIGHT_CLICK,
                               lambda event: self._clic_noeud_inv(i, j))
-
 
     def init_canvas(self):
         """ (ré)initialisation du canvas et des variables associées,
@@ -441,7 +435,7 @@ class Bracelet(Tk):
             self.colors.append(self.can.create_rectangle(41 + 30*i, 13,
                                                          49 + 30*i, 21,
                                                          fill=self.color,
-                                                         activefill=active_color(self.color)))
+                                                         activefill=cst.active_color(self.color)))
             self._attribue_carre(i)
 
         # création des noeuds et des carreaux du motif
@@ -528,7 +522,7 @@ class Bracelet(Tk):
         self.focus_set()
         if write_log:
             self._log()
-            with open(BRACELET_LOG, "a") as log:
+            with open(cst.BRACELET_LOG, "a") as log:
                 log.write("clic_noeud %i %i\n" % (i, j))
 
         n = self.noeuds[i][j]
@@ -544,7 +538,7 @@ class Bracelet(Tk):
         self.focus_set()
         if write_log:
             self._log()
-            with open(BRACELET_LOG, "a") as log:
+            with open(cst.BRACELET_LOG, "a") as log:
                 log.write("clic_noeud_inv %i %i\n" % (i, j))
 
         n = self.noeuds[i][j]
@@ -565,16 +559,16 @@ class Bracelet(Tk):
         """ choix de la couleur du fil j """
         coul0 = self.can.itemcget(self.colors[j], "fill")
         if color is None:
-            color = askcolor(coul0) # color choisie en hexadécimal
+            color = cst.askcolor(coul0) # color choisie en hexadécimal
         if color:
             if write_log:
                 self._log()
-                with open(BRACELET_LOG, "a") as log:
+                with open(cst.BRACELET_LOG, "a") as log:
                     log.write("change_color %i %s %s\n" % (j, coul0,
                                                              color))
 
             self.can.itemconfigure(self.colors[j], fill=color,
-                                   activefill=active_color(color))
+                                   activefill=cst.active_color(color))
             if j < self.string_nb - 1 or j % 2:
                 self._change_color(0, j//2, j % 2, color)
             else:
@@ -770,7 +764,7 @@ class Bracelet(Tk):
         """ ajoute 2 lignes """
         if write_log:
             self._log()
-            with open(BRACELET_LOG, "a") as log:
+            with open(cst.BRACELET_LOG, "a") as log:
                 log.write("add_row\n")
 
         if not g_out:
@@ -910,7 +904,7 @@ class Bracelet(Tk):
                 txt_fil_noeud += str(fil_noeud[1][i])
             if write_log:
                 self._log()
-                with open(BRACELET_LOG, "a") as log:
+                with open(cst.BRACELET_LOG, "a") as log:
                     log.write("del_row %s %s\n" % (txt_g_out, txt_fil_noeud))
 
     def change_string_nb(self, event=None):
@@ -941,7 +935,7 @@ class Bracelet(Tk):
             fil_noeud = "0"*(self.row_nb//2)
         if write_log:
             self._log()
-            with open(BRACELET_LOG, "a") as log:
+            with open(cst.BRACELET_LOG, "a") as log:
                 log.write("add_string\n")
         self.string_nb += 1
         self.fin_noeud = (self.string_nb - 1)*30 + 80
@@ -1014,7 +1008,7 @@ class Bracelet(Tk):
         self.colors.append(self.can.create_rectangle(41 + 30*nb,
                                                      13, 49 + 30*nb, 21,
                                                      fill=color,
-                                                     activefill=active_color(color)))
+                                                     activefill=cst.active_color(color)))
         self._attribue_carre(nb)
 
         for j in range(len(self.noeuds[0])):
@@ -1129,7 +1123,7 @@ class Bracelet(Tk):
                 txt_fil_noeud += str(fil_noeud[i])
             if write_log:
                 self._log()
-                with open(BRACELET_LOG, "a") as log:
+                with open(cst.BRACELET_LOG, "a") as log:
                     log.write("del_string %s %s %s\n" % (coul, txt_g_out,
                                                       txt_fil_noeud))
 
@@ -1193,7 +1187,7 @@ class Bracelet(Tk):
                 self._importe(fils, g_out, fil_noeud)
             if write_log:
                 self._log()
-                with open(BRACELET_LOG, "a") as log:
+                with open(cst.BRACELET_LOG, "a") as log:
                     log.write("symmetrize %s\n" % (sens))
         if sens == "vertical":
             fils = []
@@ -1229,7 +1223,7 @@ class Bracelet(Tk):
             self._importe(fils, g_out, fil_noeud)
             if write_log:
                 self._log()
-                with open(BRACELET_LOG, "a") as log:
+                with open(cst.BRACELET_LOG, "a") as log:
                     log.write("symmetrize %s %s\n" % (sens,txtlog))
 
         self.is_saved = False
@@ -1238,33 +1232,33 @@ class Bracelet(Tk):
         """ ajoute fichier aux fichiers récents,
             supprime le plus ancien s'il y en a plus de 10,
             actualise le menu des fichiers récents """
-        if not RECENT_FILES:
+        if not cst.RECENT_FILES:
             self.menu_file.entryconfigure(3, state="normal")
-        if file in RECENT_FILES:
-            i = RECENT_FILES.index(file)
+        if file in cst.RECENT_FILES:
+            i = cst.RECENT_FILES.index(file)
             self.menu_recent_files.delete(i)
-            RECENT_FILES.remove(file)
+            cst.RECENT_FILES.remove(file)
 
-        RECENT_FILES.insert(0, file)
+        cst.RECENT_FILES.insert(0, file)
         self.menu_recent_files.insert_command(0,label=file,
                                                   command=lambda: self.open(fichier=file))
-        if len(RECENT_FILES) > 10:
+        if len(cst.RECENT_FILES) > 10:
             self.menu_recent_files.delete(10)
-            del(RECENT_FILES[-1])
+            del(cst.RECENT_FILES[-1])
 
     def del_recent_file(self, file):
         """ supprime file aux fichiers récents (de l'éditeur de motifs et du logiciel),
             actualise le menu des fichiers récents """
-        if file in RECENT_FILES:
-            i = RECENT_FILES.index(file)
+        if file in cst.RECENT_FILES:
+            i = cst.RECENT_FILES.index(file)
             self.menu_recent_files.delete(i)
-            RECENT_FILES.remove(file)
+            cst.RECENT_FILES.remove(file)
 
-        if not RECENT_FILES:
+        if not cst.RECENT_FILES:
             self.menu_file.entryconfigure(3, state="disabled")
 
-        if file in RECENT_BICOLOR:
-            RECENT_BICOLOR.remove(file)
+        if file in cst.RECENT_BICOLOR:
+            cst.RECENT_BICOLOR.remove(file)
 
     def _importe(self, fils, g_out, fil_noeud):
         """ importe les informations sur le motif et actualise le bracelet """
@@ -1276,16 +1270,16 @@ class Bracelet(Tk):
             c0 = fils[j][0]
             c1 = fils[j][1]
             self.can.itemconfigure(self.colors[2*j], fill=c0,
-                                   activefill=active_color(c0))
+                                   activefill=cst.active_color(c0))
             self.can.itemconfigure(self.colors[2*j + 1], fill=c1,
-                                   activefill=active_color(c1))
+                                   activefill=cst.active_color(c1))
             self._change_color(0, j, 0, c0)
             self._change_color(0, j, 1, c1)
         if self.string_nb % 2:
             c = fils[-1][0]
             self._change_color(1, j, 1, c)
             self.can.itemconfigure(self.colors[self.string_nb - 1], fill=c,
-                                   activefill=active_color(c))
+                                   activefill=cst.active_color(c))
         self._actualise_motif()
         self.is_saved = True
 
@@ -1297,9 +1291,9 @@ class Bracelet(Tk):
         self.menu_edit.entryconfigure(0, state="normal")
         if self.log_ligne != self.log_nb_ligne - 1:
             self.menu_edit.entryconfigure(1, state="disabled")
-            with open(BRACELET_LOG, "r") as log:
+            with open(cst.BRACELET_LOG, "r") as log:
                 logfile = log.readlines()
-            with open(BRACELET_LOG, "w") as log:
+            with open(cst.BRACELET_LOG, "w") as log:
                 # supprime les actions annulées précédemment
                 for ligne in logfile[:self.log_ligne]:
                     log.write(ligne)
@@ -1342,14 +1336,13 @@ class Bracelet(Tk):
                 self._select_color(j, write_log=False, color=dic_coul[c])
             # écriture dans le log
             self._log()
-            with open(BRACELET_LOG, "a") as log:
+            with open(cst.BRACELET_LOG, "a") as log:
                 c = ",".join(c_colors)
                 n = ",".join(n_colors)
                 # action ancien_défaut nv_défaut c_colors n_colors
                 log.write("color_manager %s %s %s %s\n" % (self.color, color, c, n))
             self.color = color
             self.is_saved = False
-
 
     def open(self, event=None, fichier=""):
         """ ouvre un bracelet enregistré dans un fichier .bracelet """
@@ -1362,13 +1355,13 @@ class Bracelet(Tk):
                 self.save()
         if rep is not None:
             if not fichier:
-                fichier = askopenfilename(defaultextension='.bracelet',
+                fichier = cst.askopenfilename(defaultextension='.bracelet',
                                           filetypes=[('BRACELET', '*.bracelet'),
                                                      ('BICOLOR', '*.bicolor')],
-                                          initialdir=CONFIG.get("General", "last_path"))
+                                          initialdir=cst.CONFIG.get("General", "last_path"))
             if fichier:
                 if os.path.exists(fichier):
-                    CONFIG.set("General", "last_path", os.path.dirname(fichier))
+                    cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
                     if fichier.split(".")[-1] == "bicolor":
                         self.init_canvas()
                         self._logreinit()
@@ -1404,16 +1397,16 @@ class Bracelet(Tk):
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
         else:
-            initialdir=CONFIG.get("General", "last_path")
+            initialdir=cst.CONFIG.get("General", "last_path")
             initialfile=""
-        fichier = asksaveasfilename(defaultextension='.bracelet',
+        fichier = cst.asksaveasfilename(defaultextension='.bracelet',
                                     filetypes=[('BRACELET', '*.bracelet')],
                                     initialdir=initialdir,
                                     initialfile=initialfile)
         if fichier:
             ext = os.path.splitext(fichier)[-1]
             self.add_recent_file(file=fichier)
-            CONFIG.set("General", "last_path", os.path.dirname(fichier))
+            cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
             if ext == ".bracelet":
                 self.save(fichier=fichier)
                 self.path_save = fichier
@@ -1452,26 +1445,16 @@ class Bracelet(Tk):
                     p.dump(fil_noeud)
                 self.is_saved = True
 
-#    def efface(self, event=None):
-#        """ remet tous les carreaux à la couleur de l'arrière plan """
-#        rep = askyesno("Question",
-#                       _("Do you really want to clear the pattern?"),
-#                       master=self)
-#        if rep:
-#            for i in range(self.string_nb):
-#                self._select_color(i, write_log=False, color=self.color)
-#        self._logreinit()
-
     def export(self, event=None):
         """ exporte le patron en .ps, .png ou .jpg """
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
             initialfile = os.path.splitext(initialfile)[0] + ".png"
         else:
-            initialdir=CONFIG.get("General", "last_path")
+            initialdir=cst.CONFIG.get("General", "last_path")
             initialfile=""
 
-        fichier = asksaveasfilename(title=_("Export"),
+        fichier = cst.asksaveasfilename(title=_("Export"),
                                     defaultextension='.png',
                                     filetypes=[('PNG', '*.png'),
                                                ('JPEG', '*.jpg'),
@@ -1481,7 +1464,7 @@ class Bracelet(Tk):
         if fichier:
             ext = os.path.splitext(fichier)[-1]
             ext = ext[1:]
-            CONFIG.set("General", "last_path", os.path.dirname(fichier))
+            cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
         else:
             ext = ""
 
@@ -1491,15 +1474,15 @@ class Bracelet(Tk):
                                 height=box[3] + 20, width=box[2] + 20,
                                 x=box[0] - 10, y=box[1] - 10)
         elif ext in ["png", "jpg"]:
-            self.can.postscript(file=TMP_PS, colormode='color',
+            self.can.postscript(file=cst.TMP_PS, colormode='color',
                                 height=box[3] + 20, width=box[2] + 20,
                                 x=box[0] - 10, y=box[1] - 10)
 
-            im = Image.open(TMP_PS)
+            im = Image.open(cst.TMP_PS)
             im.load(scale=6)
             im.save(fichier)
             im.close()
-            os.remove(TMP_PS)
+            os.remove(cst.TMP_PS)
         elif fichier:
             showerror(_("Error"),
                       _("The pattern cannot be exported in .%(extension)s") % ({"extension": ext}))
@@ -1514,16 +1497,16 @@ class Bracelet(Tk):
             initialdir, initialfile = os.path.split(self.path_save)
             initialfile = os.path.splitext(initialfile)[0] + ".txt"
         else:
-            initialdir=CONFIG.get("General", "last_path")
+            initialdir=cst.CONFIG.get("General", "last_path")
             initialfile=""
 
-        fichier = asksaveasfilename(title=_("Export"),
+        fichier = cst.asksaveasfilename(title=_("Export"),
                                     defaultextension='.txt',
                                     filetypes=[('TXT', '*.txt')],
                                     initialdir=initialdir,
                                     initialfile=initialfile)
         if fichier:
-            CONFIG.set("General", "last_path", os.path.dirname(fichier))
+            cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
             rows = []
             for row in self.noeuds:
                 knots = ["%i" % knot.get_code() for knot in row]
@@ -1580,9 +1563,9 @@ class Bracelet(Tk):
 
     def exit(self, event=None):
         """ demande confirmation (ou propose d'saver) et quitte """
-        CONFIG.set("Bracelet", "string_nb", "%i" % self.string_nb)
-        CONFIG.set("Bracelet", "row_nb", "%i" % self.row_nb)
-        CONFIG.set("Bracelet", "default_color", self.color)
+        cst.CONFIG.set("Bracelet", "string_nb", "%i" % self.string_nb)
+        cst.CONFIG.set("Bracelet", "row_nb", "%i" % self.row_nb)
+        cst.CONFIG.set("Bracelet", "default_color", self.color)
         if not self.bicolore_on:
             if not self.is_saved:
                 rep = askyesnocancel('Question',
@@ -1590,14 +1573,8 @@ class Bracelet(Tk):
                 if rep is not None:
                     if rep:
                         self.save()
-                    if os.path.exists(BRACELET_LOG):
-                        os.remove(BRACELET_LOG)
-                    save_config()
                     self.destroy()
             else:
-                if os.path.exists(BRACELET_LOG):
-                    os.remove(BRACELET_LOG)
-                save_config()
                 self.destroy()
         else:
             try:
@@ -1612,7 +1589,7 @@ class Bracelet(Tk):
     def undo(self, event=None):
         """ annule la dernière action """
         if self.log_ligne > 1:
-            with open(BRACELET_LOG, "r") as log:
+            with open(cst.BRACELET_LOG, "r") as log:
                 logfile = log.readlines()
             self.menu_edit.entryconfigure(1, state="normal")
             txt = logfile[self.log_ligne].split()
@@ -1663,7 +1640,7 @@ class Bracelet(Tk):
         """ rétablit la dernière action annulée """
         if self.log_ligne < self.log_nb_ligne - 1:
             self.menu_edit.entryconfigure(0, state="normal")
-            with open(BRACELET_LOG, "r") as log:
+            with open(cst.BRACELET_LOG, "r") as log:
                 logfile = log.readlines()
             self.log_ligne += 1
             if self.log_ligne == self.log_nb_ligne - 1:
@@ -1700,7 +1677,7 @@ class Bracelet(Tk):
     def _logreinit(self):
         """ réinitialise le fichier log
             (ie efface l'historique des actions) """
-        with open(BRACELET_LOG, "w") as log:
+        with open(cst.BRACELET_LOG, "w") as log:
             log.write("#Bracelet Generator logfile\n\n")
         self.log_ligne = 1  # ligne actuelle dans le fichier log
         self.log_nb_ligne = 2  # nombre de lignes du fichier log
@@ -1711,9 +1688,4 @@ class Bracelet(Tk):
         """ changement de la langue de l'interface """
         showinfo(_("Information"),
                  _("The language setting will take effect after restarting the application"))
-        CONFIG.set("General", "language", self.langue.get())
-
-
-
-
-
+        cst.CONFIG.set("General", "language", self.langue.get())

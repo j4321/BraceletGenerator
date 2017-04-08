@@ -21,9 +21,9 @@ Color management dialog
 """
 
 from tkinter import Toplevel, Canvas, PhotoImage
-from tkinter.ttk import Button, Label, Style, Separator, Frame, Scrollbar
+from tkinter.ttk import Button, Label, Style, Separator, Frame
 from BraceletGenerator.constantes import BG_COLOR, STYLE, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, LANG
-
+from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
 class Couleurs(Toplevel):
     """ Toplevel de l'application principale permettant de gérer les colors
@@ -36,8 +36,6 @@ class Couleurs(Toplevel):
         """
         # Initialisation Toplevel
         Toplevel.__init__(self, master, **options)
-
-
         self.title(_("Color Manager"))
         self.resizable(0,1)
         self.transient(master)
@@ -56,15 +54,14 @@ class Couleurs(Toplevel):
         # Icône
         set_icon(self)
 
-        # Style
+        ### Style
         style = Style(self)
         style.theme_use(STYLE)
         style.configure('TButton', background=BG_COLOR)
         style.configure('TLabel', background=BG_COLOR)
         style.configure('TFrame', background=BG_COLOR)
 
-        # Contenu :
-
+        ### Contenu :
         self.can = Canvas(self,bg=BG_COLOR) # pour utiliser une scrollbar
         self.can.grid(row=0, column=0, sticky="nswe")
 
@@ -79,7 +76,7 @@ class Couleurs(Toplevel):
         fen = Frame(self)
         self.can.create_window(0, 0, window=fen, anchor="nw")
 
-        # Couleur par défaut
+        ### Couleur par défaut
         Label(fen, text=_("Default color")).grid(row=2, column=0, padx=6,
                                                  sticky="e")
         self.current_default = PhotoImage(master=self, width=16, height=16)
@@ -91,10 +88,9 @@ class Couleurs(Toplevel):
         fill(self.b_new_default.image, coul_def)
         self.b_new_default.grid(row=2, column=2, padx=6, pady=4)
 
-        # Séparateur
         Separator(fen, orient="horizontal").grid(row=3, column=0, pady=4,
                                                   columnspan=3, sticky="ew")
-        # Couleurs des fils
+        ### Couleurs des fils
         Label(fen, text=_("String colors")).grid(row=4, column=0, padx=6,
                                                  sticky="e")
         self.current_colors = []
@@ -111,32 +107,15 @@ class Couleurs(Toplevel):
             self.b_new_colors[i].grid(row=4+i, column=2, padx=6, pady=4)
 
         Button(fen, text="Ok",
-               command=self.valide).grid(row=5+len(colors),column=0, columnspan=3)
+               command=self.valide).grid(row=5+len(colors), pady=4,
+                                         column=0, columnspan=3)
         self.update()
         bbox = self.can.bbox("all")
         self.can.configure(width=bbox[2], height=min(self.winfo_screenheight() - 180, bbox[3]), scrollregion=bbox)
-        self._redimensionne()
 
-        # afficher/masquer les scrollbars
-        self.bind("<Configure>", self._redimensionne, add=True)
         # mouse scroll
         for key in MOUSEWHEEL:
             self.can.bind_all(key, self._mouse_scroll)
-
-    def _redimensionne(self, event=None):
-        """ gestion du redimmensionnement de la fenêtre """
-        dim = self.can.winfo_geometry().split("+")[0]
-        _, h = dim.split("x")
-        h = int(h)
-        _, _, w2, h2 = self.can.cget("scrollregion").split(" ")
-        h2 = int(h2)
-
-        if h2 > h:
-            self.scroll_vert.grid(row=0, column=1, sticky="ns")
-            self.is_scrollable = True
-        else:
-            self.scroll_vert.grid_forget()
-            self.is_scrollable = False
 
     def _mouse_scroll(self, event):
         """ utilisation de la molette de la souris pour faire défiler
@@ -164,5 +143,3 @@ class Couleurs(Toplevel):
 
     def get_result(self):
         return self.result
-
-

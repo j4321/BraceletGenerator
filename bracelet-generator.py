@@ -22,14 +22,19 @@ main
 
 import sys
 import os
-from BraceletGenerator.constantes import CONFIG
+from BraceletGenerator.constantes import CONFIG, BRACELET_LOG, BICOLOR_LOG, save_config
 from BraceletGenerator.bracelet import Bracelet
 
-if len(sys.argv) == 1:
-    Bracelet(string_nb=CONFIG.getint("Bracelet", "string_nb"),
-             row_nb=CONFIG.getint("Bracelet", "row_nb"),
-             color=CONFIG.get("Bracelet", "default_color"))
-else:
-    fichier = os.path.realpath(sys.argv[1])
-    Bracelet(fichier=fichier)
-
+try:
+    if len(sys.argv) == 1:
+        Bracelet(string_nb=CONFIG.getint("Bracelet", "string_nb"),
+                 row_nb=CONFIG.getint("Bracelet", "row_nb"),
+                 color=CONFIG.get("Bracelet", "default_color"))
+    else:
+        fichier = os.path.realpath(sys.argv[1])
+        app = Bracelet(fichier=fichier)
+        app.mainloop()
+finally:  # remove logs even if the app crashed to avoid accumulation
+    os.remove(BRACELET_LOG)
+    os.remove(BICOLOR_LOG)
+    save_config()

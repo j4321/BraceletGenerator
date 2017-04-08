@@ -20,12 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Two-colored pattern generator
 """
 
+
+import os
 from pickle import Pickler, Unpickler
 from tkinter import Toplevel, Menu, Canvas, PhotoImage
 from tkinter.ttk import Button, Entry, Label, Style, Frame
 from tkinter.messagebox import showerror
 from tkinter.messagebox import askyesno, askyesnocancel
-from BraceletGenerator.constantes import *
+import BraceletGenerator.constantes as cst
 from BraceletGenerator.about import About
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
@@ -45,8 +47,8 @@ class Bicolore(Toplevel):
         self.title(_("Motif Editor"))
         self.transient(master)
         self.grab_set()
-        self.configure(bg=BG_COLOR)
-        set_icon(self)
+        self.configure(bg=cst.BG_COLOR)
+        cst.set_icon(self)
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
 
@@ -57,56 +59,56 @@ class Bicolore(Toplevel):
                      height=self.winfo_screenheight())
         self.protocol("WM_DELETE_WINDOW", self.exit)
         # fonction de validation des entrées
-        self._okfct = self.register(valide_entree_nb)
+        self._okfct = self.register(cst.valide_entree_nb)
 
         # fichier log
-        with open(BICOLOR_LOG, "w") as log:
+        with open(cst.BICOLOR_LOG, "w") as log:
             log.write("#Bracelet Generator Bicolor logfile\n\n")
         self.log_ligne = 1  # ligne actuelle dans le fichier log
         self.log_nb_ligne = 2  # nombre de lignes du fichier log
 
         # style
         style = Style(self)
-        style.theme_use(STYLE)
-        style.configure('TButton', background=BG_COLOR)
-        style.configure('TLabel', background=BG_COLOR)
-        style.configure('TFrame', background=BG_COLOR)
+        style.theme_use(cst.STYLE)
+        style.configure('TButton', background=cst.BG_COLOR)
+        style.configure('TLabel', background=cst.BG_COLOR)
+        style.configure('TFrame', background=cst.BG_COLOR)
 
         # menu
-        self.m_plus = open_image(file=IM_PLUS_M, master=self)
-        self.m_moins = open_image(file=IM_MOINS_M, master=self)
-        self.m_exit = open_image(file=IM_EXIT_M, master=self)
-        self.m_open = open_image(file=IM_OUVRIR_M, master=self)
-        self.m_saveas = open_image(file=IM_SAVEAS_M, master=self)
-        self.m_save = open_image(file=IM_SAUVER_M, master=self)
-        self.m_export = open_image(file=IM_EXPORT_M, master=self)
-        self.m_undo = open_image(file=IM_UNDO, master=self)
-        self.m_redo = open_image(file=IM_REDO, master=self)
-        self.m_clear = open_image(file=IM_EFFACE_M, master=self)
-        self.m_help = open_image(file=IM_AIDE, master=self)
-        self.m_about = open_image(file=IM_ABOUT, master=self)
-        self.m_rotate_cw = open_image(file=IM_ROTATION_DTE_M, master=self)
-        self.m_rotate_ccw = open_image(file=IM_ROTATION_GCHE_M, master=self)
-        self.m_move = open_image(file=IM_MOVE_M, master=self)
-        self.m_sym_vertical = open_image(file=IM_SYM_VERT_M, master=self)
-        self.m_sym_horizontal = open_image(file=IM_SYM_HORIZ_M, master=self)
-        self.m_move_e = open_image(master=self,file=IM_MOVE_E_M)
-        self.m_move_s = open_image(master=self,file=IM_MOVE_S_M)
-        self.m_move_w = open_image(master=self,file=IM_MOVE_W_M)
-        self.m_move_n = open_image(master=self,file=IM_MOVE_N_M)
-        self.m_move_se = open_image(master=self,file=IM_MOVE_SE_M)
-        self.m_move_sw = open_image(master=self,file=IM_MOVE_SW_M)
-        self.m_move_nw = open_image(master=self,file=IM_MOVE_NW_M)
-        self.m_move_ne = open_image(master=self,file=IM_MOVE_NE_M)
+        self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
+        self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
+        self.m_exit = cst.open_image(file=cst.IM_EXIT_M, master=self)
+        self.m_open = cst.open_image(file=cst.IM_OUVRIR_M, master=self)
+        self.m_saveas = cst.open_image(file=cst.IM_SAVEAS_M, master=self)
+        self.m_save = cst.open_image(file=cst.IM_SAUVER_M, master=self)
+        self.m_export = cst.open_image(file=cst.IM_EXPORT_M, master=self)
+        self.m_undo = cst.open_image(file=cst.IM_UNDO, master=self)
+        self.m_redo = cst.open_image(file=cst.IM_REDO, master=self)
+        self.m_clear = cst.open_image(file=cst.IM_EFFACE_M, master=self)
+        self.m_help = cst.open_image(file=cst.IM_AIDE, master=self)
+        self.m_about = cst.open_image(file=cst.IM_ABOUT, master=self)
+        self.m_rotate_cw = cst.open_image(file=cst.IM_ROTATION_DTE_M, master=self)
+        self.m_rotate_ccw = cst.open_image(file=cst.IM_ROTATION_GCHE_M, master=self)
+        self.m_move = cst.open_image(file=cst.IM_MOVE_M, master=self)
+        self.m_sym_vertical = cst.open_image(file=cst.IM_SYM_VERT_M, master=self)
+        self.m_sym_horizontal = cst.open_image(file=cst.IM_SYM_HORIZ_M, master=self)
+        self.m_move_e = cst.open_image(master=self,file=cst.IM_MOVE_E_M)
+        self.m_move_s = cst.open_image(master=self,file=cst.IM_MOVE_S_M)
+        self.m_move_w = cst.open_image(master=self,file=cst.IM_MOVE_W_M)
+        self.m_move_n = cst.open_image(master=self,file=cst.IM_MOVE_N_M)
+        self.m_move_se = cst.open_image(master=self,file=cst.IM_MOVE_SE_M)
+        self.m_move_sw = cst.open_image(master=self,file=cst.IM_MOVE_SW_M)
+        self.m_move_nw = cst.open_image(master=self,file=cst.IM_MOVE_NW_M)
+        self.m_move_ne = cst.open_image(master=self,file=cst.IM_MOVE_NE_M)
         self.m_bg = PhotoImage(width=12, height=12, master=self)
-        fill(self.m_bg, self.colors[0])
+        cst.fill(self.m_bg, self.colors[0])
         self.m_fg = PhotoImage(width=12, height=12, master=self)
-        fill(self.m_fg, self.colors[1])
+        cst.fill(self.m_fg, self.colors[1])
 
-        menu = Menu(self, tearoff=0, borderwidth=0, bg=BG_COLOR)
+        menu = Menu(self, tearoff=0, borderwidth=0, bg=cst.BG_COLOR)
         # Fichier
-        self.menu_file = Menu(menu, tearoff=0, bg=BG_COLOR)
-        self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=BG_COLOR)
+        self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
+        self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
         self.menu_file.add_command(label=_("Open"), image=self.m_open,
                                    compound="left", command=self.open,
                                    accelerator='Ctrl+O')
@@ -135,7 +137,7 @@ class Bicolore(Toplevel):
                                    accelerator="Ctrl+Q")
 
         # Édition
-        self.menu_edit = Menu(menu, tearoff=0, bg=BG_COLOR)
+        self.menu_edit = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_edit.add_command(label=_("Undo"), image=self.m_undo,
                                    compound="left", command=self.undo,
                                    accelerator="Ctrl+Z")
@@ -177,8 +179,8 @@ class Bicolore(Toplevel):
                                    accelerator="Ctrl+-")
 
         # Transformations
-        self.menu_transform = Menu(menu, tearoff=0, bg=BG_COLOR)
-        menu_move = Menu(self.menu_transform, tearoff=0, bg=BG_COLOR)
+        self.menu_transform = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
+        menu_move = Menu(self.menu_transform, tearoff=0, bg=cst.BG_COLOR)
         menu_move.add_command(label=_("North"),
                               image=self.m_move_n,
                               compound="left",
@@ -249,12 +251,12 @@ class Bicolore(Toplevel):
                                         image=self.m_sym_horizontal,
                                         compound="left", accelerator="Ctrl+H")
 
-        self.menu_help = Menu(menu, tearoff=0, bg=BG_COLOR)
+        self.menu_help = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_help.add_command(label=_("Help"), image=self.m_help,
-                                   command=help, compound="left",
+                                   command=cst.help, compound="left",
                                    accelerator="F1")
         self.menu_help.add_command(label=_("Online Help"),
-                                   image=self.m_help, command=help_web,
+                                   image=self.m_help, command=cst.help_web,
                                    compound="left",
                                    accelerator="Ctrl+F1")
         self.menu_help.add_command(label=_("About"), image=self.m_about,
@@ -269,8 +271,8 @@ class Bicolore(Toplevel):
         self.menu_edit.entryconfigure(1, state="disabled")
         self.menu_file.entryconfigure(3, state="disabled")
 
-        if RECENT_BICOLOR:
-            for file in RECENT_BICOLOR:
+        if cst.RECENT_BICOLOR:
+            for file in cst.RECENT_BICOLOR:
                 self.menu_recent_files.add_command(label=file,
                                                    command=lambda fichier=file: self.open(fichier=fichier))
         else:
@@ -282,16 +284,16 @@ class Bicolore(Toplevel):
         toolbar = Frame(self, height=24)
         toolbar.grid(row=0, column=0, sticky="ew")
 
-        self.icon_genere = open_image(file=IM_EXPORT, master=self)
-        self.icon_efface = open_image(file=IM_EFFACE, master=self)
-        self.icon_open = open_image(file=IM_OUVRIR, master=self)
-        self.icon_sauve = open_image(file=IM_SAUVER, master=self)
-        self.icon_exit = open_image(file=IM_EXIT, master=self)
-        self.icon_move = open_image(file=IM_MOVE, master=self)
-        self.icon_rotate_ccw = open_image(file=IM_ROTATION_GCHE, master=self)
-        self.icon_rotate_cw = open_image(file=IM_ROTATION_DTE, master=self)
-        self.icon_sym_vertical = open_image(file=IM_SYM_VERT, master=self)
-        self.icon_sym_horizontal = open_image(file=IM_SYM_HORIZ, master=self)
+        self.icon_genere = cst.open_image(file=cst.IM_EXPORT, master=self)
+        self.icon_efface = cst.open_image(file=cst.IM_EFFACE, master=self)
+        self.icon_open = cst.open_image(file=cst.IM_OUVRIR, master=self)
+        self.icon_sauve = cst.open_image(file=cst.IM_SAUVER, master=self)
+        self.icon_exit = cst.open_image(file=cst.IM_EXIT, master=self)
+        self.icon_move = cst.open_image(file=cst.IM_MOVE, master=self)
+        self.icon_rotate_ccw = cst.open_image(file=cst.IM_ROTATION_GCHE, master=self)
+        self.icon_rotate_cw = cst.open_image(file=cst.IM_ROTATION_DTE, master=self)
+        self.icon_sym_vertical = cst.open_image(file=cst.IM_SYM_VERT, master=self)
+        self.icon_sym_horizontal = cst.open_image(file=cst.IM_SYM_HORIZ, master=self)
 
         Button(toolbar, image=self.icon_open,
                command=self.open,
@@ -332,12 +334,12 @@ class Bicolore(Toplevel):
         toolbar2 = Frame(motif_frame, height=24)
         toolbar2.grid(row=0, column=0, sticky="we")
 
-        self.icon_plus = open_image(file=IM_PLUS, master=self)
-        self.icon_moins = open_image(file=IM_MOINS, master=self)
+        self.icon_plus = cst.open_image(file=cst.IM_PLUS, master=self)
+        self.icon_moins = cst.open_image(file=cst.IM_MOINS, master=self)
         self.icon_bg = PhotoImage(width=16, height=16, master=self)
-        fill(self.icon_bg, self.colors[0])
+        cst.fill(self.icon_bg, self.colors[0])
         self.icon_fg = PhotoImage(width=16, height=16, master=self)
-        fill(self.icon_fg, self.colors[1])
+        cst.fill(self.icon_fg, self.colors[1])
 
         self.b_bg = Button(toolbar2, image=self.icon_bg,
                            command=self.set_bg)
@@ -376,7 +378,7 @@ class Bicolore(Toplevel):
         # canvas
         w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
         self.can = Canvas(motif_frame, borderwidth=2, relief="groove",
-                          bg=CANVAS_COLOR, highlightthickness=0,
+                          bg=cst.CANVAS_COLOR, highlightthickness=0,
                           width=min(self.width_max, w),
                           height=min(self.row_nb*22 + 20, self.height_max))
         self.can.grid(row=1, column=0, sticky="wens")
@@ -432,9 +434,9 @@ class Bicolore(Toplevel):
         self.bind("<Control-h>", lambda event: self.symmetrize("horizontal"),
                   add=True)
         self.bind('<Key-F1>', help)
-        self.bind('<Control-Key-F1>', help_web)
+        self.bind('<Control-Key-F1>', cst.help_web)
 
-        for key in MOUSEWHEEL:
+        for key in cst.MOUSEWHEEL:
             self.bind(key, self._mouse_scroll)
 
         self.row_nb_entry.bind("<Return>", self.change_row_nb)
@@ -509,54 +511,53 @@ class Bicolore(Toplevel):
         """ ajoute fichier aux fichiers récents (de l'éditeur de motifs et du logiciel),
             supprime le plus ancien s'il y en a plus de 10,
             actualise le menu des fichiers récents """
-        if not RECENT_BICOLOR:
+        if not cst.RECENT_BICOLOR:
             self.menu_file.entryconfigure(1, state="normal")
-        if file in RECENT_BICOLOR:
-            i = RECENT_BICOLOR.index(file)
+        if file in cst.RECENT_BICOLOR:
+            i = cst.RECENT_BICOLOR.index(file)
             self.menu_recent_files.delete(i)
-            RECENT_BICOLOR.remove(file)
+            cst.RECENT_BICOLOR.remove(file)
 
-        RECENT_BICOLOR.insert(0, file)
+        cst.RECENT_BICOLOR.insert(0, file)
         self.menu_recent_files.insert_command(0,label=file,
                                               command=lambda: self.open(fichier=file))
-        if len(RECENT_BICOLOR) > 10:
+        if len(cst.RECENT_BICOLOR) > 10:
             self.menu_recent_files.delete(10)
-            del(RECENT_BICOLOR[-1])
+            del(cst.RECENT_BICOLOR[-1])
         self.master.add_recent_file(file)
 
     def del_recent_file(self, file):
         """ supprime file aux fichiers récents (de l'éditeur de motifs et du logiciel),
             actualise le menu des fichiers récents """
-        if file in RECENT_BICOLOR:
-            i = RECENT_BICOLOR.index(file)
+        if file in cst.RECENT_BICOLOR:
+            i = cst.RECENT_BICOLOR.index(file)
             self.menu_recent_files.delete(i)
-            RECENT_BICOLOR.remove(file)
+            cst.RECENT_BICOLOR.remove(file)
 
         self.master.del_recent_file(file)
 
-        if not RECENT_BICOLOR:
+        if not cst.RECENT_BICOLOR:
             self.menu_file.entryconfigure(1, state="disabled")
 
     def shift_motif(self, event=None):
         top = Toplevel(self)
         top.transient(self)
         top.title(_("Shift"))
-        top.configure(bg=BG_COLOR)
+        top.configure(bg=cst.BG_COLOR)
         top.resizable(0,0)
         top.grab_set()
         style = Style(top)
-        style.theme_use(STYLE)
-        style.configure('TButton', background=BG_COLOR)
-        style.configure('TLabel', background=BG_COLOR)
-        style.configure('TFrame', background=BG_COLOR)
-        top.icon_move_e = open_image(master=top,file=IM_MOVE_E)
-        top.icon_move_s = open_image(master=top,file=IM_MOVE_S)
-        top.icon_move_w = open_image(master=top,file=IM_MOVE_W)
-        top.icon_move_n = open_image(master=top,file=IM_MOVE_N)
-        top.icon_move_se = open_image(master=top,file=IM_MOVE_SE)
-        top.icon_move_sw = open_image(master=top,file=IM_MOVE_SW)
-        top.icon_move_nw = open_image(master=top,file=IM_MOVE_NW)
-        top.icon_move_ne = open_image(master=top,file=IM_MOVE_NE)
+        style.configure('TButton', background=cst.BG_COLOR)
+        style.configure('TLabel', background=cst.BG_COLOR)
+        style.configure('TFrame', background=cst.BG_COLOR)
+        top.icon_move_e = cst.open_image(master=top,file=cst.IM_MOVE_E)
+        top.icon_move_s = cst.open_image(master=top,file=cst.IM_MOVE_S)
+        top.icon_move_w = cst.open_image(master=top,file=cst.IM_MOVE_W)
+        top.icon_move_n = cst.open_image(master=top,file=cst.IM_MOVE_N)
+        top.icon_move_se = cst.open_image(master=top,file=cst.IM_MOVE_SE)
+        top.icon_move_sw = cst.open_image(master=top,file=cst.IM_MOVE_SW)
+        top.icon_move_nw = cst.open_image(master=top,file=cst.IM_MOVE_NW)
+        top.icon_move_ne = cst.open_image(master=top,file=cst.IM_MOVE_NE)
         Button(top, image=top.icon_move_nw,
                command=lambda: self.shift("nw")).grid(row=0, column=0)
         Button(top, image=top.icon_move_n,
@@ -632,7 +633,7 @@ class Bicolore(Toplevel):
                                     fill=self.colors[self.motif[i][j]])
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("shift %s %s\n" % (direction, parite))
         self.is_saved = False
 
@@ -652,7 +653,7 @@ class Bicolore(Toplevel):
         motif = []
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 instructions = "pi"
                 log.write("rotate %s %s\n" % (sens,
                                                 instructions[self.string_nb % 2]))
@@ -805,7 +806,7 @@ class Bicolore(Toplevel):
 
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("symmetrize %s\n" % (sens))
 
         w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
@@ -831,12 +832,12 @@ class Bicolore(Toplevel):
                 self.save()
         if rep is not None:
             if not fichier:
-                fichier = askopenfilename(defaultextension='.bicolor',
+                fichier = cst.askopenfilename(defaultextension='.bicolor',
                                           filetypes=[('BICOLOR', '*.bicolor')],
-                                          parent=self, initialdir=CONFIG.get("General", "last_path"))
+                                          parent=self, initialdir=cst.CONFIG.get("General", "last_path"))
             if fichier:
                 if os.path.exists(fichier):
-                    CONFIG.set("General", "last_path", os.path.dirname(fichier))
+                    cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
                     self.add_recent_file(fichier)
                     if fichier.split(".")[-1] == "bicolor":
                         for i in range(self.row_nb):
@@ -849,8 +850,8 @@ class Bicolore(Toplevel):
                             self.string_nb = dp.load()
                             self.colors = dp.load()
                             self.motif = dp.load()
-                            fill(self.icon_bg, self.colors[0])
-                            fill(self.icon_fg, self.colors[1])
+                            cst.fill(self.icon_bg, self.colors[0])
+                            cst.fill(self.icon_fg, self.colors[1])
     #                        self.b_bg.configure(image=self.icon_bg)
     #                        self.b_fg.configure(image=self.icon_fg)
                             for i in range(self.row_nb):
@@ -926,16 +927,16 @@ class Bicolore(Toplevel):
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
         else:
-            initialdir=CONFIG.get("General", "last_path")
+            initialdir=cst.CONFIG.get("General", "last_path")
             initialfile=""
-        fichier = asksaveasfilename(defaultextension='.bicolor',
-                                    parent=self,
-                                    filetypes=[('BICOLOR', '*.bicolor')],
-                                    initialdir=initialdir,
-                                    initialfile=initialfile)
+        fichier = cst.asksaveasfilename(defaultextension='.bicolor',
+                                        parent=self,
+                                        filetypes=[('BICOLOR', '*.bicolor')],
+                                        initialdir=initialdir,
+                                        initialfile=initialfile)
         if fichier:
             self.add_recent_file(file=fichier)
-            CONFIG.set("General", "last_path", os.path.dirname(fichier))
+            cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
             ext = fichier.split(".")[-1]
             if ext == "bicolor":
                 self.save(fichier=fichier)
@@ -948,7 +949,7 @@ class Bicolore(Toplevel):
     def undo(self, event=None):
         """ annule la dernière action """
         if self.log_ligne > 1:
-            with open(BICOLOR_LOG, "r") as log:
+            with open(cst.BICOLOR_LOG, "r") as log:
                 logfile = log.readlines()
             self.menu_edit.entryconfigure(1, state="normal")
             txt = logfile[self.log_ligne].split()
@@ -992,7 +993,7 @@ class Bicolore(Toplevel):
     def redo(self, event=None):
         """ rétablit la dernière action annulée """
         if self.log_ligne < self.log_nb_ligne - 1:
-            with open(BICOLOR_LOG, "r") as log:
+            with open(cst.BICOLOR_LOG, "r") as log:
                 logfile = log.readlines()
             self.log_ligne += 1
             if self.log_ligne == self.log_nb_ligne - 1:
@@ -1022,7 +1023,7 @@ class Bicolore(Toplevel):
     def _logreset(self):
         """ réinitialise le fichier log
             ie efface l'historique des actions effectuées """
-        with open(BICOLOR_LOG, "w") as log:
+        with open(cst.BICOLOR_LOG, "w") as log:
             log.write("#Bracelet Generator Bicolor logfile\n\n")
         self.log_ligne = 1  # ligne actuelle dans le fichier log
         self.log_nb_ligne = 2  # nombre de lignes du fichier log
@@ -1037,9 +1038,9 @@ class Bicolore(Toplevel):
         self.menu_edit.entryconfigure(0, state="normal")
         if self.log_ligne != self.log_nb_ligne - 1:
             self.menu_edit.entryconfigure(1, state="disabled")
-            with open(BICOLOR_LOG, "r") as log:
+            with open(cst.BICOLOR_LOG, "r") as log:
                 logfile = log.readlines()
-            with open(BICOLOR_LOG, "w") as log:
+            with open(cst.BICOLOR_LOG, "w") as log:
                 # supprime les actions annulées précédemment
                 for ligne in logfile[:self.log_ligne]:
                     log.write(ligne)
@@ -1070,29 +1071,29 @@ class Bicolore(Toplevel):
 
             self.result = self.row_nb, self.string_nb, self.colors, motif
 
-            if os.path.exists(BICOLOR_LOG):
-                os.remove(BICOLOR_LOG)
-            save_config()
+            if os.path.exists(cst.BICOLOR_LOG):
+                os.remove(cst.BICOLOR_LOG)
+            cst.save_config()
             self.destroy()
 
     def _mouse_scroll(self, event):
         """ défilement vertical du canvas grâce à la molette de la souris """
         if self.is_scrollable:
-            self.can.yview_scroll(mouse_wheel(event), "units")
+            self.can.yview_scroll(cst.mouse_wheel(event), "units")
 
     def set_bg(self, event=None, write_log=True, bg=None):
         """ change la color du fond """
         if bg is None:
-            bg = askcolor(self.colors[0], parent=self, title=_("Background Color"))
+            bg = cst.askcolor(self.colors[0], parent=self, title=_("Background Color"))
         if bg:
             if write_log:
                 self._log()
-                with open(BICOLOR_LOG, "a") as log:
+                with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("bg %s %s\n" % (self.colors[0], bg))
             self.colors[0] = bg
-            fill(self.icon_bg, self.colors[0])
+            cst.fill(self.icon_bg, self.colors[0])
             self.b_bg.configure(image=self.icon_bg)
-            fill(self.m_bg, self.colors[0])
+            cst.fill(self.m_bg, self.colors[0])
 
             for i in range(self.row_nb):
                 for c, coul in zip(self.carreaux[i], self.motif[i]):
@@ -1103,16 +1104,16 @@ class Bicolore(Toplevel):
     def set_fg(self, event=None, write_log=True, fg=None):
         """ change la color du motif """
         if fg is None:
-            fg = askcolor(self.colors[1], parent=self, title=_("Foreground Color"))
+            fg = cst.askcolor(self.colors[1], parent=self, title=_("Foreground Color"))
         if fg:
             if write_log:
                 self._log()
-                with open(BICOLOR_LOG, "a") as log:
+                with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("fg %s %s\n" % (self.colors[1], fg))
             self.colors[1] = fg
-            fill(self.icon_fg, self.colors[1])
+            cst.fill(self.icon_fg, self.colors[1])
             self.b_fg.configure(image=self.icon_fg)
-            fill(self.m_fg, self.colors[1])
+            cst.fill(self.m_fg, self.colors[1])
             for i in range(self.row_nb):
                 for c, coul in zip(self.carreaux[i], self.motif[i]):
                     if coul == 1:
@@ -1133,7 +1134,7 @@ class Bicolore(Toplevel):
         self.is_saved = False
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("clic_carreau %i %i\n" % (i, j))
 
     def _carreau(self, x, y, fill=None):
@@ -1155,9 +1156,9 @@ class Bicolore(Toplevel):
                     self.save()
                 if self.master:
                     self.master.focus_set()
-                if os.path.exists(BICOLOR_LOG):
-                    os.remove(BICOLOR_LOG)
-                save_config()
+                if os.path.exists(cst.BICOLOR_LOG):
+                    os.remove(cst.BICOLOR_LOG)
+                cst.save_config()
                 self.destroy()
                 return True
             else:
@@ -1165,9 +1166,9 @@ class Bicolore(Toplevel):
         else:
             if self.master:
                 self.master.focus_set()
-            if os.path.exists(BICOLOR_LOG):
-                os.remove(BICOLOR_LOG)
-            save_config()
+            if os.path.exists(cst.BICOLOR_LOG):
+                os.remove(cst.BICOLOR_LOG)
+            cst.save_config()
             self.destroy()
             return True
 
@@ -1222,7 +1223,7 @@ class Bicolore(Toplevel):
 
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("add_row\n")
 
     def del_row(self, event=None, write_log=True):
@@ -1250,7 +1251,7 @@ class Bicolore(Toplevel):
 
             if write_log:
                 self._log()
-                with open(BICOLOR_LOG, "a") as log:
+                with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("del_row %s\n" % (motif))
 
     def change_string_nb(self, event=None):
@@ -1306,7 +1307,7 @@ class Bicolore(Toplevel):
 
         if write_log:
             self._log()
-            with open(BICOLOR_LOG, "a") as log:
+            with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("add_string\n")
 
     def del_string(self, event=None, write_log=True):
@@ -1330,7 +1331,7 @@ class Bicolore(Toplevel):
 
             if write_log:
                 self._log()
-                with open(BICOLOR_LOG, "a") as log:
+                with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("del_string %s\n" % (motif))
 
     def get_result(self):
