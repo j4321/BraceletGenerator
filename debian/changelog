@@ -3,6 +3,7 @@ bracelet-generator (1.4.1-1) unstable; urgency=low
    * New feature: update checker
    * Bug correction: log not removed when app crashes
    * Bug correction: app was not runnable locally on linux
+   * Bug correction: save button not disabled when new bracelet started
 
  -- Juliette Monsel <j_4321@protonmail.com>  Sat, 14 Jan 2017 17:57:54 +0100
  

@@ -38,6 +38,9 @@ try:
 finally:  # remove logs even if the app crashed to avoid accumulation
     try:
         os.remove(BRACELET_LOG)
+    except FileNotFoundError:
+        pass
+    try:
         os.remove(BICOLOR_LOG)
     except FileNotFoundError:
         pass

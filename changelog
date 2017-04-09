@@ -9,10 +9,11 @@ Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
             - Update checker
 
-        2. Bug correction
+        2. Bug corrections
 
-            - Log not removed when app crashes
             - App was not runnable locally on linux
+            - Save button not disabled when new bracelet started
+            - Changed symmetrize icons for license reason
 
     - Version 1.4.0
 
@@ -22,8 +23,8 @@ Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
         2. Bug correction
 
-            - mouse-scrolling in Windows
-            - mouse button bindings in OS X
+            - Mouse-scrolling in Windows
+            - Mouse button bindings in OS X
             - Added script to add Ghostscript path to the system path variable
               in Windows because PIL cannot always find it.
 

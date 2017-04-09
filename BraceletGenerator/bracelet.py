@@ -35,6 +35,7 @@ from BraceletGenerator.noeud import Noeud
 from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
 from BraceletGenerator.about import About
+from BraceletGenerator.version_check import UpdateChecker
 
 
 class Bracelet(Tk):
@@ -61,10 +62,16 @@ class Bracelet(Tk):
         self.style = Style(self)
         self.style.theme_use(cst.STYLE)
         self.style.configure('TButton', background=cst.BG_COLOR)
+        self.style.configure('TCheckbutton', background=cst.BG_COLOR)
         self.style.configure('TLabel', background=cst.BG_COLOR)
         self.style.configure('TFrame', background=cst.BG_COLOR)
         self.style.configure('flat.TButton', relief="flat",
                              background=cst.BG_COLOR)
+        self.style.map('flat.TButton',
+                       background=[("disabled", cst.BG_COLOR),
+                                   ("active", "!disabled",
+                                    self.style.lookup("TButton", "background",
+                                                      state=("active", "!disabled")))])
         self.style.configure("test.TButton", padding=2)
 
         ### menu
@@ -194,6 +201,10 @@ class Bracelet(Tk):
         self.menu_help.add_command(label=_("Online Help"), image=self.m_help,
                                    command=cst.help_web, compound="left",
                                    accelerator="Ctrl+F1")
+        self.menu_help.add_separator()
+        self.menu_help.add_command(label=_("Check for updates"),
+                                   command=lambda: UpdateChecker(self))
+        self.menu_help.add_separator()
         self.menu_help.add_command(label=_("About"), image=self.m_about,
                                    command=self.about, compound="left")
 
@@ -357,6 +368,10 @@ class Bracelet(Tk):
         else:
             self.path_save = ""  # saved pattern path
 
+        ### Update check
+        if cst.CONFIG.getboolean("General", "check_update"):
+            UpdateChecker(self)
+
     def __setattr__(self, name, value):
         """ gestion de la modification attributs, en particulier
             les nombres de fils et de lignes ainsi que la sauvegarde """
@@ -370,6 +385,10 @@ class Bracelet(Tk):
             dico = {"True":"disabled", "False":"normal"}
             self.save_button.configure(state=dico[str(value)])
             self.menu_file.entryconfigure(5, state=dico[str(value)])
+        elif name == "path_save":
+            if not value:
+                self.save_button.configure(state="disabled")
+                self.menu_file.entryconfigure(5, state="disabled")
 
         object.__setattr__(self, name, value)
 

@@ -22,8 +22,8 @@ Window displaying the information about the software
 """
 
 from tkinter import Text, Toplevel
-from tkinter.ttk import Button, Label, Style
-from BraceletGenerator.constantes import open_image, BG_COLOR, STYLE, VERSION, IM_ICON48, set_icon, webOpen
+from tkinter.ttk import Button, Label
+from BraceletGenerator.constantes import open_image, BG_COLOR, VERSION, IM_ICON48, set_icon, webOpen
 
 
 class About(Toplevel):
@@ -40,10 +40,6 @@ class About(Toplevel):
 
         set_icon(self)
 
-        self.style = Style(self)
-        self.style.theme_use(STYLE)
-        self.style.configure('TButton', background=BG_COLOR)
-        self.style.configure('TLabel', background=BG_COLOR)
         self.image = open_image(file=IM_ICON48, master=self)
         Label(self, image=self.image).grid(row=0, columnspan=2, pady=10)
 
@@ -84,10 +80,6 @@ class About(Toplevel):
         fen.grab_set()
         fen.configure(bg=BG_COLOR)
         set_icon(fen)
-        style = Style(fen)
-        style.theme_use(STYLE)
-        style.configure('TButton', background=BG_COLOR)
-        style.configure('TLabel', background=BG_COLOR)
 
         texte = Text(fen, width=50, height=18)
         texte.pack()

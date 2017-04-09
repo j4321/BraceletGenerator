@@ -21,8 +21,8 @@ Color management dialog
 """
 
 from tkinter import Toplevel, Canvas, PhotoImage
-from tkinter.ttk import Button, Label, Style, Separator, Frame
-from BraceletGenerator.constantes import BG_COLOR, STYLE, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, LANG
+from tkinter.ttk import Button, Label, Separator, Frame
+from BraceletGenerator.constantes import BG_COLOR, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, LANG
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
 class Couleurs(Toplevel):
@@ -53,13 +53,6 @@ class Couleurs(Toplevel):
 
         # Icône
         set_icon(self)
-
-        ### Style
-        style = Style(self)
-        style.theme_use(STYLE)
-        style.configure('TButton', background=BG_COLOR)
-        style.configure('TLabel', background=BG_COLOR)
-        style.configure('TFrame', background=BG_COLOR)
 
         ### Contenu :
         self.can = Canvas(self,bg=BG_COLOR) # pour utiliser une scrollbar

@@ -29,7 +29,8 @@ from html.parser import HTMLParser
 from webbrowser import open as webOpen
 from tkinter import Toplevel, PhotoImage
 from tkinter.ttk import Label, Button, Frame, Checkbutton
-from BraceletGenerator.constants import VERSION, CONFIG, save_config, IM_QUESTION_DATA
+from BraceletGenerator.constantes import VERSION, CONFIG, save_config
+from BraceletGenerator.constantes import BG_COLOR, IM_QUESTION_DATA
 
 
 class VersionParser(HTMLParser):
@@ -66,26 +67,27 @@ class UpdateChecker(Toplevel):
         self.columnconfigure(1, weight=1)
         self.protocol("WM_DELETE_WINDOW", self.quit)
 
+        self.configure(background=BG_COLOR)
+
         self.img = PhotoImage(data=IM_QUESTION_DATA, master=self)
 
         frame = Frame(self)
         frame.grid(row=0, columnspan=2, sticky="ewsn")
         Label(frame, image=self.img).pack(side="left", padx=(10, 4), pady=(10, 4))
         Label(frame,
-              text=_("A new version of Bracelet Generator is available.\
-\nDo you want to download it?"),
+              text=_("A new version of Bracelet Generator is available. Do you want to download it?"),
               font="TkDefaultFont 10 bold",
               wraplength=335).pack(side="left", padx=(4, 10), pady=(10, 4))
 
         self.b1 = Button(self, text=_("Yes"), command=self.download)
         self.b1.grid(row=1, column=0, padx=10, pady=10, sticky="e")
         Button(self, text=_("No"), command=self.quit).grid(row=1, column=1,
-                                                              padx=10, pady=10,
-                                                              sticky="w")
+                                                           padx=10, pady=10,
+                                                           sticky="w")
         self.ch = Checkbutton(self, text=_("Check for updates on startup."))
         if CONFIG.getboolean("General", "check_update"):
             self.ch.state(("selected", ))
-        self.ch.grid(row=2, columnspan=2, sticky='w')
+        self.ch.grid(row=2, columnspan=2, sticky='e')
         self.update = None
 
         self.thread = Thread(target=self.update_available, daemon=True)

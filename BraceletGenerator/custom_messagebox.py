@@ -22,15 +22,16 @@ Custom tkinter messageboxes
 """
 
 
-from tkinter import Toplevel, BooleanVar, Tk
-from tkinter.ttk import Label, Button, Style, Checkbutton
+from tkinter import BooleanVar, Tk, PhotoImage, TclError
+from tkinter.ttk import Label, Button, Checkbutton, Style
+from BraceletGenerator.constantes import STYLE
 
 class OBCheckbutton(Tk):
     """ Messagebox with only one button and a checkbox below the button
         for instance to add a 'Do not show this again' option """
 
     def __init__(self, title="", message="", button="Ok", image=None,
-                 checkmessage="", style="clam", **options):
+                 checkmessage="", **options):
         """
             Create a messagebox with one button and a checkbox below the button:
                 parent: parent of the toplevel window
@@ -44,28 +45,38 @@ class OBCheckbutton(Tk):
         Tk.__init__(self, **options)
         self.title(title)
         self.resizable(False, False)
-        s = Style(self)
-        s.theme_use(style)
-        if image:
-            Label(self, text=message, wraplength=335,
-                  font="Sans 11", compound="left", image=image).grid(row=0, padx=10, pady=(10,0))
-        else:
-            Label(self, text=message, wraplength=335,
-                  font="Sans 11").grid(row=0, padx=10, pady=(10,0))
+        self.columnconfigure(1, weight=1)
+        self.rowconfigure(0, weight=1)
+
+        style = Style(self)
+        style.theme_use(STYLE)
+        self.img = None
+        if isinstance(image, str):
+            try:
+                self.img = PhotoImage(file=image)
+            except TclError:
+                self.img = PhotoImage(data=image)
+        elif image:
+            self.img = image
+        if self.img:
+            Label(self, image=self.img).grid(row=0, column=0, padx=10, pady=(10,0))
+        Label(self, text=message, wraplength=335,
+              font="TkDefaultFont 10 bold").grid(row=0, column=1,
+                                                 padx=10, pady=(10,0))
         b = Button(self, text=button, command=self.destroy)
-        b.grid(row=2, padx=10, pady=10)
+        b.grid(row=2, padx=10, pady=10, columnspan=2)
         self.var = BooleanVar(self)
         c = Checkbutton(self, text=checkmessage, variable=self.var)
-        c.grid(row=1, padx=10, pady=0, sticky="e")
+        c.grid(row=1, padx=10, pady=4, sticky="e", columnspan=2)
         self.grab_set()
         b.focus_set()
-        self.wait_window(self)
 
     def get_check(self):
         return self.var.get()
 
 def ob_checkbutton(title="", message="", button="Ok", image=None,
-                   checkmessage="", style="clam", **options):
+                   checkmessage="", **options):
     """ Open a OBCheckbutton and return the value of the checkbutton when closed. """
-    ob = OBCheckbutton(title, message, button, image, checkmessage, style, **options)
+    ob = OBCheckbutton(title, message, button, image, checkmessage, **options)
+    ob.wait_window(ob)
     return ob.get_check()

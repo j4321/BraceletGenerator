@@ -68,11 +68,11 @@ class Bicolore(Toplevel):
         self.log_nb_ligne = 2  # nombre de lignes du fichier log
 
         # style
-        style = Style(self)
-        style.theme_use(cst.STYLE)
-        style.configure('TButton', background=cst.BG_COLOR)
-        style.configure('TLabel', background=cst.BG_COLOR)
-        style.configure('TFrame', background=cst.BG_COLOR)
+#        style = Style(self)
+#        style.theme_use(cst.STYLE)
+#        style.configure('TButton', background=cst.BG_COLOR)
+#        style.configure('TLabel', background=cst.BG_COLOR)
+#        style.configure('TFrame', background=cst.BG_COLOR)
 
         # menu
         self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
