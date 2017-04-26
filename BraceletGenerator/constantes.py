@@ -490,6 +490,9 @@ def askcolor(color=None, **options):
                 if color[0] == "#":
                     if len(color) == 13:
                         color = "#%s%s%s"  % (color[1:3], color[5:7], color[9:11])
+                elif color[:4] == "rgba":
+                    color = color[5:-1].split(",")
+                    color = '#%02x%02x%02x' % (int(color[0]), int(color[1]), int(color[2]))
                 elif color[:3] == "rgb":
                     color = color[4:-1].split(",")
                     color = '#%02x%02x%02x' % (int(color[0]), int(color[1]), int(color[2]))
