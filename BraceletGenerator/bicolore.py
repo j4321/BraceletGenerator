@@ -55,7 +55,7 @@ class Bicolore(Toplevel):
 
         self.height_max = self.winfo_screenheight() - 180
         self.width_max = self.winfo_screenwidth() - 50
-        self.minsize(width=410, height=285)
+        self.minsize(width=370, height=285)
         self.maxsize(width=self.winfo_screenwidth(),
                      height=self.winfo_screenheight())
         self.protocol("WM_DELETE_WINDOW", self.exit)
@@ -417,10 +417,9 @@ class Bicolore(Toplevel):
         self.can.configure(xscrollcommand=self.scroll_horiz.set)
         self.scroll_vert.grid(row=1, column=1, sticky="ns")
         self.scroll_horiz.grid(row=2, sticky="ew")
-        self.is_scrollable = True
         self._init_canvas()
 
-        # keybindings
+        ### keybindings
         self.bind("<Control-o>", self.open)
         self.bind("<Control-q>", self.exit)
         self.bind("<Control-s>", self.save)
@@ -465,6 +464,7 @@ class Bicolore(Toplevel):
 
         for key in cst.MOUSEWHEEL:
             self.bind(key, self._mouse_scroll)
+        self.can.bind("<Configure>", self._on_configure)
 
         self.row_nb_entry.bind("<Return>", self.change_row_nb)
         self.row_nb_entry.bind("<FocusOut>", self.change_row_nb)
@@ -488,6 +488,19 @@ class Bicolore(Toplevel):
     def about(self):
         """ ouvre la fenêtre 'à propos de Bracelet Generator' """
         About(self)
+
+    def _on_configure(self, event):
+        h = self.can.winfo_height()
+        bbox = self.can.bbox("all")
+
+        if h > bbox[3] - bbox[1] + 20:
+            y2 = bbox[1] - 14 + h
+        else:
+            y2 = bbox[3] + 10
+        self.can.configure(scrollregion=[bbox[0] - 10,
+                                         bbox[1] - 10,
+                                         bbox[2] + 10,
+                                         y2])
 
     def _init_canvas(self):
         """ création du contenu de la fenêtre """
@@ -656,8 +669,9 @@ class Bicolore(Toplevel):
 
         for i in range(self.row_nb):
             for j in range(len(self.carreaux[i])):
-                self.can.itemconfig(self.carreaux[i][j],
-                                    fill=self.colors[self.motif[i][j]])
+                col = self.colors[self.motif[i][j]]
+                self.can.itemconfig(self.carreaux[i][j], fill=col,
+                                    activefill=cst.active_color(col))
         if write_log:
             self._log()
             with open(cst.BICOLOR_LOG, "a") as log:
@@ -928,6 +942,7 @@ class Bicolore(Toplevel):
             for i in range(self.row_nb):
                 for j in range(len(self.carreaux[i])):
                     self.can.itemconfig(self.carreaux[i][j],
+                                        activefill=cst.active_color(self.colors[0]),
                                         fill=self.colors[0])
                     self.motif[i][j] = 0
         self._logreset()
@@ -1105,8 +1120,7 @@ class Bicolore(Toplevel):
 
     def _mouse_scroll(self, event):
         """ défilement vertical du canvas grâce à la molette de la souris """
-        if self.is_scrollable:
-            self.can.yview_scroll(cst.mouse_wheel(event), "units")
+        self.can.yview_scroll(cst.mouse_wheel(event), "units")
 
     def set_bg(self, event=None, write_log=True, bg=None):
         """ change la color du fond """
@@ -1246,12 +1260,13 @@ class Bicolore(Toplevel):
                                                   self.colors[coul]))
             self.motif[i].append(coul)
             self._attribue_carreau(i, j)
-        h = 50 + (self.row_nb//2)*40
+        bbox = self.can.bbox('all')
+        h = bbox[3] - bbox[1] + 20
         self.can.config(height=min(h, self.height_max),
-                        scrollregion=[self.can.bbox('all')[0] - 10,
-                                      self.can.bbox('all')[1] - 10,
-                                      self.can.bbox('all')[2] + 10,
-                                      self.can.bbox('all')[3] + 10])
+                        scrollregion=[bbox[0] - 10,
+                                      bbox[1] - 10,
+                                      bbox[2] + 10,
+                                      bbox[3] + 10])
         self.is_saved = False
 
         if write_log:
@@ -1274,12 +1289,13 @@ class Bicolore(Toplevel):
             self.carreaux = self.carreaux[:-2]
             self.motif = self.motif[:-2]
             self.row_nb -= 2
-            h = 50 + (self.row_nb//2)*40
-            self.can.configure(height=min(h, self.height_max),
-                               scrollregion=[self.can.bbox('all')[0] - 10,
-                                             self.can.bbox('all')[1] - 10,
-                                             self.can.bbox('all')[2] + 10,
-                                             self.can.bbox('all')[3] + 10])
+            bbox = self.can.bbox('all')
+            h = bbox[3] - bbox[1] + 20
+            self.can.config(height=min(h, self.height_max),
+                            scrollregion=[bbox[0] - 10,
+                                          bbox[1] - 10,
+                                          bbox[2] + 10,
+                                          bbox[3] + 10])
             self.is_saved = False
 
             if write_log:
@@ -1329,12 +1345,13 @@ class Bicolore(Toplevel):
                                                       self.colors[coul]))
                 self.motif[i].append(coul)
                 self._attribue_carreau(i, nb)
-        w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
+        bbox = self.can.bbox('all')
+        w = bbox[2] - bbox[0] + 20
         self.can.configure(width=min(self.width_max, w),
-                           scrollregion=[self.can.bbox('all')[0] - 10,
-                                         self.can.bbox('all')[1] - 10,
-                                         self.can.bbox('all')[2] + 10,
-                                         self.can.bbox('all')[3] + 10])
+                           scrollregion=[bbox[0] - 10,
+                                         bbox[1] - 10,
+                                         bbox[2] + 10,
+                                         bbox[3] + 10])
 
         self.is_saved = False
 
@@ -1353,12 +1370,13 @@ class Bicolore(Toplevel):
                 self.can.delete(self.carreaux[i][-1])
                 self.carreaux[i] = self.carreaux[i][:-1]
                 self.motif[i] = self.motif[i][:-1]
-            w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
+            bbox = self.can.bbox('all')
+            w = bbox[2] - bbox[0] + 20
             self.can.configure(width=min(self.width_max, w),
-                               scrollregion=[self.can.bbox('all')[0] - 10,
-                                             self.can.bbox('all')[1] - 10,
-                                             self.can.bbox('all')[2] + 10,
-                                             self.can.bbox('all')[3] + 10])
+                               scrollregion=[bbox[0] - 10,
+                                             bbox[1] - 10,
+                                             bbox[2] + 10,
+                                             bbox[3] + 10])
 
             self.is_saved = False
 

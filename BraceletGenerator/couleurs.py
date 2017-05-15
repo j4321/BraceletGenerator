@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
 Color management dialog
 """
 
@@ -41,8 +42,8 @@ class Couleurs(Toplevel):
         self.transient(master)
         self.grab_set()
         self.configure(bg=BG_COLOR)
-        self.rowconfigure(0,weight=1)
-        self.columnconfigure(0,weight=1)
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
         self.protocol("WM_DELETE_WINDOW", self._quitter)
 
         g, x, y = self.master.geometry().split("+")
@@ -55,8 +56,15 @@ class Couleurs(Toplevel):
         set_icon(self)
 
         ### Contenu :
-        self.can = Canvas(self,bg=BG_COLOR) # pour utiliser une scrollbar
-        self.can.grid(row=0, column=0, sticky="nswe")
+        self.can = Canvas(self, bg=BG_COLOR) # pour utiliser une scrollbar
+        self.can.grid(row=0, column=0, sticky="nsew")
+
+        fen = Frame(self)
+        fen.columnconfigure(0, weight=2)
+        fen.columnconfigure(1, weight=1)
+        fen.columnconfigure(2, weight=1)
+
+        id_fen = self.can.create_window(0, 0, window=fen, anchor="nw")
 
         self.scroll_vert = Scrollbar(self, command=self.can.yview,
                                      orient="vertical")
@@ -64,10 +72,6 @@ class Couleurs(Toplevel):
         self.can.configure(yscrollcommand=self.scroll_vert.set)
 
         self.scroll_vert.grid(row=0, column=1, sticky="ns")
-        self.is_scrollable = True
-
-        fen = Frame(self)
-        self.can.create_window(0, 0, window=fen, anchor="nw")
 
         ### Couleur par défaut
         Label(fen, text=_("Default color")).grid(row=2, column=0, padx=6,
@@ -103,24 +107,26 @@ class Couleurs(Toplevel):
         Button(fen, text="Ok",
                command=self.valide).grid(row=5+len(colors), pady=4,
                                          column=0, columnspan=3)
-        self.update()
+        self.update_idletasks()
         bbox = self.can.bbox("all")
-        self.can.configure(width=bbox[2], height=min(self.winfo_screenheight() - 180, bbox[3]), scrollregion=bbox)
+        self.can.itemconfigure(id_fen, width=bbox[2])
+        self.can.configure(width=bbox[2],
+                           height=min(self.winfo_screenheight() - 180, bbox[3]),
+                           scrollregion=bbox)
 
         # mouse scroll
         for key in MOUSEWHEEL:
-            self.can.bind_all(key, self._mouse_scroll)
+            self.bind(key, self._mouse_scroll)
 
     def _mouse_scroll(self, event):
         """ utilisation de la molette de la souris pour faire défiler
             verticalement le canvas """
-        if self.is_scrollable:
-            self.can.yview_scroll(mouse_wheel(event), "units")
+        self.can.yview_scroll(mouse_wheel(event), "units")
 
     def change_color(self, button):
         image = button.image
         c_coul = "#%02x%02x%02x" % image.get(0,0)
-        n_coul = askcolor(c_coul, master=self)
+        n_coul = askcolor(c_coul, parent=self)
         if n_coul:
             fill(image, n_coul)
             # otherwise the image is not refreshed in windows unless the button takes focus
@@ -137,3 +143,4 @@ class Couleurs(Toplevel):
 
     def get_result(self):
         return self.result
+

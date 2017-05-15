@@ -310,9 +310,9 @@ def active_color(color):
     r = int(color[1:3], 16)
     g = int(color[3:5], 16)
     b = int(color[5:], 16)
-    r += (255 - r)*0.4
-    g += (255 - g)*0.4
-    b += (255 - b)*0.4
+    r += (255 - r)/3
+    g += (255 - g)/3
+    b += (255 - b)/3
     return ("#%2.2x%2.2x%2.2x" % (round(r), round(g), round(b))).upper()
 
 def fill(image, color):
@@ -390,6 +390,17 @@ def set_icon(fen):
 
 ### filebrowser
 ZENITY = False
+
+try:
+    import tkFileBrowser as tkfb
+except ImportError:
+    tkfb = False
+
+try:
+    import tkColorPicker as tkcp
+except ImportError:
+    tkcp = False
+
 if PL != "nt":
     paths = os.environ['PATH'].split(":")
     for path in paths:
@@ -402,7 +413,14 @@ def askopenfilename(defaultextension, filetypes, initialdir, initialfile="", tit
             - initialdir: directory where the filebrowser is opened
             - filetypes: [('NOM', '*.ext'), ...]
     """
-    if ZENITY:
+    if tkfb:
+        return tkfb.askopenfilename(title=title,
+                                    defaultext=defaultextension,
+                                    filetypes=filetypes,
+                                    initialdir=initialdir,
+                                    initialfile=initialfile,
+                                    **options)
+    elif ZENITY:
         try:
             args = ["zenity", "--file-selection",
                     "--filename", os.path.join(initialdir, initialfile)]
@@ -437,7 +455,14 @@ def asksaveasfilename(defaultextension, filetypes, initialdir=".", initialfile="
             - initialdir: directory where the filebrowser is opened
             - filetypes: [('NOM', '*.ext'), ...]
     """
-    if ZENITY:
+    if tkfb:
+        return tkfb.asksaveasfilename(title=title,
+                                      defaultext=defaultextension,
+                                      initialdir=initialdir,
+                                      filetypes=filetypes,
+                                      initialfile=initialfile,
+                                      **options)
+    elif ZENITY:
         try:
             args = ["zenity", "--file-selection",
                     "--filename", os.path.join(initialdir, initialfile),
@@ -457,11 +482,11 @@ def asksaveasfilename(defaultextension, filetypes, initialdir=".", initialfile="
             return ""
         except Exception:
             return filedialog.asksaveasfilename(title=title,
-                                            defaultextension=defaultextension,
-                                            initialdir=initialdir,
-                                            filetypes=filetypes,
-                                            initialfile=initialfile,
-                                            **options)
+                                                defaultextension=defaultextension,
+                                                initialdir=initialdir,
+                                                filetypes=filetypes,
+                                                initialfile=initialfile,
+                                                **options)
     else:
         return filedialog.asksaveasfilename(title=title,
                                             defaultextension=defaultextension,
@@ -473,7 +498,13 @@ def asksaveasfilename(defaultextension, filetypes, initialdir=".", initialfile="
 def askcolor(color=None, **options):
     """ plateform specific color chooser
         return the chose color in #rrggbb format """
-    if ZENITY:
+    if tkcp:
+        color = tkcp.askcolor(color, **options)
+        if color:
+            return color[1]
+        else:
+            return None
+    elif ZENITY:
         try:
             args = ["zenity", "--color-selection", "--show-palette"]
             if "title" in options:
@@ -495,7 +526,7 @@ def askcolor(color=None, **options):
                     raise TypeError("Color formatting not understood.")
             return color
         except CalledProcessError:
-            return ""
+            return None
         except Exception:
             color = colorchooser.askcolor(color, **options)
             return color[1]

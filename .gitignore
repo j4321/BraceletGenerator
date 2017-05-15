@@ -5,3 +5,4 @@ build
 *.egg-info
 deb_dist
 .spyproject
+debian

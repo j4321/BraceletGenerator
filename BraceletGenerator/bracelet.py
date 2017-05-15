@@ -50,7 +50,7 @@ class Bracelet(Tk):
         self.title(_("Bracelet Generator"))
         self.config(bg=cst.BG_COLOR)
         cst.set_icon(self)
-        self.minsize(400, 295)
+        self.minsize(330, 295)
         self.maxsize(width=self.winfo_screenwidth(),
                      height=self.winfo_screenheight())
         self.protocol("WM_DELETE_WINDOW", self.exit)
@@ -220,7 +220,7 @@ class Bracelet(Tk):
 
         ### toolbar
         toolbar = Frame(self, height=24)
-        toolbar.grid(row=0, sticky="ewn")
+        toolbar.grid(row=0, sticky="wn")
         self.icon_exit = cst.open_image(master=self, file=cst.IM_EXIT)
         self.icon_export = cst.open_image(master=self, file=cst.IM_EXPORT)
         self.icon_new = cst.open_image(master=self, file=cst.IM_NEW)
@@ -340,7 +340,6 @@ class Bracelet(Tk):
 
         self.scroll_vert.grid(row=1, column=1, sticky="ns")
         self.scroll_horiz.grid(row=2, column=0, sticky="ew")
-        self.is_scrollable = True
 
         ### Raccourcis clavier
         self.bind('<Control-o>', self.open)
@@ -374,6 +373,7 @@ class Bracelet(Tk):
         # faire défiler le canvas à l'aide de la molette de la souris
         for key in cst.MOUSEWHEEL:
             self.bind(key, self._mouse_scroll)
+        self.can.bind("<Configure>", self._on_configure)
 
         self.path_save = fichier
 
@@ -390,6 +390,19 @@ class Bracelet(Tk):
         ### Update check
         if cst.CONFIG.getboolean("General", "check_update"):
             UpdateChecker(self)
+
+    def _on_configure(self, event):
+        h = self.can.winfo_height()
+        bbox = self.can.bbox("all")
+
+        if h > bbox[3] - bbox[1] + 20:
+            y2 = bbox[1] - 16 + h
+        else:
+            y2 = bbox[3] + 10
+        self.can.configure(scrollregion=[bbox[0] - 10,
+                                         bbox[1] - 10,
+                                         bbox[2] + 10,
+                                         y2])
 
     def __setattr__(self, name, value):
         """ gestion de la modification attributs, en particulier
@@ -414,8 +427,7 @@ class Bracelet(Tk):
     def _mouse_scroll(self, event):
         """ utilisation de la molette de la souris pour faire défiler
             verticalement le canvas """
-        if self.is_scrollable:
-            self.can.yview_scroll(cst.mouse_wheel(event), "units")
+        self.can.yview_scroll(cst.mouse_wheel(event), "units")
 
     def _attribue_carre(self, i):
         """ astuce pour réaliser les tag_bind dans une boucle """

@@ -1,14 +1,31 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#! /usr/bin/python3
+# -*- coding:Utf-8 -*-
 """
-Created on Fri May 12 15:51:34 2017
+Bracelet Generator - An easy way to design friendship bracelet patterns
+Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
-@author: juliette
+Bracelet Generator is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Bracelet Generator is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http: //www.gnu.org/licenses/>.
+
+
+Tooltip and TooltipTreeWrapper classes to display the full path of a shortcut
+when the mouse stays over long enough
 """
 
 
-from tkinter import Toplevel, Tk, TclError
+from tkinter import Toplevel
 from tkinter.ttk import Label, Style
+
 
 class Tooltip(Toplevel):
     def __init__(self, parent, **kwargs):
@@ -49,16 +66,19 @@ class Tooltip(Toplevel):
             self.attributes('-alpha', kwargs.pop('alpha'))
         Toplevel.configure(self, **kwargs)
 
+
 class TooltipWrapper:
     def __init__(self, widget, **kwargs):
         self.widget = widget
+
+        # delay before showing tooltip
         if 'delay' in kwargs:
             self.delay = kwargs.pop('delay')
         else:
             self.delay = 1000
-        self.kwargs = kwargs.copy()
+
         self._timer_id = None
-        self.tooltip = Tooltip(self.widget, **self.kwargs)
+        self.tooltip = Tooltip(self.widget, **kwargs)
         self.tooltip.withdraw()
 
         self.widget.bind('<Enter>', self._on_enter)
