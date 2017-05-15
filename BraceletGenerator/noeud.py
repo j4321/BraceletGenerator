@@ -106,8 +106,12 @@ class Noeud:
                                           self.y + 30,
                                           fill=self.color[self.fil_noeud],
                                           activefill=active_color(self.color[self.fil_noeud]))
-        self.image = [self.can.create_line(l, width=2, joinstyle="miter")
+        self.image = [self.can.create_line(l, width=2, joinstyle="miter", tags="noeud%i" % self.noeud)
                       for l in self.fleches[self.g_out][self.fil_noeud]]
+        self.can.tag_bind("noeud%i" % self.noeud, '<Enter>',
+                          lambda e: self.can.itemconfigure(self.noeud, fill=active_color(self.color[self.fil_noeud])))
+        self.can.tag_bind("noeud%i" % self.noeud, '<Leave>',
+                          lambda e: self.can.itemconfigure(self.noeud, fill=self.color[self.fil_noeud]))
 
         self._bord()
 

@@ -311,7 +311,7 @@ class Bicolore(Toplevel):
         b_gen.grid(column=2, row=0)
         b_eff = Button(toolbar, image=self.icon_efface, command=self.clear,
                        style='flat.TButton')
-        TooltipWrapper(b_eff, text=("Clear"))
+        TooltipWrapper(b_eff, text=_("Clear"))
         b_eff.grid(column=3, row=0)
         b_move = Button(toolbar, image=self.icon_move,
                         command=self.shift_motif, style='flat.TButton')
@@ -350,7 +350,7 @@ class Bicolore(Toplevel):
 
         ### toolbar2
         toolbar2 = Frame(motif_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="we", pady=(4,1))
+        toolbar2.grid(row=0, column=0, sticky="we", pady=(8,4))
 
         self.icon_plus = cst.open_image(file=cst.IM_PLUS, master=self)
         self.icon_moins = cst.open_image(file=cst.IM_MOINS, master=self)
@@ -361,33 +361,42 @@ class Bicolore(Toplevel):
 
         self.b_bg = Button(toolbar2, image=self.icon_bg,
                            command=self.set_bg, style='pm.TButton')
-        self.b_bg.grid(row=0, column=0, pady=4, padx=2)
+        TooltipWrapper(self.b_bg, text=_("Background Color"))
+        self.b_bg.grid(row=0, column=0, padx=(5,2))
         self.b_fg = Button(toolbar2, image=self.icon_fg,
                            command=self.set_fg, style='pm.TButton')
-        self.b_fg.grid(row=0, column=1, pady=4, padx=2)
+        TooltipWrapper(self.b_fg, text=_("Foreground Color"))
+        self.b_fg.grid(row=0, column=1,  padx=2)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=2,
                                                sticky="ewsn", padx=(5,0))
         self.row_nb_entry = Entry(toolbar2, width=3,
                                    validatecommand=(self._okfct, '%d', '%S'),
                                    validate='key', justify="center")
-        self.row_nb_entry.grid(row=0, column=3, sticky="w", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus, style='pm.TButton',
-               command=self.add_row).grid(row=0, column=4, padx=2,
-                                                  pady=4)
-        Button(toolbar2, image=self.icon_moins, style='pm.TButton',
-               command=self.del_row).grid(row=0, column=5, pady=4, padx=2)
+        self.row_nb_entry.grid(row=0, column=3, sticky="nsw", padx=(0,5))
+        b_pl = Button(toolbar2, image=self.icon_plus, style='pm.TButton',
+                      command=self.add_row)
+        TooltipWrapper(b_pl, text=_("Add Row"))
+        b_pl.grid(row=0, column=4, padx=2)
+        b_ml = Button(toolbar2, image=self.icon_moins, style='pm.TButton',
+                      command=self.del_row)
+        TooltipWrapper(b_ml, text=_("Delete Row"))
+        b_ml.grid(row=0, column=5, padx=2)
 
         Label(toolbar2, text=_("Strings: ")).grid(row=0, column=6,
                                                   sticky="ewsn", padx=5)
         self.string_nb_entry = Entry(toolbar2, width=3,
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
-        self.string_nb_entry.grid(row=0, column=7, sticky="e", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus, style='pm.TButton',
-               command=self.add_string).grid(row=0, column=8, pady=2, padx=2)
-        Button(toolbar2, image=self.icon_moins, style='pm.TButton',
-               command=self.del_string).grid(row=0, column=9, pady=2, padx=2)
+        self.string_nb_entry.grid(row=0, column=7, sticky="nse", padx=(0,5))
+        b_pf = Button(toolbar2, image=self.icon_plus, style='pm.TButton',
+                      command=self.add_string)
+        TooltipWrapper(b_pf, text=_("Add String"))
+        b_pf.grid(row=0, column=8, padx=2)
+        b_mf = Button(toolbar2, image=self.icon_moins, style='pm.TButton',
+                      command=self.del_string)
+        TooltipWrapper(b_mf, text=_("Delete String"))
+        b_mf.grid(row=0, column=9, padx=2)
 
         # configuration du motif
         self.row_nb = row_nb
@@ -399,7 +408,7 @@ class Bicolore(Toplevel):
                           bg=cst.CANVAS_COLOR, highlightthickness=0,
                           width=min(self.width_max, w),
                           height=min(self.row_nb*22 + 20, self.height_max))
-        self.can.grid(row=1, column=0, sticky="wens")
+        self.can.grid(row=1, column=0, sticky="wens", padx=1, pady=1)
         self.scroll_vert = Scrollbar(motif_frame, command=self.can.yview,
                                      orient="vertical")
         self.scroll_horiz = Scrollbar(motif_frame, command=self.can.xview,
@@ -1109,6 +1118,7 @@ class Bicolore(Toplevel):
                 with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("bg %s %s\n" % (self.colors[0], bg))
             self.colors[0] = bg
+            activebg = cst.active_color(bg)
             cst.fill(self.icon_bg, self.colors[0])
             self.b_bg.configure(image=self.icon_bg)
             cst.fill(self.m_bg, self.colors[0])
@@ -1116,7 +1126,7 @@ class Bicolore(Toplevel):
             for i in range(self.row_nb):
                 for c, coul in zip(self.carreaux[i], self.motif[i]):
                     if coul == 0:
-                        self.can.itemconfig(c, fill=self.colors[0])
+                        self.can.itemconfig(c, fill=bg, activefill=activebg)
             self.is_saved = False
 
     def set_fg(self, event=None, write_log=True, fg=None):
@@ -1129,13 +1139,14 @@ class Bicolore(Toplevel):
                 with open(cst.BICOLOR_LOG, "a") as log:
                     log.write("fg %s %s\n" % (self.colors[1], fg))
             self.colors[1] = fg
+            activefg = cst.active_color(fg)
             cst.fill(self.icon_fg, self.colors[1])
             self.b_fg.configure(image=self.icon_fg)
             cst.fill(self.m_fg, self.colors[1])
             for i in range(self.row_nb):
                 for c, coul in zip(self.carreaux[i], self.motif[i]):
                     if coul == 1:
-                        self.can.itemconfig(c, fill=self.colors[1])
+                        self.can.itemconfig(c, fill=fg, activefill=activefg)
             self.is_saved = False
 
     def _attribue_carreau(self, i, j):
@@ -1147,7 +1158,9 @@ class Bicolore(Toplevel):
         """ action lorsqu'on clique sur un carreau: changement de sa color"""
         self.focus_set()
         color = (self.motif[i][j] + 1) % 2
-        self.can.itemconfig(self.carreaux[i][j], fill=self.colors[color])
+        fill = self.colors[color]
+        self.can.itemconfig(self.carreaux[i][j], fill=fill,
+                            activefill=cst.active_color(fill))
         self.motif[i][j] = color
         self.is_saved = False
         if write_log:
@@ -1161,7 +1174,9 @@ class Bicolore(Toplevel):
         if fill is None:
             fill = self.colors[0]
         return self.can.create_polygon(x, y - 20, x + 20, y, x, y + 20,
-                                       x - 20, y, fill=fill, outline='black')
+                                       x - 20, y, fill=fill,
+                                       activefill=cst.active_color(fill),
+                                       outline='black')
 
     def exit(self, event=None):
         """ demande si l'on veut enregistrer et quitte """

@@ -49,6 +49,7 @@ import gettext
 from configparser import ConfigParser
 from webbrowser import open as webOpen
 from subprocess import  check_output, CalledProcessError
+from colorsys import hsv_to_rgb, rgb_to_hsv
 
 PL = os.name
 
@@ -284,41 +285,35 @@ else:
     CANVAS_COLOR = '#E8E8E8'
 
 
+def hsv_to_html(h, s, v):
+   r, g, b = hsv_to_rgb(h/360, s/100, v/100)
+   r, g, b = round(r*255), round(g*255), round(b*255)
+   return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+
+def html_to_hsv(color):
+    r = int(color[1:3], 16)
+    g = int(color[3:5], 16)
+    b = int(color[5:], 16)
+    h, s, v = rgb_to_hsv(r/255, g/255, b/255)
+    return round(h*360), round(s*100), round(v*100)
+
+def rgb_to_html(r, g, b):
+   return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+
+def html_to_rgb(color):
+    r = int(color[1:3], 16)
+    g = int(color[3:5], 16)
+    b = int(color[5:], 16)
+    return r, g, b
+
 def active_color(color):
-    """ pâlit la color (en format hexadécimal "#000000") """
-    coul = color[1:]
-    rouge = int(coul[:2], 16)
-    vert = int(coul[2:4], 16)
-    bleu = int(coul[4:], 16)
-    if bleu > rouge:
-        rouge2 = min(rouge + 40, 255)
-        if bleu > vert:
-            vert2 = min(vert + 40, 255)
-            bleu2 = bleu
-        else:
-            bleu2 = min(bleu + 40, 255)
-            vert2 = vert
-    elif rouge > bleu:
-        bleu2 = min(bleu + 40, 255)
-        if rouge > vert:
-            vert2 = min(vert + 40, 255)
-            rouge2 = rouge
-        else:
-            rouge2 = min(rouge + 40, 255)
-            vert2 = vert
-    elif vert > bleu:
-        vert2 = vert
-        bleu2 = min(bleu + 40, 255)
-        rouge2 = min(rouge + 40, 255)
-    elif vert < bleu:
-        vert2 = min(vert + 40, 255)
-        bleu2 = bleu
-        rouge2 = min(rouge + 40, 255)
-    else:  # rouge = vert = bleu
-        rouge2 = min(rouge + 40, 255)
-        vert2 = rouge2
-        bleu2 = rouge2
-    return "#" + hex(rouge2)[2:] + hex(vert2)[2:] + hex(bleu2)[2:]
+    r = int(color[1:3], 16)
+    g = int(color[3:5], 16)
+    b = int(color[5:], 16)
+    r += (255 - r)*0.4
+    g += (255 - g)*0.4
+    b += (255 - b)*0.4
+    return ("#%2.2x%2.2x%2.2x" % (round(r), round(g), round(b))).upper()
 
 def fill(image, color):
      """Fill image with a color=#hex."""

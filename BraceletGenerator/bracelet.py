@@ -277,7 +277,7 @@ class Bracelet(Tk):
 
         ### toolbar2
         toolbar2 = Frame(pattern_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="ew", pady=(4,0))
+        toolbar2.grid(row=0, column=0, sticky="ew", pady=(8,4))
         self.icon_plus = cst.open_image(master=self, file=cst.IM_PLUS)
         self.icon_moins = cst.open_image(master=self, file=cst.IM_MOINS)
 
@@ -286,25 +286,29 @@ class Bracelet(Tk):
         self.row_nb_entry = Entry(toolbar2, width=3,
                                    validatecommand=(self._okfct, '%d', '%S'),
                                    validate='key', justify="center")
-        self.row_nb_entry.grid(row=0, column=1, sticky="w", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus, style="pm.TButton",
-               command=self.add_row).grid(row=0, column=2, pady=4,
-                                          padx=2, sticky="ewsn")
-        Button(toolbar2, image=self.icon_moins, style="pm.TButton",
-               command=self.del_row).grid(row=0, column=3, pady=4,
-                                            padx=2, sticky="ewsn")
+        self.row_nb_entry.grid(row=0, column=1, sticky="nsw", padx=(0,5))
+        b_pl = Button(toolbar2, image=self.icon_plus, style="pm.TButton",
+                      command=self.add_row)
+        TooltipWrapper(b_pl, text=_("Add Row"))
+        b_pl.grid(row=0, column=2, padx=2, sticky="ewsn")
+        b_ml = Button(toolbar2, image=self.icon_moins, style="pm.TButton",
+                      command=self.del_row)
+        TooltipWrapper(b_ml, text=_("Delete Row"))
+        b_ml.grid(row=0, column=3, padx=2, sticky="ewsn")
         Label(toolbar2, text=_("Strings: ")).grid(row=0, column=4,
                                                   sticky="e", padx=(5,0))
         self.string_nb_entry = Entry(toolbar2, width=3,
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
-        self.string_nb_entry.grid(row=0, column=5, sticky="e", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus, style="pm.TButton",
-               command=self.add_string).grid(row=0, column=6, pady=4,
-                                          padx=2)
-        Button(toolbar2, image=self.icon_moins, style="pm.TButton",
-               command=self.del_string).grid(row=0, column=7, pady=4,
-                                          padx=2)
+        self.string_nb_entry.grid(row=0, column=5, sticky="ens", padx=(0,5))
+        b_pf = Button(toolbar2, image=self.icon_plus, style="pm.TButton",
+                      command=self.add_string)
+        TooltipWrapper(b_pf, text=_("Add String"))
+        b_pf.grid(row=0, column=6, padx=2)
+        b_mf = Button(toolbar2, image=self.icon_moins, style="pm.TButton",
+                      command=self.del_string)
+        TooltipWrapper(b_mf, text=_("Delete String"))
+        b_mf.grid(row=0, column=7, padx=2)
 
         ### propriétés du bracelet
         # color par défaut
