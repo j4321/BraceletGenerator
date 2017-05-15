@@ -28,6 +28,7 @@ from tkinter.ttk import Button, Entry, Label, Style, Frame
 from tkinter.messagebox import showerror
 from tkinter.messagebox import askyesno, askyesnocancel
 import BraceletGenerator.constantes as cst
+from BraceletGenerator.tooltip import TooltipWrapper
 from BraceletGenerator.about import About
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
@@ -39,7 +40,7 @@ class Bicolore(Toplevel):
             pour ensuite en générer le patron """
         self.colors = [bg, fg]
 
-        # création et paramétrage de la fenêtre
+        ### création et paramétrage de la fenêtre
         Toplevel.__init__(self, master, **options)
         g, x, y = self.master.geometry().split("+")
         self.geometry("+%s+%s" % (x,y))
@@ -74,7 +75,7 @@ class Bicolore(Toplevel):
 #        style.configure('TLabel', background=cst.BG_COLOR)
 #        style.configure('TFrame', background=cst.BG_COLOR)
 
-        # menu
+        ### Menu
         self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
         self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
         self.m_exit = cst.open_image(file=cst.IM_EXIT_M, master=self)
@@ -106,7 +107,7 @@ class Bicolore(Toplevel):
         cst.fill(self.m_fg, self.colors[1])
 
         menu = Menu(self, tearoff=0, borderwidth=0, bg=cst.BG_COLOR)
-        # Fichier
+        ### *-- Fichier
         self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
         self.menu_file.add_command(label=_("Open"), image=self.m_open,
@@ -136,7 +137,7 @@ class Bicolore(Toplevel):
                                    command=self.exit,
                                    accelerator="Ctrl+Q")
 
-        # Édition
+        ### *-- Édition
         self.menu_edit = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_edit.add_command(label=_("Undo"), image=self.m_undo,
                                    compound="left", command=self.undo,
@@ -178,7 +179,7 @@ class Bicolore(Toplevel):
                                    command=self.del_string,
                                    accelerator="Ctrl+-")
 
-        # Transformations
+        ### *-- Transformations
         self.menu_transform = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         menu_move = Menu(self.menu_transform, tearoff=0, bg=cst.BG_COLOR)
         menu_move.add_command(label=_("North"),
@@ -280,7 +281,7 @@ class Bicolore(Toplevel):
 
         self.configure(menu=menu)
 
-        # toolbar
+        ### toolbar
         toolbar = Frame(self, height=24)
         toolbar.grid(row=0, column=0, sticky="ew")
 
@@ -295,44 +296,61 @@ class Bicolore(Toplevel):
         self.icon_sym_vertical = cst.open_image(file=cst.IM_SYM_VERT, master=self)
         self.icon_sym_horizontal = cst.open_image(file=cst.IM_SYM_HORIZ, master=self)
 
-        Button(toolbar, image=self.icon_open,
-               command=self.open,
-               style='flat.TButton').grid(column=0, row=0)
+        b_open = Button(toolbar, image=self.icon_open,
+                        command=self.open, style='flat.TButton')
+        TooltipWrapper(b_open, text=_("Open"))
+        b_open.grid(column=0, row=0)
         self.save_button = Button(toolbar, image=self.icon_sauve,
                                    command=self.save,
                                    style='flat.TButton')
+        TooltipWrapper(self.save_button, text=_("Save"))
         self.save_button.grid(column=1, row=0)
-        Button(toolbar, image=self.icon_genere, command=self.generate,
-               style='flat.TButton').grid(column=2, row=0)
-        Button(toolbar, image=self.icon_efface, command=self.clear,
-               style='flat.TButton').grid(column=3, row=0)
-        Button(toolbar, image=self.icon_move,
-               command=self.shift_motif,
-               style='flat.TButton').grid(column=4, row=0)
-        Button(toolbar, image=self.icon_rotate_ccw,
-               command=lambda: self.rotate("ccw"),
-               style='flat.TButton').grid(column=5, row=0)
-        Button(toolbar, image=self.icon_rotate_cw,
-               command=lambda: self.rotate("cw"),
-               style='flat.TButton').grid(column=6, row=0)
-        Button(toolbar, image=self.icon_sym_vertical,
-               command=lambda: self.symmetrize("vertical"),
-               style='flat.TButton').grid(column=7, row=0)
-        Button(toolbar, image=self.icon_sym_horizontal,
-               command=lambda: self.symmetrize("horizontal"),
-               style='flat.TButton').grid(column=8, row=0)
-        Button(toolbar,image = self.icon_exit,command = self.exit,
-               style = 'flat.TButton' ).grid(column = 9,row = 0)
+        b_gen = Button(toolbar, image=self.icon_genere, command=self.generate,
+                       style='flat.TButton')
+        TooltipWrapper(b_gen, text=_("Generate Pattern"))
+        b_gen.grid(column=2, row=0)
+        b_eff = Button(toolbar, image=self.icon_efface, command=self.clear,
+                       style='flat.TButton')
+        TooltipWrapper(b_eff, text=("Clear"))
+        b_eff.grid(column=3, row=0)
+        b_move = Button(toolbar, image=self.icon_move,
+                        command=self.shift_motif, style='flat.TButton')
+        TooltipWrapper(b_move, text=_("Shift Motif"))
+        b_move.grid(column=4, row=0)
+        b_rot_ccw = Button(toolbar, image=self.icon_rotate_ccw,
+                           command=lambda: self.rotate("ccw"),
+                           style='flat.TButton')
+        TooltipWrapper(b_rot_ccw, text=_("Rotate Counter-Clockwise"))
+        b_rot_ccw.grid(column=5, row=0)
+        b_rot_cw = Button(toolbar, image=self.icon_rotate_cw,
+                          command=lambda: self.rotate("cw"),
+                          style='flat.TButton')
+        TooltipWrapper(b_rot_cw, text=_("Rotate Clockwise"))
+        b_rot_cw.grid(column=6, row=0)
+        b_sym_v = Button(toolbar, image=self.icon_sym_vertical,
+                         command=lambda: self.symmetrize("vertical"),
+                         style='flat.TButton')
+        TooltipWrapper(b_sym_v, text=_("Vertical Symmetry"))
+        b_sym_v.grid(column=7, row=0)
+        b_sym_h = Button(toolbar, image=self.icon_sym_horizontal,
+                         command=lambda: self.symmetrize("horizontal"),
+                         style='flat.TButton')
+        TooltipWrapper(b_sym_h, text=_("Horizontal Symmetry"))
+        b_sym_h.grid(column=8, row=0)
+        b_quit = Button(toolbar,image = self.icon_exit,command=self.exit,
+                        style = 'flat.TButton')
+        TooltipWrapper(b_quit, text=_("Quit"))
+        b_quit.grid(column=9, row=0)
 
-        # motif frame
+        ### motif frame
         motif_frame = Frame(self, relief="sunken", borderwidth=1)
         motif_frame.grid(row=1, column=0, sticky="wsen")
         motif_frame.rowconfigure(1, weight=1)
         motif_frame.columnconfigure(0, weight=1)
 
-        # toolbar2
+        ### toolbar2
         toolbar2 = Frame(motif_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="we")
+        toolbar2.grid(row=0, column=0, sticky="we", pady=(4,1))
 
         self.icon_plus = cst.open_image(file=cst.IM_PLUS, master=self)
         self.icon_moins = cst.open_image(file=cst.IM_MOINS, master=self)
@@ -342,10 +360,10 @@ class Bicolore(Toplevel):
         cst.fill(self.icon_fg, self.colors[1])
 
         self.b_bg = Button(toolbar2, image=self.icon_bg,
-                           command=self.set_bg)
+                           command=self.set_bg, style='pm.TButton')
         self.b_bg.grid(row=0, column=0, pady=4, padx=2)
         self.b_fg = Button(toolbar2, image=self.icon_fg,
-                           command=self.set_fg)
+                           command=self.set_fg, style='pm.TButton')
         self.b_fg.grid(row=0, column=1, pady=4, padx=2)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=2,
@@ -354,10 +372,10 @@ class Bicolore(Toplevel):
                                    validatecommand=(self._okfct, '%d', '%S'),
                                    validate='key', justify="center")
         self.row_nb_entry.grid(row=0, column=3, sticky="w", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus,
+        Button(toolbar2, image=self.icon_plus, style='pm.TButton',
                command=self.add_row).grid(row=0, column=4, padx=2,
                                                   pady=4)
-        Button(toolbar2, image=self.icon_moins,
+        Button(toolbar2, image=self.icon_moins, style='pm.TButton',
                command=self.del_row).grid(row=0, column=5, pady=4, padx=2)
 
         Label(toolbar2, text=_("Strings: ")).grid(row=0, column=6,
@@ -366,9 +384,9 @@ class Bicolore(Toplevel):
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
         self.string_nb_entry.grid(row=0, column=7, sticky="e", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus,
+        Button(toolbar2, image=self.icon_plus, style='pm.TButton',
                command=self.add_string).grid(row=0, column=8, pady=2, padx=2)
-        Button(toolbar2, image=self.icon_moins,
+        Button(toolbar2, image=self.icon_moins, style='pm.TButton',
                command=self.del_string).grid(row=0, column=9, pady=2, padx=2)
 
         # configuration du motif

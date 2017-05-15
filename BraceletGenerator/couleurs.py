@@ -75,7 +75,8 @@ class Couleurs(Toplevel):
         self.current_default = PhotoImage(master=self, width=16, height=16)
         fill(self.current_default, coul_def)
         Label(fen, image=self.current_default).grid(row=2, column=1, padx=6)
-        self.b_new_default = Button(fen, command=lambda : self.change_color(self.b_new_default))
+        self.b_new_default = Button(fen, style='pm.TButton',
+                                    command=lambda : self.change_color(self.b_new_default))
         self.b_new_default.image = PhotoImage(master=self, width=16, height=16)
         self.b_new_default.configure(image=self.b_new_default.image)
         fill(self.b_new_default.image, coul_def)
@@ -92,7 +93,7 @@ class Couleurs(Toplevel):
             self.current_colors.append(PhotoImage(master=self, width=16, height=16))
             fill(self.current_colors[i], coul)
             Label(fen, image=self.current_colors[i]).grid(row=4+i, column=1, padx=6)
-            self.b_new_colors.append(Button(fen))
+            self.b_new_colors.append(Button(fen, style='pm.TButton'))
             self.b_new_colors[i].image = PhotoImage(master=self, width=16, height=16)
             fill(self.b_new_colors[i].image, coul)
             self.b_new_colors[i].configure(image=self.b_new_colors[i].image,

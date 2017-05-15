@@ -34,6 +34,7 @@ import BraceletGenerator.constantes as cst
 from BraceletGenerator.noeud import Noeud
 from BraceletGenerator.couleurs import Couleurs
 from BraceletGenerator.bicolore import Bicolore
+from BraceletGenerator.tooltip import TooltipWrapper
 from BraceletGenerator.about import About
 from BraceletGenerator.version_check import UpdateChecker
 
@@ -62,10 +63,11 @@ class Bracelet(Tk):
         self.style = Style(self)
         self.style.theme_use(cst.STYLE)
         self.style.configure('TButton', background=cst.BG_COLOR)
+        self.style.configure('pm.TButton', padding=1)
         self.style.configure('TCheckbutton', background=cst.BG_COLOR)
         self.style.configure('TLabel', background=cst.BG_COLOR)
         self.style.configure('TFrame', background=cst.BG_COLOR)
-        self.style.configure('flat.TButton', relief="flat",
+        self.style.configure('flat.TButton', relief="flat", padding=2,
                              background=cst.BG_COLOR)
         self.style.map('flat.TButton',
                        background=[("disabled", cst.BG_COLOR),
@@ -227,27 +229,47 @@ class Bracelet(Tk):
         self.icon_bicolore = cst.open_image(master=self, file=cst.IM_BICOLORE)
         self.icon_sym_horiz = cst.open_image(master=self, file=cst.IM_SYM_HORIZ)
         self.icon_sym_vert = cst.open_image(master=self, file=cst.IM_SYM_VERT)
-        Button(toolbar, image=self.icon_new, command=self.new,
-               style='flat.TButton').grid(column=0, row=0)
-        Button(toolbar, image=self.icon_open, command=self.open,
-               style='flat.TButton').grid(column=1, row=0)
+        self.icon_color = cst.open_image(master=self, file=cst.IM_COLOR)
+        b_new = Button(toolbar, image=self.icon_new, command=self.new,
+                       style='flat.TButton')
+        TooltipWrapper(b_new, text=_("New"))
+        b_new.grid(column=0, row=0)
+        b_open = Button(toolbar, image=self.icon_open, command=self.open,
+                        style='flat.TButton')
+        TooltipWrapper(b_open, text=_("Open"))
+        b_open.grid(column=1, row=0)
         self.save_button = Button(toolbar, image=self.icon_save,
                                    command=self.save,
                                    style='flat.TButton')
+        TooltipWrapper(self.save_button, text=_("Save"))
         self.save_button.grid(column=2, row=0)
-        Button(toolbar, image=self.icon_export, command=self.export,
-               style='flat.TButton').grid(column=3, row=0)
-        Button(toolbar, image=self.icon_bicolore,
-               command=self.bicolore, style='flat.TButton').grid(column=4,
-                                                                     row=0)
-        Button(toolbar, image=self.icon_sym_horiz,
-               command=lambda: self.symmetrize("horizontal"),
-               style='flat.TButton').grid(column=6, row=0)
-        Button(toolbar, image=self.icon_sym_vert,
-               command=lambda: self.symmetrize("vertical"),
-               style='flat.TButton').grid(column=5, row=0)
-        Button(toolbar, image=self.icon_exit, command=self.exit,
-               style='flat.TButton').grid(column=7, row=0)
+        b_export = Button(toolbar, image=self.icon_export, command=self.export,
+                          style='flat.TButton')
+        TooltipWrapper(b_export, text=_("Export as picture"))
+        b_export.grid(column=3, row=0)
+        b_bic = Button(toolbar, image=self.icon_bicolore,
+                       command=self.bicolore, style='flat.TButton')
+        TooltipWrapper(b_bic, text=_("Open two-colored motif editor"))
+        b_bic.grid(column=4, row=0)
+        b_sym_v = Button(toolbar, image=self.icon_sym_vert,
+                         command=lambda: self.symmetrize("vertical"),
+                         style='flat.TButton')
+        TooltipWrapper(b_sym_v, text=_("Vertical Symmetry"))
+        b_sym_v.grid(column=5, row=0)
+        b_sym_h = Button(toolbar, image=self.icon_sym_horiz,
+                         command=lambda: self.symmetrize("horizontal"),
+                         style='flat.TButton')
+        TooltipWrapper(b_sym_h, text=_("Horizontal Symmetry"))
+        b_sym_h.grid(column=6, row=0)
+
+        b_color = Button(toolbar, style='flat.TButton', image=self.icon_color,
+                         command=self.manage_colors)
+        TooltipWrapper(b_color, text=_("Open color manager"))
+        b_color.grid(row=0, column=7)
+        b_quit = Button(toolbar, image=self.icon_exit, command=self.exit,
+                        style='flat.TButton')
+        TooltipWrapper(b_quit, text=_("Quit"))
+        b_quit.grid(column=8, row=0)
 
         ### frame contenant le patron
         pattern_frame = Frame(self, relief="sunken", borderwidth=1)
@@ -255,10 +277,9 @@ class Bracelet(Tk):
 
         ### toolbar2
         toolbar2 = Frame(pattern_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="ew")
+        toolbar2.grid(row=0, column=0, sticky="ew", pady=(4,0))
         self.icon_plus = cst.open_image(master=self, file=cst.IM_PLUS)
         self.icon_moins = cst.open_image(master=self, file=cst.IM_MOINS)
-        self.icon_color = cst.open_image(master=self, file=cst.IM_COLOR)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=0,
                                                sticky="e", padx=(5,0))
@@ -266,10 +287,10 @@ class Bracelet(Tk):
                                    validatecommand=(self._okfct, '%d', '%S'),
                                    validate='key', justify="center")
         self.row_nb_entry.grid(row=0, column=1, sticky="w", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus,
+        Button(toolbar2, image=self.icon_plus, style="pm.TButton",
                command=self.add_row).grid(row=0, column=2, pady=4,
-                                            padx=2, sticky="ewsn")
-        Button(toolbar2, image=self.icon_moins,
+                                          padx=2, sticky="ewsn")
+        Button(toolbar2, image=self.icon_moins, style="pm.TButton",
                command=self.del_row).grid(row=0, column=3, pady=4,
                                             padx=2, sticky="ewsn")
         Label(toolbar2, text=_("Strings: ")).grid(row=0, column=4,
@@ -278,18 +299,12 @@ class Bracelet(Tk):
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
         self.string_nb_entry.grid(row=0, column=5, sticky="e", padx=(0,5))
-        Button(toolbar2, image=self.icon_plus,
+        Button(toolbar2, image=self.icon_plus, style="pm.TButton",
                command=self.add_string).grid(row=0, column=6, pady=4,
                                           padx=2)
-        Button(toolbar2, image=self.icon_moins,
+        Button(toolbar2, image=self.icon_moins, style="pm.TButton",
                command=self.del_string).grid(row=0, column=7, pady=4,
                                           padx=2)
-
-        Button(toolbar2,
-               image=self.icon_color,
-               command=self.manage_colors,
-               style="test.TButton").grid(row=0, column=8, columnspan=2,
-                                          sticky="e", padx=10)
 
         ### propriétés du bracelet
         # color par défaut
