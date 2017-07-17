@@ -609,7 +609,7 @@ class Bracelet(Tk):
         """ choix de la couleur du fil j """
         coul0 = self.can.itemcget(self.colors[j], "fill")
         if color is None:
-            color = cst.askcolor(coul0) # color choisie en hexadécimal
+            color = cst.askcolor(coul0, parent=self) # color choisie en hexadécimal
         if color:
             if write_log:
                 self._log()

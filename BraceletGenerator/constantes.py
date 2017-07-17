@@ -50,13 +50,12 @@ from configparser import ConfigParser
 from webbrowser import open as webOpen
 from subprocess import  check_output, CalledProcessError
 from colorsys import hsv_to_rgb, rgb_to_hsv
-
-PL = os.name
-
 from tkinter import filedialog
 from tkinter import colorchooser
 
-### paths
+PL = os.name
+
+# ---  paths
 PATH = os.path.split(__file__)[0]
 if platform == 'linux' and (not os.access(PATH, os.W_OK) or not os.path.exists(os.path.join(PATH, "images"))):
     IMAGES_LOCATION = '/usr/share/bracelet-generator/images'
@@ -73,7 +72,7 @@ LOCAL_PATH = os.path.join(os.path.expanduser("~"), "BraceletGenerator")
 if not os.path.exists(LOCAL_PATH):
     os.mkdir(LOCAL_PATH)
 # temporary file
-TMP_PS = os.path.join(LOCAL_PATH,".tmp.ps")
+TMP_PS = os.path.join(LOCAL_PATH, ".tmp.ps")
 # config file
 PATH_CONFIG = os.path.join(LOCAL_PATH, 'BraceletGenerator.ini')
 # bracelet log file
@@ -89,11 +88,11 @@ while os.path.exists(BICOLOR_LOG % (i)):
     i += 1
 BICOLOR_LOG %= i
 
-### configuration file
+# ---  configuration file
 CONFIG = ConfigParser()
 if os.path.exists(PATH_CONFIG):
     CONFIG.read(PATH_CONFIG)
-    LANGUE = CONFIG.get("General","language")
+    LANGUE = CONFIG.get("General", "language")
     if not CONFIG.has_option("General", "check_update"):
         CONFIG.set("General", "check_update", "True")
 else:
@@ -111,6 +110,7 @@ else:
     CONFIG.set("Bracelet", "string_nb", "4")
     CONFIG.set("Bracelet", "default_color", "#ff0000")
 
+
 def save_config():
     """ sauvegarde du dictionnaire contenant la configuration du logiciel (langue ...) """
     CONFIG.set("General", "recent_files", ",".join(RECENT_FILES))
@@ -118,7 +118,8 @@ def save_config():
     with open(PATH_CONFIG, 'w') as fichier:
         CONFIG.write(fichier)
 
-### Translation
+
+# ---  Translation
 APP_NAME = "BraceletGenerator"
 
 if LANGUE not in ["en", "fr"]:
@@ -139,7 +140,7 @@ LANG = gettext.translation(APP_NAME, PATH_LOCALE,
                            languages=[LANGUE], fallback=True)
 LANG.install()
 
-### get recent files
+# ---  get recent files
 RECENT_FILES = CONFIG.get("General", "recent_files").split(",")
 if RECENT_FILES == [""]:
     RECENT_FILES = []
@@ -147,7 +148,7 @@ RECENT_BICOLOR = CONFIG.get("General", "recent_bicolor").split(",")
 if RECENT_BICOLOR == [""]:
     RECENT_BICOLOR = []
 
-### pictures
+# ---  pictures
 IM_EXIT_M = os.path.join(IMAGES_LOCATION, "exit_m.png")
 IM_EXIT = os.path.join(IMAGES_LOCATION, "exit.png")
 IM_EXPORT_M = os.path.join(IMAGES_LOCATION, "export_m.png")
@@ -276,7 +277,7 @@ XlVzu8NlkNvrV+0T/fHMZcusrtu3MeNx9PXrobUVq8cYQrw3TrRub1h9+v573Bs3Ej1zBvP5c/zp
 mfwLcAuinuFNL7QAAAAASUVORK5CYII=
 """
 
-### colors
+# ---  colors
 if platform == 'darwin' or PL == 'nt':
     BG_COLOR = '#F0F0F0'
     CANVAS_COLOR = "#ffffff"
@@ -286,19 +287,22 @@ else:
 
 
 def hsv_to_html(h, s, v):
-   r, g, b = hsv_to_rgb(h/360, s/100, v/100)
-   r, g, b = round(r*255), round(g*255), round(b*255)
-   return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+    r, g, b = hsv_to_rgb(h / 360, s / 100, v / 100)
+    r, g, b = round(r * 255), round(g * 255), round(b * 255)
+    return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+
 
 def html_to_hsv(color):
     r = int(color[1:3], 16)
     g = int(color[3:5], 16)
     b = int(color[5:], 16)
-    h, s, v = rgb_to_hsv(r/255, g/255, b/255)
-    return round(h*360), round(s*100), round(v*100)
+    h, s, v = rgb_to_hsv(r / 255, g / 255, b / 255)
+    return round(h * 360), round(s * 100), round(v * 100)
+
 
 def rgb_to_html(r, g, b):
    return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+
 
 def html_to_rgb(color):
     r = int(color[1:3], 16)
@@ -306,14 +310,16 @@ def html_to_rgb(color):
     b = int(color[5:], 16)
     return r, g, b
 
+
 def active_color(color):
     r = int(color[1:3], 16)
     g = int(color[3:5], 16)
     b = int(color[5:], 16)
-    r += (255 - r)/3
-    g += (255 - g)/3
-    b += (255 - b)/3
+    r += (255 - r) / 3
+    g += (255 - g) / 3
+    b += (255 - b) / 3
     return ("#%2.2x%2.2x%2.2x" % (round(r), round(g), round(b))).upper()
+
 
 def fill(image, color):
      """Fill image with a color=#hex."""
@@ -322,36 +328,47 @@ def fill(image, color):
      horizontal_line = "{" + " ".join([color]*width) + "}"
      image.put(" ".join([horizontal_line]*height))
 
-### platform dependent mouse events
+
+# ---  platform dependent mouse events
 if PL == "nt":
+
     def mouse_wheel(event):
         """ gestion de la molette de la souris sous windows """
         return - 1*(event.delta//120)
+
     MOUSEWHEEL = ["<MouseWheel>"]
     RIGHT_CLICK = '<Button-3>'
 elif platform == "darwin":
+
     def mouse_wheel(event):
         """ gestion de la molette de la souris """
         return - 1*(event.delta)
+
     MOUSEWHEEL = ["<MouseWheel>"]
     RIGHT_CLICK = '<Button-2>'
 else:
+
     def mouse_wheel(event):
         """ gestion de la molette de la souris sous linux """
         if event.num == 5:
             return 1
         elif event.num == 4:
             return - 1
+
     MOUSEWHEEL = ["<Button - 4>", "<Button - 5>"]
     RIGHT_CLICK = '<Button-3>'
 
-### display help
+
+# ---  display help
+
+
 def help(event=None):
     """ ouvre l'aide en .html dans la langue de l'interface """
     if LANGUE[:2] == "fr":
         webOpen(DOC_FR)
     else:
         webOpen(DOC)
+
 
 def help_web(event=None):
     """ ouvre l'aide en ligne dans la langue de l'interface """
@@ -360,7 +377,8 @@ def help_web(event=None):
     else:
         webOpen("https://braceletgenerator.sourceforge.io/")
 
-### compatibility with tcl8.5
+
+# ---  compatibility with tcl8.5
 if TclVersion < 8.6:
     # then tkinter cannot import PNG files directly, we need to use PIL
     from PIL import Image, ImageTk
@@ -373,13 +391,16 @@ if TclVersion < 8.6:
 
     def open_image(file, master=None):
         return ImageTk.PhotoImage(Image.open(file), master=master)
+
 else:
     # no need of ImageTk dependency
     from tkinter import PhotoImage
+
     def open_image(file, master=None):
         return PhotoImage(file=file, master=master)
 
-### icon
+
+# ---  icon
 def set_icon(fen):
     """ icône de l'application """
     if PL == 'nt':
@@ -388,16 +409,17 @@ def set_icon(fen):
         icon = open_image(file=IM_ICON16, master=fen)
         fen.iconphoto(True, icon)
 
-### filebrowser
+
+# ---  filebrowser
 ZENITY = False
 
 try:
-    import tkFileBrowser as tkfb
+    import tkfilebrowser as tkfb
 except ImportError:
     tkfb = False
 
 try:
-    import tkColorPicker as tkcp
+    import tkcolorpicker as tkcp
 except ImportError:
     tkcp = False
 
@@ -406,6 +428,7 @@ if PL != "nt":
     for path in paths:
         if os.path.exists(os.path.join(path, "zenity")):
             ZENITY = True
+
 
 def askopenfilename(defaultextension, filetypes, initialdir, initialfile="", title=_('Open'), **options):
     """ plateform specific file browser:
@@ -448,6 +471,7 @@ def askopenfilename(defaultextension, filetypes, initialdir, initialfile="", tit
                                           initialdir=initialdir,
                                           initialfile=initialfile,
                                           **options)
+
 
 def asksaveasfilename(defaultextension, filetypes, initialdir=".", initialfile="", title=_('Save As'), **options):
     """ plateform specific file browser for saving a file:
@@ -495,6 +519,7 @@ def asksaveasfilename(defaultextension, filetypes, initialdir=".", initialfile="
                                             initialfile=initialfile,
                                             **options)
 
+
 def askcolor(color=None, **options):
     """ plateform specific color chooser
         return the chose color in #rrggbb format """
@@ -515,7 +540,7 @@ def askcolor(color=None, **options):
             if color:
                 if color[0] == "#":
                     if len(color) == 13:
-                        color = "#%s%s%s"  % (color[1:3], color[5:7], color[9:11])
+                        color = "#%s%s%s" % (color[1:3], color[5:7], color[9:11])
                 elif color[:4] == "rgba":
                     color = color[5:-1].split(",")
                     color = '#%02x%02x%02x' % (int(color[0]), int(color[1]), int(color[2]))
@@ -533,6 +558,7 @@ def askcolor(color=None, **options):
     else:
         color = colorchooser.askcolor(color, **options)
         return color[1]
+
 
 def valide_entree_nb(d, S):
     """ commande de validation des champs devant contenir
