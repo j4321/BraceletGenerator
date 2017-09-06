@@ -23,7 +23,8 @@ Window displaying the information about the software
 
 from tkinter import Text, Toplevel
 from tkinter.ttk import Button, Label
-from BraceletGenerator.constantes import open_image, BG_COLOR, VERSION, IM_ICON48, set_icon, webOpen
+from BraceletGenerator.constantes import open_image, BG_COLOR, IM_ICON48, set_icon, webOpen
+from BraceletGenerator.version import __version__
 
 
 class About(Toplevel):
@@ -45,7 +46,7 @@ class About(Toplevel):
 
         Label(self,
                   text=_("Bracelet Generator %(version)s")
-                  % ({"version": VERSION})).grid(row=1, columnspan=2)
+                  % ({"version": __version__})).grid(row=1, columnspan=2)
         Label(self, text=_("Friendship bracelet patterns designer")).grid(row=2, columnspan=2, padx=10)
         Label(self, text="Copyright (C) Juliette Monsel 2014-2017").grid(row=3, columnspan=2)
         Label(self, text="j_4321@protonmail.com").grid(row=4, columnspan=2)

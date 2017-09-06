@@ -13,21 +13,21 @@ if platform == 'linux':
     doc.extend(["README.rst", "changelog"])
     images = [os.path.join("BraceletGenerator", "images", f) for f in os.listdir("BraceletGenerator/images")]
     examples = [os.path.join("examples", f) for f in os.listdir("examples")]
-    data_files = [("share/pixmaps", ["bracelet-generator.svg"]),
-                  ("share/locale/en_US/LC_MESSAGES/", ["BraceletGenerator/locale/en_US/LC_MESSAGES/BraceletGenerator.mo"]),
-                  ("share/locale/fr_FR/LC_MESSAGES/", ["BraceletGenerator/locale/fr_FR/LC_MESSAGES/BraceletGenerator.mo"]),
-                  ("share/doc/bracelet-generator", doc),
-                  ("share/man/man1", ["bracelet-generator.1.gz"]),
-                  ("share/bracelet-generator/images", images),
-                  ("share/doc/bracelet-generator/images", images),
-                  ("share/bracelet-generator/examples", examples),
-                  ("share/applications", ["bracelet-generator.desktop"])]
+    data_files = [("/usr/share/pixmaps", ["bracelet-generator.svg"]),
+                  ("/usr/share/locale/en_US/LC_MESSAGES/", ["BraceletGenerator/locale/en_US/LC_MESSAGES/BraceletGenerator.mo"]),
+                  ("/usr/share/locale/fr_FR/LC_MESSAGES/", ["BraceletGenerator/locale/fr_FR/LC_MESSAGES/BraceletGenerator.mo"]),
+                  ("/usr/share/doc/bracelet-generator", doc),
+                  ("/usr/share/man/man1", ["bracelet-generator.1.gz"]),
+                  ("/usr/share/bracelet-generator/images", images),
+                  ("/usr/share/doc/bracelet-generator/images", images),
+                  ("/usr/share/bracelet-generator/examples", examples),
+                  ("/usr/share/applications", ["bracelet-generator.desktop"])]
 else:
     files = ["images/*", "doc/doc.html", "doc/doc_fr.html", "doc/style.css", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
     data_files = []
 
 setup(name = "bracelet-generator",
-      version = "1.4.1",
+      version = "1.4.2",
       description = "Friendship bracelet pattern designer",
       author = "Juliette Monsel",
       author_email = "j_4321@protonmail.com",

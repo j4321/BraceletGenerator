@@ -37,7 +37,6 @@ Copyright 2007-2013 elementary LLC, except a few I designed myself.
 Constants and global functions of Bracelet Generator
 """
 
-VERSION = "1.4.1"
 
 STYLE = 'clam'
 

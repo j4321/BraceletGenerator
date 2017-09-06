@@ -3,6 +3,9 @@ Copyright 2014-2017 Juliette Monsel <j_4321@protonmail.com>
 
 * Bracelet Generator 1.4
 
+    - Version 1.4.2
+        Fix setup.py
+    
     - Version 1.4.1
 
         1. New feature

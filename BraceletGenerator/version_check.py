@@ -29,8 +29,8 @@ from html.parser import HTMLParser
 from webbrowser import open as webOpen
 from tkinter import Toplevel, PhotoImage
 from tkinter.ttk import Label, Button, Frame, Checkbutton
-from BraceletGenerator.constantes import VERSION, CONFIG, save_config
-from BraceletGenerator.constantes import BG_COLOR, IM_QUESTION_DATA
+from BraceletGenerator.constantes import CONFIG, save_config, BG_COLOR, IM_QUESTION_DATA
+from BraceletGenerator.version import __version__
 
 
 class VersionParser(HTMLParser):
@@ -120,7 +120,7 @@ class UpdateChecker(Toplevel):
         try:
             with request.urlopen('https://sourceforge.net/projects/braceletgenerator') as page:
                 latest_version = self.version_parser.feed(page.read().decode())
-            self.update = latest_version > VERSION
+            self.update = latest_version > __version__
         except error.URLError as e:
             if e.reason.errno == -2:
                 # no Internet connection
