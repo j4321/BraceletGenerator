@@ -13,62 +13,34 @@ make the four types of knots, find a tutorial on the Internet first,
 for instance `friendship-bracelet.net <http://friendship-bracelets.net/tutorials.php>`__.
 
 
-Download
-========
-
-- Windows: `bracelet-generator-x.y.z.exe`.
-
-- Ubuntu/Debian (it should work for other Debian based distributions, 
-  but I have not tested all of them): `bracelet-generator-x.y.z_all.deb`
-  
-- OS X (tested on El Capitan): `bracelet-generator-x.y.z-osx.zip`
-
-- Archlinux: bracelet-generator is available on `AUR <https://aur.archlinux.org/packages/bracelet-generator>`__.
-   
-- Others: `bracelet-generator-x.y.z-src.tar.xz`
+Install
+=======
 
 Since python is an interpreted language the source code does not need to 
 be compiled, and is not difficult to use.
 
 The downloaded package can be checked using the checksums provided by the `sha512sums.txt` file.
 
-
-Install
-=======
-
 Windows
 -------
 
-Launch bracelet-generator-x.y.z.exe and follow the instructions.
+Download and launch bracelet-generator-x.y.z.exe and follow the instructions.
 
-Ubuntu/Debian
--------------
+Ubuntu
+------
 
-First, you need to install a few dependencies if they are missing: 
-python3-pil, python3-tk, ghostscript, zenity.
+Bracelet Generator is available in the PPA `ppa:j-4321-i/ppa`.
+    
+    ::
+        
+        $ sudo add-apt-repository ppa:j-4321-i/ppa
+        $ sudo apt-get update
+        $ sudo apt-get install bracelet-generator
 
-You can use `dpkg-query -W <package>` in the console to check whether 
-`<package>` is installed.
+Archlinux
+---------
 
-Then, open a console and run
-
-::
-
-    $ sudo dpkg -i bracelet-generator-x.y.z_all.deb
-
-OS X
-----
-
-Unzip the archive. Move BraceletGenerator.app to the /Applications. 
-To be able to export patterns in .png or .jpg, 
-you need to install Ghostscript. It can be done with brew:
-
-::
-
-    $ brew install ghostscript
-
-Otherwise refer to `Ghostscript website <http://ghostscript.com/>`__. 
-
+Bracelet Generator is available in `AUR <https://aur.archlinux.org/packages/bracelet-generator>`__.
 
 Source code
 -----------
@@ -125,5 +97,6 @@ Then, at least in linux, it can be launched from the console with
 
 ---------------------------------------------------------------------------
 
-If you have any trouble/comment/question, write me an email at 
-j_4321@protonmail.com.
+If you encounter bugs or if you have suggestions, please open an issue 
+on `GitHub <https://github.com/j4321/BraceletGenerator/issues>`__ or write me an 
+email at <j_4321@protonmail.com>.
