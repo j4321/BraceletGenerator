@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
     <header>
-
-
-
-
         <div id="langues">
             <a href="doc.html">English</a> / Français
         </div>
@@ -16,16 +12,8 @@
         <title>Bracelet Générateur Documentation</title>
 
     </head>
-
-
-
-
-
-
-
-
-
-
+    
+ 
     <body>
 
         <h1> <img src="../images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
@@ -42,10 +30,11 @@
                 <li> <a href="#start"> Installation </a> </li>
 
                 <ul>
-                    <li> <a href="#exe"> Avec l'exécutable Windows </a> </li>
-                    <li> <a href="#deb"> Avec la version pour Ubuntu/Debian </a> </li>
-                    <li> <a href="#mac"> Avec la version pour Mac OS X </a> </li>
-                    <li> <a href="#py"> Avec le code source</a> </li>
+                    <li> <a href="#exe"> Windows </a> </li>
+                    <li> <a href="#deb"> Ubuntu</a> </li>
+                    <li> <a href="#arch"> Archlinux</a> </li>
+                    <li> <a href="#mac"> Mac OS X</a> </li>
+                    <li> <a href="#py"> Source Code </a> </li>
                 </ul>
 
                 <li> <a href="#lang"> Langage </a> </li>
@@ -111,24 +100,26 @@
                         Lancez bracelet-generator-x.y.z.exe et suivez les instructions de l’installateur
                         (il est nécessaire d’avoir les droits d’administrateur pour effectuer l’installation).
                     </p>
-
-                <h3 id="deb"> Avec la version pour Ubuntu/Debian </h3>
+                    
+                <h3 id="deb"> Ubuntu </h3>
                     <p>
-                        Tout d’abord, il faut installer les dépendances manquantes parmi : python3-pil, python3-tk,
-                        ghostscript, zenity (optionnel). Pour vérifier si <i>package</i> est installé, vous pouvez utiliser la
-                        commande suivante :
+                        Bracelet Generator est disponible dans le PPA 
+                        <a href="https://launchpad.net/~j-4321-i/+archive/ubuntu/ppa">ppa:j-4321-i/ppa</a>.
                     </p>
+    
                     <p class="code">
-                        $ dpkg-query -W <i>package</i>
+                        $ sudo add-apt-repository ppa:j-4321-i/ppa <br>
+                        $ sudo apt-get update <br>
+                        $ sudo apt-get install bracelet-generator <br>
                     </p>
-                    <p>
-                        Ensuite, pour installer Bracelet Générateur, lancez :
-                    </p>
-                    <p class="code">
-                        $ sudo dpkg -i bracelet-generator-x.y.z_all.deb
-                    </p>
-
-                <h3 id="mac">Avec la version pour Mac OS X</h3>
+                    
+                <h3 id="arch"> Archlinux </h3>
+                <p>
+                    Bracelet Generator est disponible dans <a href="https://aur.archlinux.org/packages/bracelet-generator">AUR</a>.
+                </p>
+                    
+                    
+                <h3 id="mac">Mac OS X</h3>
                     <p>
                         Décompresser l'archive. Placez BraceletGenerator.app dans le dossier <tt>/Applications</tt>.
                         Pour pouvoir exporter les patrons en .png ou .jpg, il faut installer Ghostscript. 
@@ -162,27 +153,29 @@
                                 <li><b>ArchLinux :</b> tk, python-pillow, ghostscript, zenity</li>
                             </ul>
                         </p>
-                        Vous pouvez aussi utiliser pip pour installer Pillow (requiert les droits de superutilisateur) :
-                        <p class="code">
-                            $ pip3 install pillow
+                        <p>
+                            Vous pouvez aussi utiliser pip pour installer Pillow (requiert les droits de superutilisateur) :
+                            <p class="code">
+                                $ pip3 install pillow
+                            </p>
                         </p>
                         <p>
                             Décompressez l’archive et lancez bracelet-generator.py.
                             S’il ne se passe rien, éditez les propriétés du fichier pour le rendre exécutable ou lancez le avec
                             Python : ouvrez un terminal dans le dossier extrait et tapez
-                        </p>
-                        <p class="code">
-                            $ python3 bracelet-generator.py
-                        </p>
-                            Vous pouvez aussi installer Bracelet Générateur (requiert les droits de superutilisateur) avec
-                        <p class="code">
-                            $ python3 setup.py install
+                            <p class="code">
+                                $ python3 bracelet-generator.py
+                            </p>
                         </p>
                         <p>
+                            Vous pouvez aussi installer Bracelet Générateur (requiert les droits de superutilisateur) avec
+                            <p class="code">
+                                $ python3 setup.py install
+                            </p>
                             Ensuite le logiciel peut être lancé depuis un terminal avec
-                        </p>
-                        <p class="code">
-                            $ bracelet-generator
+                            <p class="code">
+                                $ bracelet-generator
+                            </p>
                         </p>
 
                     <h4> Windows </h4>

@@ -18,14 +18,6 @@
     </head>
     
  
-
-
-
-
-
-
-
-   
     <body>
 
         <h1> <img src="/usr/share/bracelet-generator/images/icon128.png" alt="Bracelet Generator's logo" width=60px id="logo"/>
@@ -42,10 +34,11 @@
                 <li> <a href="#start"> Install </a> </li>
 
                 <ul>
-                    <li> <a href="#exe"> With the Executable for Windows </a> </li>
-                    <li> <a href="#deb"> With the Ubuntu/Debian Package</a> </li>
-                    <li> <a href="#deb"> With the Mac OS X Package</a> </li>
-                    <li> <a href="#py"> With the Source Code </a> </li>
+                    <li> <a href="#exe"> Windows </a> </li>
+                    <li> <a href="#deb"> Ubuntu</a> </li>
+                    <li> <a href="#arch"> Archlinux</a> </li>
+                    <li> <a href="#mac"> Mac OS X</a> </li>
+                    <li> <a href="#py"> Source Code </a> </li>
                 </ul>
                 
                 <li> <a href="#lang"> Language </a> </li>
@@ -106,29 +99,32 @@
 
             <h2 id="start"> Install </h2>
 
-                <h3 id="exe"> With the Excutable for Windows </h3>
+                <h3 id="exe"> Windows </h3>
                     <p>
                         Launch bracelet-generator-x.y.z.exe and follow the instructions given by the installer
                         (you will need the administrator rights).
                     </p>
                     
-                <h3 id="deb"> With the Ubuntu/Debian Package</h3>
+                <h3 id="deb"> Ubuntu </h3>
                     <p>
-                        First, you need to install a few dependencies if they are missing: python3-pil, python3-tk,
-                        ghostscript, zenity (optional). You can use the following command to check whether <i>package</i>
-                        is installed:
+                        Bracelet Generator is available in the PPA
+                        <a href="https://launchpad.net/~j-4321-i/+archive/ubuntu/ppa">ppa:j-4321-i/ppa</a>.
                     </p>
+
                     <p class="code">
-                        $ dpkg-query -W <i>package</i>
-                    </p>
-                    <p>
-                        Then, to install Bracelet Generator run:
-                    </p>
-                    <p class="code">
-                        $ sudo dpkg -i bracelet-generator-x.y.z_all.deb
+                        $ sudo add-apt-repository ppa:j-4321-i/ppa <br>
+                        $ sudo apt-get update <br>
+                        $ sudo apt-get install bracelet-generator <br>
                     </p>
                     
-                <h3 id="mac">With the Mac OS X Package</h3>
+                <h3 id="arch"> Archlinux </h3>
+                <p>
+                    Bracelet Generator is available in
+                    <a href="https://aur.archlinux.org/packages/bracelet-generator">AUR</a>.
+                </p>
+
+
+                <h3 id="mac">Mac OS X</h3>
                     <p>
                         Unzip the archive. Move BraceletGenerator.app to the <tt>/Applications</tt>.
                         To be able to export patterns in .png or .jpg, you need to install Ghostscript. 
@@ -139,7 +135,7 @@
                         Otherwise refer to <a href="http://ghostscript.com/"> Ghostscript website</a>.
                     </p>
                     
-                <h3 id="py"> With the Source Code </h3>
+                <h3 id="py"> Source Code </h3>
                     <p>
                         First, you need to install a few dependencies if they are missing:
                         <ul>
@@ -160,28 +156,29 @@
                                 <li><b>ArchLinux :</b> tk, python-pillow, ghostscript, zenity</li>
                             </ul>
                         </p>
+                        <p>
                         You can also use pip to install Pillow (requires superuser rights):
-                        <p class="code">
-                            $ pip3 install pillow
+                            <p class="code">
+                                $ pip3 install pillow
+                            </p>
                         </p>
                         <p>
                             Unzip the archive and double click on bracelet-generator.py. <br>
                             If nothing appends, right-click on the file and edit its properties to make it executable
                             or run it with python: open a console in the exctracted folder and run
-                        </p>
-                        <p class="code">
-                            $ python3 bracelet-generator.py
-                        </p>
-                        </p>
-                        You can also install Bracelet Generator (requires superuser rights) with
-                        <p class="code">
-                            $ python3 setup.py install
+                            <p class="code">
+                                $ python3 bracelet-generator.py
+                            </p>
                         </p>
                         <p>
+                            You can also install Bracelet Generator (requires superuser rights) with
+                            <p class="code">
+                                $ python3 setup.py install
+                            </p>
                             Then, it can be launched from the console with
-                        </p>
-                        <p class="code">
-                            $ bracelet-generator
+                            <p class="code">
+                                $ bracelet-generator
+                            </p>
                         </p>
 
                     <h4> Windows </h4>
@@ -209,11 +206,11 @@
                                 OS architecture.
                             </li>
                         </ul>
+
                         <p>
                             Unzip the archive and run add_gs_to_path.py to add Ghostscript location to the system path 
                             variable so that Bracelet Generator can find it. Then, launch bracelet-generator.py.
                         </p>
-                    
                         
                     <h4> Other Operating Systems </h4>
                         <p>
@@ -255,12 +252,11 @@
                             Unzip the archive and double click on bracelet-generator.py. <br>
                             If nothing appends, you can try to define python as the default software to use to open it.
                             You can also launch it from the command line with something similar too:
+                            <p class="code">
+                                $ python3 bracelet-generator.py
+                            </p>
                         </p>
-                        <p class="code">
-                            $ python3 bracelet-generator.py
-                        </p>
-                        
-        
+
 
             <h2 id="lang"> Language </h2>
                 <p>
@@ -330,7 +326,6 @@
                              <img src="/usr/share/bracelet-generator/images/bicolore_en.png" alt="Two-colored motif editor window" class="image">
                         </figure>
 
-
                         <ul class="liste">
                             <li> To change the color of a diamond, just click on it. </li>
                             <li> To change the background / foreground color, click on <img src="/usr/share/bracelet-generator/images/bg.png" alt="background color button" class="bouton">
@@ -341,6 +336,7 @@
                                 <img src="/usr/share/bracelet-generator/images/plus.png" alt="plus button" class="bouton">.
                             </li>
                         </ul>
+                    </p>
 
                      <h4> Toolbar </h4>
                         <p class="liste">
