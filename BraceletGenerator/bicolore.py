@@ -40,7 +40,7 @@ class Bicolore(Toplevel):
             pour ensuite en générer le patron """
         self.colors = [bg, fg]
 
-        ### création et paramétrage de la fenêtre
+        # --- création et paramétrage de la fenêtre
         Toplevel.__init__(self, master, **options)
         g, x, y = self.master.geometry().split("+")
         self.geometry("+%s+%s" % (x,y))
@@ -75,7 +75,7 @@ class Bicolore(Toplevel):
 #        style.configure('TLabel', background=cst.BG_COLOR)
 #        style.configure('TFrame', background=cst.BG_COLOR)
 
-        ### Menu
+        # --- Menu
         self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
         self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
         self.m_exit = cst.open_image(file=cst.IM_EXIT_M, master=self)
@@ -107,7 +107,7 @@ class Bicolore(Toplevel):
         cst.fill(self.m_fg, self.colors[1])
 
         menu = Menu(self, tearoff=0, borderwidth=0, bg=cst.BG_COLOR)
-        ### *-- Fichier
+        # --- *-- Fichier
         self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
         self.menu_file.add_command(label=_("Open"), image=self.m_open,
@@ -137,7 +137,7 @@ class Bicolore(Toplevel):
                                    command=self.exit,
                                    accelerator="Ctrl+Q")
 
-        ### *-- Édition
+        # --- *-- Édition
         self.menu_edit = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_edit.add_command(label=_("Undo"), image=self.m_undo,
                                    compound="left", command=self.undo,
@@ -179,7 +179,7 @@ class Bicolore(Toplevel):
                                    command=self.del_string,
                                    accelerator="Ctrl+-")
 
-        ### *-- Transformations
+        # --- *-- Transformations
         self.menu_transform = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         menu_move = Menu(self.menu_transform, tearoff=0, bg=cst.BG_COLOR)
         menu_move.add_command(label=_("North"),
@@ -281,7 +281,7 @@ class Bicolore(Toplevel):
 
         self.configure(menu=menu)
 
-        ### toolbar
+        # --- toolbar
         toolbar = Frame(self, height=24)
         toolbar.grid(row=0, column=0, sticky="ew")
 
@@ -342,13 +342,13 @@ class Bicolore(Toplevel):
         TooltipWrapper(b_quit, text=_("Quit"))
         b_quit.grid(column=9, row=0)
 
-        ### motif frame
+        # --- motif frame
         motif_frame = Frame(self, relief="sunken", borderwidth=1)
         motif_frame.grid(row=1, column=0, sticky="wsen")
         motif_frame.rowconfigure(1, weight=1)
         motif_frame.columnconfigure(0, weight=1)
 
-        ### toolbar2
+        # --- toolbar2
         toolbar2 = Frame(motif_frame, height=24)
         toolbar2.grid(row=0, column=0, sticky="we", pady=(8,4))
 
@@ -419,7 +419,7 @@ class Bicolore(Toplevel):
         self.scroll_horiz.grid(row=2, sticky="ew")
         self._init_canvas()
 
-        ### keybindings
+        # --- keybindings
         self.bind("<Control-o>", self.open)
         self.bind("<Control-q>", self.exit)
         self.bind("<Control-s>", self.save)

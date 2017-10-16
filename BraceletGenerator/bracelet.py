@@ -46,7 +46,7 @@ class Bracelet(Tk):
         """ fichier: chemin du fichier où sont sauvegardées les données
             du patron """
         # root window
-        Tk.__init__(self)
+        Tk.__init__(self, className="BraceletGenerator")
         self.title(_("Bracelet Generator"))
         self.config(bg=cst.BG_COLOR)
         cst.set_icon(self)
@@ -59,7 +59,7 @@ class Bracelet(Tk):
         # fonction de validation des entrées
         self._okfct = self.register(cst.valide_entree_nb)
 
-        ### style
+        # --- style
         self.style = Style(self)
         self.style.theme_use(cst.STYLE)
         self.style.configure('TButton', background=cst.BG_COLOR)
@@ -76,8 +76,8 @@ class Bracelet(Tk):
                                                       state=("active", "!disabled")))])
         self.style.configure("test.TButton", padding=2)
 
-        ### menu
-        ### -- icônes
+        # --- menu
+        # --- -- icônes
         self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
         self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
         self.m_exit = cst.open_image(master=self, file=cst.IM_EXIT_M)
@@ -99,7 +99,7 @@ class Bracelet(Tk):
         # barre de menus
         menu = Menu(self, tearoff=0, borderwidth=0,
                          bg=cst.BG_COLOR, activeborder=0)
-        ### -- Fichier
+        # --- -- Fichier
         self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
         self.menu_file.add_command(label=_("New"), image=self.m_new,
@@ -138,7 +138,7 @@ class Bracelet(Tk):
         else:
             self.menu_file.entryconfigure(3, state="disabled")
 
-        ### -- Édition
+        # --- -- Édition
         self.menu_edit = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_edit.add_command(label=_("Undo"), image=self.m_undo,
                                    compound="left", command=self.undo,
@@ -187,7 +187,7 @@ class Bracelet(Tk):
                                       image=self.m_color, compound="left",
                                       command=self.manage_colors,
                                       accelerator="Ctrl+C")
-        ### -- Langue
+        # --- -- Langue
         self.menu_language = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.langue = StringVar(self)
         self.langue.set(cst.LANGUE[:2])
@@ -196,7 +196,7 @@ class Bracelet(Tk):
                                            value="fr", command=self._translate)
         self.menu_language.add_radiobutton(label="English", variable=self.langue,
                                            value="en", command=self._translate)
-        ### -- Aide
+        # --- -- Aide
         self.menu_help = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_help.add_command(label=_("Help"), image=self.m_help, command=cst.help,
                                    compound="left", accelerator="F1")
@@ -210,7 +210,7 @@ class Bracelet(Tk):
         self.menu_help.add_command(label=_("About"), image=self.m_about,
                                    command=self.about, compound="left")
 
-        ### -- Ajout des menus à la barre
+        # --- -- Ajout des menus à la barre
         menu.add_cascade(label=_("File"), menu=self.menu_file)
         menu.add_cascade(label=_("Edit"), menu=self.menu_edit)
         menu.add_cascade(label=_("Language"), menu=self.menu_language)
@@ -218,7 +218,7 @@ class Bracelet(Tk):
         # affichage de la barre de menu
         self.config(menu=menu)
 
-        ### toolbar
+        # --- toolbar
         toolbar = Frame(self, height=24)
         toolbar.grid(row=0, sticky="wn")
         self.icon_exit = cst.open_image(master=self, file=cst.IM_EXIT)
@@ -271,11 +271,11 @@ class Bracelet(Tk):
         TooltipWrapper(b_quit, text=_("Quit"))
         b_quit.grid(column=8, row=0)
 
-        ### frame contenant le patron
+        # --- frame contenant le patron
         pattern_frame = Frame(self, relief="sunken", borderwidth=1)
         pattern_frame.grid(row=1, sticky="nwes")
 
-        ### toolbar2
+        # --- toolbar2
         toolbar2 = Frame(pattern_frame, height=24)
         toolbar2.grid(row=0, column=0, sticky="ew", pady=(8,4))
         self.icon_plus = cst.open_image(master=self, file=cst.IM_PLUS)
@@ -310,7 +310,7 @@ class Bracelet(Tk):
         TooltipWrapper(b_mf, text=_("Delete String"))
         b_mf.grid(row=0, column=7, padx=2)
 
-        ### propriétés du bracelet
+        # --- propriétés du bracelet
         # color par défaut
         self.color = color
         # le nombre de lignes est toujours pair
@@ -319,7 +319,7 @@ class Bracelet(Tk):
         # savoir si l'éditeur de motifs bicolores est ouvert
         self.bicolore_on = False
 
-        ### canvas
+        # --- canvas
         self.height_max = pattern_frame.winfo_screenheight() - 180
         self.width_max = pattern_frame.winfo_screenwidth() - 50
 
@@ -341,7 +341,7 @@ class Bracelet(Tk):
         self.scroll_vert.grid(row=1, column=1, sticky="ns")
         self.scroll_horiz.grid(row=2, column=0, sticky="ew")
 
-        ### Raccourcis clavier
+        # --- Raccourcis clavier
         self.bind('<Control-o>', self.open)
         self.bind('<Control-n>', self.new)
         self.bind('<Control-s>', self.save)
@@ -377,7 +377,7 @@ class Bracelet(Tk):
 
         self.path_save = fichier
 
-        ### Initialisation
+        # --- Initialisation
         self.init_canvas()
         self.is_saved = True
         self._logreinit()
@@ -387,7 +387,7 @@ class Bracelet(Tk):
         else:
             self.path_save = ""  # saved pattern path
 
-        ### Update check
+        # --- Update check
         if cst.CONFIG.getboolean("General", "check_update"):
             UpdateChecker(self)
 

@@ -55,7 +55,7 @@ class Couleurs(Toplevel):
         # Icône
         set_icon(self)
 
-        ### Contenu :
+        # --- Contenu :
         self.can = Canvas(self, bg=BG_COLOR) # pour utiliser une scrollbar
         self.can.grid(row=0, column=0, sticky="nsew")
 
@@ -73,7 +73,7 @@ class Couleurs(Toplevel):
 
         self.scroll_vert.grid(row=0, column=1, sticky="ns")
 
-        ### Couleur par défaut
+        # --- Couleur par défaut
         Label(fen, text=_("Default color")).grid(row=2, column=0, padx=6,
                                                  sticky="e")
         self.current_default = PhotoImage(master=self, width=16, height=16)
@@ -88,7 +88,7 @@ class Couleurs(Toplevel):
 
         Separator(fen, orient="horizontal").grid(row=3, column=0, pady=4,
                                                   columnspan=3, sticky="ew")
-        ### Couleurs des fils
+        # --- Couleurs des fils
         Label(fen, text=_("String colors")).grid(row=4, column=0, padx=6,
                                                  sticky="e")
         self.current_colors = []
