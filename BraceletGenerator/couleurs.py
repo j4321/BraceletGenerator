@@ -36,7 +36,7 @@ class Couleurs(Toplevel):
             colors : set des colors du bracelet
         """
         # Initialisation Toplevel
-        Toplevel.__init__(self, master, **options)
+        Toplevel.__init__(self, master, class_="BraceletGenerator", **options)
         self.title(_("Color Manager"))
         self.resizable(0,1)
         self.transient(master)

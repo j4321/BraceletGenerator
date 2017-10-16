@@ -32,7 +32,7 @@ class About(Toplevel):
         propos du logiciel """
     def __init__(self, master, **options):
         """ créer le Toplevel 'À propos de Bracelet Generator' """
-        Toplevel.__init__(self, master, **options)
+        Toplevel.__init__(self, master, class_="BraceletGenerator", **options)
 
         self.title(_("About Bracelet Generator"))
         self.transient(master)
@@ -73,7 +73,7 @@ class About(Toplevel):
             self.focus_set()
             fen.destroy()
 
-        fen = Toplevel(self)
+        fen = Toplevel(self, class_="BraceletGenerator")
         fen.title(_("License"))
         fen.transient(self)
         fen.protocol("WM_DELETE_WINDOW", close)

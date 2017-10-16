@@ -59,7 +59,7 @@ class UpdateChecker(Toplevel):
     version_parser = VersionParser()
 
     def __init__(self, master):
-        Toplevel.__init__(self, master)
+        Toplevel.__init__(self, master, class_="BraceletGenerator")
         self.title(_("Update"))
         self.withdraw()
         self.rowconfigure(0, weight=1)

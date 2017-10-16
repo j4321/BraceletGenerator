@@ -41,7 +41,7 @@ class Bicolore(Toplevel):
         self.colors = [bg, fg]
 
         # --- création et paramétrage de la fenêtre
-        Toplevel.__init__(self, master, **options)
+        Toplevel.__init__(self, master, class_="BraceletGenerator", **options)
         g, x, y = self.master.geometry().split("+")
         self.geometry("+%s+%s" % (x,y))
 
@@ -580,7 +580,7 @@ class Bicolore(Toplevel):
             self.menu_file.entryconfigure(1, state="disabled")
 
     def shift_motif(self, event=None):
-        top = Toplevel(self)
+        top = Toplevel(self, class_="BraceletGenerator")
         top.transient(self)
         top.title(_("Shift"))
         top.configure(bg=cst.BG_COLOR)

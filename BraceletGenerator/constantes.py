@@ -385,7 +385,8 @@ if TclVersion < 8.6:
     if not CONFIG.has_option("General", "old_tcl_warning") or CONFIG.getboolean("General", "old_tcl_warning"):
         ans = ob_checkbutton(title=_("Information"), image=IM_WARNING_DATA,
                              message=_("This software has been developped using Tcl/Tk 8.6, but you are using an older version. Please consider upgrading your Tcl/Tk version."),
-                             checkmessage=_("Do not show this message again."))
+                             checkmessage=_("Do not show this message again."),
+                             className="BraceletGenerator")
         CONFIG.set("General", "old_tcl_warning", str(not ans))
 
     def open_image(file, master=None):
