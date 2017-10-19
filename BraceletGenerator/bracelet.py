@@ -1496,7 +1496,7 @@ class Bracelet(Tk):
                 self.is_saved = True
 
     def export(self, event=None):
-        """ exporte le patron en .ps, .png ou .jpg """
+        """ exporte le patron en .ps, .eps, .png ou .jpg """
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
             initialfile = os.path.splitext(initialfile)[0] + ".png"
@@ -1508,6 +1508,7 @@ class Bracelet(Tk):
                                     defaultextension='.png',
                                     filetypes=[('PNG', '*.png'),
                                                ('JPEG', '*.jpg'),
+                                               ('EPS', '*.eps'),
                                                ('PS', '*.ps')],
                                     initialdir=initialdir,
                                     initialfile=initialfile)
@@ -1519,7 +1520,7 @@ class Bracelet(Tk):
             ext = ""
 
         box = self.can.bbox("all")
-        if ext == "ps":
+        if ext in ["ps", "eps"]:
             self.can.postscript(file=fichier, colormode='color',
                                 height=box[3] + 20, width=box[2] + 20,
                                 x=box[0] - 10, y=box[1] - 10)
