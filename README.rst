@@ -45,8 +45,8 @@ Archlinux
 
 Bracelet Generator is available in `AUR <https://aur.archlinux.org/packages/bracelet-generator>`__.
 
-Source code
------------
+Source code (multiplatform)
+---------------------------
 
 First, you need to install a few dependencies if they are missing:
 
