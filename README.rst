@@ -2,18 +2,7 @@
 Bracelet Generator
 ##################
 
-.. image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
-    :target: https://badge.fury.io/gh/j4321%2FBraceletGenerator
-    :alt: Latest Release
-.. image:: https://img.shields.io/badge/platform-Windows-blue.svg
-    :alt: platform
-.. image:: https://img.shields.io/badge/platform-Linux-blue.svg
-    :alt: platform
-.. image:: https://img.shields.io/badge/platform-Mac-blue.svg
-    :alt: platform
-.. image:: https://img.shields.io/github/license/j4321/BraceletGenerator.svg
-    :alt: License
-    :target: https://www.gnu.org/licenses/gpl-3.0.en.html
+|Release|_ |Windows|_ |Linux|_ |Mac|_ |License|_
 
 Bracelet Generator is a friendship bracelet pattern designer.
 It enables you to easily design your own patterns, add rows and strings,
@@ -114,3 +103,13 @@ Then, at least in linux, it can be launched from the console with
 If you encounter bugs or if you have suggestions, please open an issue
 on `GitHub <https://github.com/j4321/BraceletGenerator/issues>`__ or write me an
 email at <j_4321@protonmail.com>.
+
+
+
+.. |Release| image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
+.. _Release: https://badge.fury.io/gh/j4321%2FBraceletGenerator
+.. |Windows| image:: https://img.shields.io/badge/platform-Windows-blue.svg
+.. |Linux| image:: https://img.shields.io/badge/platform-Linux-blue.svg
+.. |Mac| image:: https://img.shields.io/badge/platform-Mac-blue.svg
+.. |License| image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
+.. _License: https://www.gnu.org/licenses/gpl-3.0.en.html
