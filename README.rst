@@ -1,6 +1,19 @@
 Bracelet Generator
 ==================
 
+.. image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
+    :target: https://badge.fury.io/gh/j4321%2FBraceletGenerator
+    :alt: Latest Release
+.. image:: https://img.shields.io/badge/platform-Windows-blue.svg
+    :alt: platform
+.. image:: https://img.shields.io/badge/platform-Linux-blue.svg
+    :alt: platform
+.. image:: https://img.shields.io/badge/platform-Mac-blue.svg
+    :alt: platform
+.. image:: https://img.shields.io/github/license/j4321/BraceletGenerator.svg
+    :alt: License
+    :target: https://www.gnu.org/licenses/gpl-3.0.en.html
+        
 Bracelet Generator is a friendship bracelet pattern designer.
 It enables you to easily design your own patterns, add rows and strings, 
 change the colors. With the two-colored motif editor, 

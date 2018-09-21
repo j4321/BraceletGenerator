@@ -300,7 +300,7 @@ def html_to_hsv(color):
 
 
 def rgb_to_html(r, g, b):
-   return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
+    return ("#%2.2x%2.2x%2.2x" % (r, g, b)).upper()
 
 
 def html_to_rgb(color):
