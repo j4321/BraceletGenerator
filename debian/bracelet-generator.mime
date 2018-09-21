@@ -1,7 +1,0 @@
-###
-# shared-mime-info
-
-application/x-braceletgenerator; bracelet-generator '%s'; edit=bracelet-generator '%s'; description="BraceletGenerator friendship bracelet pattern"; nametemplate=%s.bracelet; nametemplate=%s.bicolor; priority=8
-
-#
-###

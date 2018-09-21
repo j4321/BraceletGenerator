@@ -15,6 +15,7 @@ It only enables you to create patterns easily. So if you don’t know how to
 make the four types of knots, find a tutorial on the Internet first,
 for instance `friendship-bracelet.net <http://friendship-bracelets.net/tutorials.php>`__.
 
+Project webpage: https://j4321.github.io/BraceletGenerator/
 
 Install
 =======
@@ -116,3 +117,4 @@ email at <j_4321@protonmail.com>.
     :alt: Mac
 .. |License| image:: https://img.shields.io/github/license/j4321/BraceletGenerator.svg
 .. _License: https://www.gnu.org/licenses/gpl-3.0.en.html
+
