@@ -2,7 +2,7 @@
 Bracelet Generator
 ##################
 
-|Release|_ |Windows|_ |Linux|_ |Mac|_ |License|_
+|Release|_ |Windows| |Linux| |Mac| |License|_
 
 Bracelet Generator is a friendship bracelet pattern designer.
 It enables you to easily design your own patterns, add rows and strings,
@@ -106,9 +106,13 @@ email at <j_4321@protonmail.com>.
 
 
 .. |Release| image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
+    :alt: Latest Release
 .. _Release: https://badge.fury.io/gh/j4321%2FBraceletGenerator
 .. |Windows| image:: https://img.shields.io/badge/platform-Windows-blue.svg
+    :alt: Windows
 .. |Linux| image:: https://img.shields.io/badge/platform-Linux-blue.svg
+    :alt: Linux
 .. |Mac| image:: https://img.shields.io/badge/platform-Mac-blue.svg
+    :alt: Mac
 .. |License| image:: https://img.shields.io/github/license/j4321/BraceletGenerator.svg
 .. _License: https://www.gnu.org/licenses/gpl-3.0.en.html
