@@ -105,11 +105,10 @@ on `GitHub <https://github.com/j4321/BraceletGenerator/issues>`__ or write me an
 email at <j_4321@protonmail.com>.
 
 
-
 .. |Release| image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
 .. _Release: https://badge.fury.io/gh/j4321%2FBraceletGenerator
 .. |Windows| image:: https://img.shields.io/badge/platform-Windows-blue.svg
 .. |Linux| image:: https://img.shields.io/badge/platform-Linux-blue.svg
 .. |Mac| image:: https://img.shields.io/badge/platform-Mac-blue.svg
-.. |License| image:: https://badge.fury.io/gh/j4321%2FBraceletGenerator.svg
+.. |License| image:: https://img.shields.io/github/license/j4321/BraceletGenerator.svg
 .. _License: https://www.gnu.org/licenses/gpl-3.0.en.html
