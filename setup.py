@@ -5,7 +5,10 @@ from setuptools import setup
 from sys import platform
 import os
 
-if platform == 'linux':
+with open("BraceletGenerator/version.py") as file:
+    exec(file.read())
+    
+if 'linux' in platform:
     files = []
     doc = ["BraceletGenerator/doc/doc_install_linux.html",
            "BraceletGenerator/doc/doc_fr_install_linux.html",
@@ -26,23 +29,34 @@ else:
     files = ["images/*", "doc/doc.html", "doc/doc_fr.html", "doc/style.css", "locale/en_US/LC_MESSAGES/*", "locale/fr_FR/LC_MESSAGES/*"]
     data_files = []
 
-setup(name = "bracelet-generator",
-      version = "1.4.2",
-      description = "Friendship bracelet pattern designer",
-      author = "Juliette Monsel",
-      author_email = "j_4321@protonmail.com",
-      url = "https://braceletgenerator.sourceforge.io/",
-      license = "GPLv3",
-      packages = ['BraceletGenerator'],
-      package_data = {'BraceletGenerator' : files},
-      data_files = data_files,
-      scripts = ["bracelet-generator"],
-      long_description = """Bracelet Generator is a friendship bracelet pattern designer.
+setup(name="bracelet-generator",
+      version=__version__,
+      description="Friendship bracelet pattern designer",
+      author="Juliette Monsel",
+      author_email="j_4321@protonmail.com",
+      url="https://j4321.github.io/BraceletGenerator/",
+      license="GPLv3",
+      packages=['BraceletGenerator'],
+      package_data={'BraceletGenerator' : files},
+      data_files=data_files,
+      scripts=["bracelet-generator"],
+      long_description="""Bracelet Generator is a friendship bracelet pattern designer.
 It enables you to easily design your own patterns, add rows and strings, change the colors.
 With the two-colored motif editor, create your motif and the pattern will automatically be generated.
-The patterns can be exported in .png, .jpe, .ps and in text format.""",
-      requires = ["PIL", "tkinter", "sys", "os", "pickle", "locale", "gettext",
-                  "html", "threading", "urllib", "re"]
+The patterns can be exported in .png, .jpeg, .ps and in text format.""",
+      classifiers=[
+          'Development Status :: 5 - Production/Stable',
+          'Intended Audience :: End Users/Desktop',
+          'Topic :: Multimedia :: Graphics',
+          'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Natural Language :: English',
+          'Natural Language :: French',
+          'Operating System :: OS Independent',
+      ],
+      requires=["Pillow"]
 )
 
 

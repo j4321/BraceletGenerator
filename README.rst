@@ -33,7 +33,7 @@ Download and launch bracelet-generator-x.y.z.exe and follow the instructions.
 Ubuntu
 ------
 
-Bracelet Generator is available in the PPA `ppa:j-4321-i/ppa`.
+Bracelet Generator is available in the PPA `ppa:j-4321-i/ppa <https://launchpad.net/~j-4321-i/+archive/ubuntu/ppa>`__.
 
     ::
 
@@ -99,7 +99,7 @@ Then, at least in linux, it can be launched from the console with
     $ bracelet-generator
 
 
----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 If you encounter bugs or if you have suggestions, please open an issue
 on `GitHub <https://github.com/j4321/BraceletGenerator/issues>`__ or write me an
