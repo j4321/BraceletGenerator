@@ -26,6 +26,7 @@ from tkinter import BooleanVar, Tk, PhotoImage, TclError
 from tkinter.ttk import Label, Button, Checkbutton, Style
 from BraceletGenerator.constantes import STYLE
 
+
 class OBCheckbutton(Tk):
     """ Messagebox with only one button and a checkbox below the button
         for instance to add a 'Do not show this again' option """
@@ -59,10 +60,10 @@ class OBCheckbutton(Tk):
         elif image:
             self.img = image
         if self.img:
-            Label(self, image=self.img).grid(row=0, column=0, padx=10, pady=(10,0))
+            Label(self, image=self.img).grid(row=0, column=0, padx=10, pady=(10, 0))
         Label(self, text=message, wraplength=335,
               font="TkDefaultFont 10 bold").grid(row=0, column=1,
-                                                 padx=10, pady=(10,0))
+                                                 padx=10, pady=(10, 0))
         b = Button(self, text=button, command=self.destroy)
         b.grid(row=2, padx=10, pady=10, columnspan=2)
         self.var = BooleanVar(self)
@@ -73,6 +74,7 @@ class OBCheckbutton(Tk):
 
     def get_check(self):
         return self.var.get()
+
 
 def ob_checkbutton(title="", message="", button="Ok", image=None,
                    checkmessage="", **options):

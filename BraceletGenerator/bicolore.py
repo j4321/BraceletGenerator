@@ -32,6 +32,7 @@ from BraceletGenerator.tooltip import TooltipWrapper
 from BraceletGenerator.about import About
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
 
+
 class Bicolore(Toplevel):
     """ classe de l'application éditeur de motif bicolore """
     def __init__(self, master, row_nb=10, string_nb=8,
@@ -43,7 +44,7 @@ class Bicolore(Toplevel):
         # --- création et paramétrage de la fenêtre
         Toplevel.__init__(self, master, class_="BraceletGenerator", **options)
         g, x, y = self.master.geometry().split("+")
-        self.geometry("+%s+%s" % (x,y))
+        self.geometry("+%s+%s" % (x, y))
 
         self.title(_("Motif Editor"))
         self.transient(master)
@@ -68,13 +69,6 @@ class Bicolore(Toplevel):
         self.log_ligne = 1  # ligne actuelle dans le fichier log
         self.log_nb_ligne = 2  # nombre de lignes du fichier log
 
-        # style
-#        style = Style(self)
-#        style.theme_use(cst.STYLE)
-#        style.configure('TButton', background=cst.BG_COLOR)
-#        style.configure('TLabel', background=cst.BG_COLOR)
-#        style.configure('TFrame', background=cst.BG_COLOR)
-
         # --- Menu
         self.m_plus = cst.open_image(file=cst.IM_PLUS_M, master=self)
         self.m_moins = cst.open_image(file=cst.IM_MOINS_M, master=self)
@@ -93,14 +87,14 @@ class Bicolore(Toplevel):
         self.m_move = cst.open_image(file=cst.IM_MOVE_M, master=self)
         self.m_sym_vertical = cst.open_image(file=cst.IM_SYM_VERT_M, master=self)
         self.m_sym_horizontal = cst.open_image(file=cst.IM_SYM_HORIZ_M, master=self)
-        self.m_move_e = cst.open_image(master=self,file=cst.IM_MOVE_E_M)
-        self.m_move_s = cst.open_image(master=self,file=cst.IM_MOVE_S_M)
-        self.m_move_w = cst.open_image(master=self,file=cst.IM_MOVE_W_M)
-        self.m_move_n = cst.open_image(master=self,file=cst.IM_MOVE_N_M)
-        self.m_move_se = cst.open_image(master=self,file=cst.IM_MOVE_SE_M)
-        self.m_move_sw = cst.open_image(master=self,file=cst.IM_MOVE_SW_M)
-        self.m_move_nw = cst.open_image(master=self,file=cst.IM_MOVE_NW_M)
-        self.m_move_ne = cst.open_image(master=self,file=cst.IM_MOVE_NE_M)
+        self.m_move_e = cst.open_image(master=self, file=cst.IM_MOVE_E_M)
+        self.m_move_s = cst.open_image(master=self, file=cst.IM_MOVE_S_M)
+        self.m_move_w = cst.open_image(master=self, file=cst.IM_MOVE_W_M)
+        self.m_move_n = cst.open_image(master=self, file=cst.IM_MOVE_N_M)
+        self.m_move_se = cst.open_image(master=self, file=cst.IM_MOVE_SE_M)
+        self.m_move_sw = cst.open_image(master=self, file=cst.IM_MOVE_SW_M)
+        self.m_move_nw = cst.open_image(master=self, file=cst.IM_MOVE_NW_M)
+        self.m_move_ne = cst.open_image(master=self, file=cst.IM_MOVE_NE_M)
         self.m_bg = PhotoImage(width=12, height=12, master=self)
         cst.fill(self.m_bg, self.colors[0])
         self.m_fg = PhotoImage(width=12, height=12, master=self)
@@ -301,8 +295,8 @@ class Bicolore(Toplevel):
         TooltipWrapper(b_open, text=_("Open"))
         b_open.grid(column=0, row=0)
         self.save_button = Button(toolbar, image=self.icon_sauve,
-                                   command=self.save,
-                                   style='flat.TButton')
+                                  command=self.save,
+                                  style='flat.TButton')
         TooltipWrapper(self.save_button, text=_("Save"))
         self.save_button.grid(column=1, row=0)
         b_gen = Button(toolbar, image=self.icon_genere, command=self.generate,
@@ -337,8 +331,8 @@ class Bicolore(Toplevel):
                          style='flat.TButton')
         TooltipWrapper(b_sym_h, text=_("Horizontal Symmetry"))
         b_sym_h.grid(column=8, row=0)
-        b_quit = Button(toolbar,image = self.icon_exit,command=self.exit,
-                        style = 'flat.TButton')
+        b_quit = Button(toolbar, image=self.icon_exit, command=self.exit,
+                        style='flat.TButton')
         TooltipWrapper(b_quit, text=_("Quit"))
         b_quit.grid(column=9, row=0)
 
@@ -350,7 +344,7 @@ class Bicolore(Toplevel):
 
         # --- toolbar2
         toolbar2 = Frame(motif_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="we", pady=(8,4))
+        toolbar2.grid(row=0, column=0, sticky="we", pady=(8, 4))
 
         self.icon_plus = cst.open_image(file=cst.IM_PLUS, master=self)
         self.icon_moins = cst.open_image(file=cst.IM_MOINS, master=self)
@@ -362,18 +356,18 @@ class Bicolore(Toplevel):
         self.b_bg = Button(toolbar2, image=self.icon_bg,
                            command=self.set_bg, style='pm.TButton')
         TooltipWrapper(self.b_bg, text=_("Background Color"))
-        self.b_bg.grid(row=0, column=0, padx=(5,2))
+        self.b_bg.grid(row=0, column=0, padx=(5, 2))
         self.b_fg = Button(toolbar2, image=self.icon_fg,
                            command=self.set_fg, style='pm.TButton')
         TooltipWrapper(self.b_fg, text=_("Foreground Color"))
-        self.b_fg.grid(row=0, column=1,  padx=2)
+        self.b_fg.grid(row=0, column=1, padx=2)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=2,
-                                               sticky="ewsn", padx=(5,0))
+                                               sticky="ewsn", padx=(5, 0))
         self.row_nb_entry = Entry(toolbar2, width=3,
-                                   validatecommand=(self._okfct, '%d', '%S'),
-                                   validate='key', justify="center")
-        self.row_nb_entry.grid(row=0, column=3, sticky="nsw", padx=(0,5))
+                                  validatecommand=(self._okfct, '%d', '%S'),
+                                  validate='key', justify="center")
+        self.row_nb_entry.grid(row=0, column=3, sticky="nsw", padx=(0, 5))
         b_pl = Button(toolbar2, image=self.icon_plus, style='pm.TButton',
                       command=self.add_row)
         TooltipWrapper(b_pl, text=_("Add Row"))
@@ -388,7 +382,7 @@ class Bicolore(Toplevel):
         self.string_nb_entry = Entry(toolbar2, width=3,
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
-        self.string_nb_entry.grid(row=0, column=7, sticky="nse", padx=(0,5))
+        self.string_nb_entry.grid(row=0, column=7, sticky="nse", padx=(0, 5))
         b_pf = Button(toolbar2, image=self.icon_plus, style='pm.TButton',
                       command=self.add_string)
         TooltipWrapper(b_pf, text=_("Add String"))
@@ -403,11 +397,11 @@ class Bicolore(Toplevel):
         self.string_nb = string_nb
 
         # canvas
-        w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
+        w = 30 + (self.string_nb // 2) * 40 + (self.string_nb % 2) * 20
         self.can = Canvas(motif_frame, borderwidth=2, relief="groove",
                           bg=cst.CANVAS_COLOR, highlightthickness=0,
                           width=min(self.width_max, w),
-                          height=min(self.row_nb*22 + 20, self.height_max))
+                          height=min(self.row_nb * 22 + 20, self.height_max))
         self.can.grid(row=1, column=0, sticky="wens", padx=1, pady=1)
         self.scroll_vert = Scrollbar(motif_frame, command=self.can.yview,
                                      orient="vertical")
@@ -512,17 +506,17 @@ class Bicolore(Toplevel):
             self.carreaux.append([])
             self.motif.append([])
             if i % 2:  # ligne impaire
-                nb_noeuds = self.string_nb//2 - 1 + self.string_nb % 2
+                nb_noeuds = self.string_nb // 2 - 1 + self.string_nb % 2
                 for j in range(nb_noeuds):
-                    self.carreaux[i].append(self._carreau(50 + j*40,
-                                                          50 + i//2*40))
+                    self.carreaux[i].append(self._carreau(50 + j * 40,
+                                                          50 + i // 2 * 40))
                     self.motif[i].append(0)
                     self._attribue_carreau(i, j)
             else:  # ligne paire
-                nb_noeuds = self.string_nb//2
+                nb_noeuds = self.string_nb // 2
                 for j in range(nb_noeuds):
-                    self.carreaux[i].append(self._carreau(30 + j*40,
-                                                          30 + i//2*40))
+                    self.carreaux[i].append(self._carreau(30 + j * 40,
+                                                          30 + i // 2 * 40))
                     self.motif[i].append(0)
                     self._attribue_carreau(i, j)
 
@@ -530,22 +524,22 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[1] - 10,
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
+
     def __setattr__(self, name, value):
         """ gestion de la modification attributs, en particulier
             les nombres de fils et de lignes ainsi que la sauvegarde """
         if name == "string_nb":
-            self.string_nb_entry.delete(0,"end")
+            self.string_nb_entry.delete(0, "end")
             self.string_nb_entry.insert(0, value)
         elif name == "row_nb":
-            self.row_nb_entry.delete(0,"end")
+            self.row_nb_entry.delete(0, "end")
             self.row_nb_entry.insert(0, value)
         elif name == "is_saved":
-            dico = {"True":"disabled", "False":"normal"}
+            dico = {"True": "disabled", "False": "normal"}
             self.save_button.configure(state=dico[str(value)])
             self.menu_file.entryconfigure(3, state=dico[str(value)])
 
         object.__setattr__(self, name, value)
-
 
     def add_recent_file(self, file):
         """ ajoute fichier aux fichiers récents (de l'éditeur de motifs et du logiciel),
@@ -559,7 +553,7 @@ class Bicolore(Toplevel):
             cst.RECENT_BICOLOR.remove(file)
 
         cst.RECENT_BICOLOR.insert(0, file)
-        self.menu_recent_files.insert_command(0,label=file,
+        self.menu_recent_files.insert_command(0, label=file,
                                               command=lambda: self.open(fichier=file))
         if len(cst.RECENT_BICOLOR) > 10:
             self.menu_recent_files.delete(10)
@@ -584,20 +578,16 @@ class Bicolore(Toplevel):
         top.transient(self)
         top.title(_("Shift"))
         top.configure(bg=cst.BG_COLOR)
-        top.resizable(0,0)
+        top.resizable(0, 0)
         top.grab_set()
-        style = Style(top)
-        style.configure('TButton', background=cst.BG_COLOR)
-        style.configure('TLabel', background=cst.BG_COLOR)
-        style.configure('TFrame', background=cst.BG_COLOR)
-        top.icon_move_e = cst.open_image(master=top,file=cst.IM_MOVE_E)
-        top.icon_move_s = cst.open_image(master=top,file=cst.IM_MOVE_S)
-        top.icon_move_w = cst.open_image(master=top,file=cst.IM_MOVE_W)
-        top.icon_move_n = cst.open_image(master=top,file=cst.IM_MOVE_N)
-        top.icon_move_se = cst.open_image(master=top,file=cst.IM_MOVE_SE)
-        top.icon_move_sw = cst.open_image(master=top,file=cst.IM_MOVE_SW)
-        top.icon_move_nw = cst.open_image(master=top,file=cst.IM_MOVE_NW)
-        top.icon_move_ne = cst.open_image(master=top,file=cst.IM_MOVE_NE)
+        top.icon_move_e = cst.open_image(master=top, file=cst.IM_MOVE_E)
+        top.icon_move_s = cst.open_image(master=top, file=cst.IM_MOVE_S)
+        top.icon_move_w = cst.open_image(master=top, file=cst.IM_MOVE_W)
+        top.icon_move_n = cst.open_image(master=top, file=cst.IM_MOVE_N)
+        top.icon_move_se = cst.open_image(master=top, file=cst.IM_MOVE_SE)
+        top.icon_move_sw = cst.open_image(master=top, file=cst.IM_MOVE_SW)
+        top.icon_move_nw = cst.open_image(master=top, file=cst.IM_MOVE_NW)
+        top.icon_move_ne = cst.open_image(master=top, file=cst.IM_MOVE_NE)
         Button(top, image=top.icon_move_nw,
                command=lambda: self.shift("nw")).grid(row=0, column=0)
         Button(top, image=top.icon_move_n,
@@ -621,50 +611,50 @@ class Bicolore(Toplevel):
     def shift(self, direction, write_log=True):
         """ translate le motif
             direction : n, s, e, w, ne, nw, sw, se """
-        parite = "pi"[self.string_nb % 2] # pour undo
+        parite = "pi"[self.string_nb % 2]  # pour undo
         if direction == "n":
             self.motif = self.motif[2:] + self.motif[:2]
         elif direction == "s":
             self.motif = self.motif[-2:] + self.motif[:-2]
-        elif direction =="e":
+        elif direction == "e":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             for i in range(len(self.motif)):
                 self.motif[i] = self.motif[i][-1:] + self.motif[i][:-1]
-        elif direction =="w":
+        elif direction == "w":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             for i in range(len(self.motif)):
                 self.motif[i] = self.motif[i][1:] + self.motif[i][:1]
-        elif direction =="se":
+        elif direction == "se":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             self.motif = self.motif[-1:] + self.motif[:-1]
-            for i in range(0,len(self.motif),2):
+            for i in range(0, len(self.motif), 2):
                 self.motif[i] = self.motif[i][-1:] + self.motif[i][:-1]
-        elif direction =="ne":
+        elif direction == "ne":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             self.motif = self.motif[1:] + self.motif[:1]
-            for i in range(0,len(self.motif),2):
+            for i in range(0, len(self.motif), 2):
                 self.motif[i] = self.motif[i][-1:] + self.motif[i][:-1]
-        elif direction =="sw":
+        elif direction == "sw":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             self.motif = self.motif[-1:] + self.motif[:-1]
-            for i in range(1,len(self.motif),2):
+            for i in range(1, len(self.motif), 2):
                 self.motif[i] = self.motif[i][1:] + self.motif[i][:1]
-        elif direction =="nw":
+        elif direction == "nw":
             if not self.string_nb % 2:
                 # nombre pair de fils
                 self.add_string(False)
             self.motif = self.motif[1:] + self.motif[:1]
-            for i in range(1,len(self.motif),2):
+            for i in range(1, len(self.motif), 2):
                 self.motif[i] = self.motif[i][1:] + self.motif[i][:1]
 
         for i in range(self.row_nb):
@@ -677,7 +667,6 @@ class Bicolore(Toplevel):
             with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("shift %s %s\n" % (direction, parite))
         self.is_saved = False
-
 
     def rotate(self, sens, write_log=True, instruction="s"):
         """ sens : ccw (counter-clockwise) ou cw (clockwise)
@@ -697,7 +686,7 @@ class Bicolore(Toplevel):
             with open(cst.BICOLOR_LOG, "a") as log:
                 instructions = "pi"
                 log.write("rotate %s %s\n" % (sens,
-                                                instructions[self.string_nb % 2]))
+                                              instructions[self.string_nb % 2]))
         if sens == "ccw":
             if self.string_nb % 2:
                 self.row_nb, self.string_nb = self.string_nb - 1, self.row_nb + 2
@@ -706,19 +695,19 @@ class Bicolore(Toplevel):
                     motif.append([])
                     if i % 2 == 0:
                         motif[i].append(0)
-                    for j in range(p//2):
-                        motif[i].append(self.motif[2*j + 1 - i % 2]
-                                        [(self.row_nb - 1 - i)//2])
+                    for j in range(p // 2):
+                        motif[i].append(self.motif[2 * j + 1 - i % 2]
+                                        [(self.row_nb - 1 - i) // 2])
 
             else:
                 self.string_nb, self.row_nb = self.row_nb + 1, self.string_nb
                 for i in range(self.row_nb - 1):
                     motif.append([])
-                    for j in range(self.string_nb//2):
-                        motif[i].append(self.motif[2*j + i % 2]
-                                        [(self.row_nb - 2 - i)//2])
+                    for j in range(self.string_nb // 2):
+                        motif[i].append(self.motif[2 * j + i % 2]
+                                        [(self.row_nb - 2 - i) // 2])
                 if instruction == "s":
-                    motif.append([0]*(self.string_nb//2))
+                    motif.append([0] * (self.string_nb // 2))
                 else:
                     motif = motif[:-1]
                     self.row_nb -= 2
@@ -730,29 +719,29 @@ class Bicolore(Toplevel):
         else:
             if self.string_nb % 2:
                 self.row_nb, self.string_nb = self.string_nb - 1, self.row_nb + 2
-                p = (self.string_nb - 1)//2
+                p = (self.string_nb - 1) // 2
                 for i in range(self.row_nb):
                     motif.append([])
                     if i % 2 == 0 and instruction != "p":
                         motif[i].append(0)
                     for j in range(p):
-                        motif[i].append(self.motif[(p - 1 - j)*2 + i % 2][i//2])
+                        motif[i].append(self.motif[(p - 1 - j) * 2 + i % 2][i // 2])
                 if instruction == "p":
                     self.string_nb -= 2
                     for i in range(1, self.row_nb, 2):
                         motif[i] = motif[i][1:]
             else:
                 self.string_nb, self.row_nb = self.row_nb + 2, self.string_nb
-                p = (self.string_nb - 1)//2
+                p = (self.string_nb - 1) // 2
                 for i in range(self.row_nb - 1):
                     motif.append([])
                     if i % 2 == 0:
                         motif[i].append(0)
                     for j in range(p):
-                        motif[i].append(self.motif[(p - 1 - j)*2 + i % 2]
-                                        [i//2])
+                        motif[i].append(self.motif[(p - 1 - j) * 2 + i % 2]
+                                        [i // 2])
                 if instruction != "i":
-                    motif.append([0]*((self.string_nb - 1)//2))
+                    motif.append([0] * ((self.string_nb - 1) // 2))
                 elif instruction == "i":
                     self.row_nb -= 2
                     self.string_nb -= 1
@@ -765,19 +754,19 @@ class Bicolore(Toplevel):
             self.carreaux.append([])
             if i % 2:  # ligne impaire
                 for j, coul in enumerate(self.motif[i]):
-                    self.carreaux[i].append(self._carreau(50 + j*40,
-                                                          50 + i//2*40,
+                    self.carreaux[i].append(self._carreau(50 + j * 40,
+                                                          50 + i // 2 * 40,
                                                           fill=self.colors[coul]))
                     self._attribue_carreau(i, j)
             else:
                 for j, coul in enumerate(self.motif[i]):
-                    self.carreaux[i].append(self._carreau(30 + j*40,
-                                                          30 + i//2*40,
+                    self.carreaux[i].append(self._carreau(30 + j * 40,
+                                                          30 + i // 2 * 40,
                                                           fill=self.colors[coul]))
                     self._attribue_carreau(i, j)
         self.is_saved = False
-        w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
-        h = 50 + (self.row_nb//2)*40
+        w = 30 + (self.string_nb // 2) * 40 + (self.string_nb % 2) * 20
+        h = 50 + (self.row_nb // 2) * 40
         self.can.configure(width=min(self.width_max, w),
                            height=min(h, self.height_max),
                            scrollregion=[self.can.bbox('all')[0] - 10,
@@ -785,22 +774,18 @@ class Bicolore(Toplevel):
                                          self.can.bbox('all')[2] + 10,
                                          self.can.bbox('all')[3] + 10])
 
-
-
-
     def symmetrize(self, sens, write_log=True):
         """ symétrise le motif verticalement ou horizontalement """
 
         if sens == "horizontal":
-            n = self.string_nb//2 - 1
+            n = self.string_nb // 2 - 1
             if self.string_nb % 2:
                 for i in range(self.row_nb):
                     for k, j in enumerate(range(n - i % 2, - 1, - 1)):
                         coul = self.motif[i][j]
                         self.motif[i].append(coul)
-                        self.carreaux[i].append(self._carreau(30 + 20*(i % 2)
-                                                              + (n + 1 + k)*40,
-                                                              30 + 20*(i % 2) + i//2*40,
+                        self.carreaux[i].append(self._carreau(30 + 20 * (i % 2) + (n + 1 + k) * 40,
+                                                              30 + 20 * (i % 2) + i // 2 * 40,
                                                               self.colors[coul]))
                         self._attribue_carreau(i, n + 1 + k)
 
@@ -809,49 +794,42 @@ class Bicolore(Toplevel):
                     for k, j in enumerate(range(n - 1, - 1, - 1)):
                         coul = self.motif[i][j]
                         self.motif[i].append(coul)
-                        self.carreaux[i].append(self._carreau(30 + 20*(i % 2) +
-                                                              (n + 1 + k -
-                                                               (i % 2))*40,
-                                                              30 + 20*(i % 2)
-                                                              + i//2*40,
+                        self.carreaux[i].append(self._carreau(30 + 20 * (i % 2) + (n + 1 + k - (i % 2)) * 40,
+                                                              30 + 20 * (i % 2) + i // 2 * 40,
                                                               self.colors[coul]))
                         self._attribue_carreau(i, n + 1 + k - i % 2)
 
-            self.string_nb = (self.string_nb - 1)*2
-
-
+            self.string_nb = (self.string_nb - 1) * 2
         else:
-            row_nb = self.row_nb*2 - 1
+            row_nb = self.row_nb * 2 - 1
             for k, i in zip(range(self.row_nb, row_nb),
                             range(self.row_nb - 2, -1, -1)):
                 self.motif.append([])
                 self.carreaux.append([])
                 for j, coul in enumerate(self.motif[i]):
                     self.motif[k].append(coul)
-                    self.carreaux[k].append(self._carreau(30 + 20*(k % 2) + j*40,
-                                                          30 + 20*(k % 2) +
-                                                          k//2*40,
+                    self.carreaux[k].append(self._carreau(30 + 20 * (k % 2) + j * 40,
+                                                          30 + 20 * (k % 2) + k // 2 * 40,
                                                           self.colors[coul]))
                     self._attribue_carreau(k, j)
             self.motif.append([])
             self.carreaux.append([])
-            for j in range(self.string_nb//2 - 1 + self.string_nb % 2):
+            for j in range(self.string_nb // 2 - 1 + self.string_nb % 2):
                 self.motif[row_nb].append(0)
-                self.carreaux[row_nb].append(self._carreau(50 + j*40,
-                                                              50 + row_nb//2*40,
-                                                              self.colors[0]))
+                self.carreaux[row_nb].append(self._carreau(50 + j * 40,
+                                                           50 + row_nb // 2 * 40,
+                                                           self.colors[0]))
                 self._attribue_carreau(row_nb, j)
 
             self.row_nb = row_nb + 1
-
 
         if write_log:
             self._log()
             with open(cst.BICOLOR_LOG, "a") as log:
                 log.write("symmetrize %s\n" % (sens))
 
-        w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
-        h = 50 + (self.row_nb//2)*40
+        w = 30 + (self.string_nb // 2) * 40 + (self.string_nb % 2) * 20
+        h = 50 + (self.row_nb // 2) * 40
         self.can.configure(width=min(self.width_max, w),
                            height=min(h, self.height_max),
                            scrollregion=[self.can.bbox('all')[0] - 10,
@@ -874,8 +852,8 @@ class Bicolore(Toplevel):
         if rep is not None:
             if not fichier:
                 fichier = cst.askopenfilename(defaultextension='.bicolor',
-                                          filetypes=[('BICOLOR', '*.bicolor')],
-                                          parent=self, initialdir=cst.CONFIG.get("General", "last_path"))
+                                              filetypes=[('BICOLOR', '*.bicolor')],
+                                              parent=self, initialdir=cst.CONFIG.get("General", "last_path"))
             if fichier:
                 if os.path.exists(fichier):
                     cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
@@ -899,29 +877,27 @@ class Bicolore(Toplevel):
                                 self.carreaux.append([])
                                 if i % 2:  # ligne impaire
                                     for j, coul in enumerate(self.motif[i]):
-                                        self.carreaux[i].append(self._carreau(50 + j*40,
-                                                                              50 + i//2*40,
+                                        self.carreaux[i].append(self._carreau(50 + j * 40,
+                                                                              50 + i // 2 * 40,
                                                                               fill=self.colors[coul]))
                                         self._attribue_carreau(i, j)
                                 else:
                                     for j, coul in enumerate(self.motif[i]):
-                                        self.carreaux[i].append(self._carreau(30 + j*40,
-                                                                              30 + i//2*40,
+                                        self.carreaux[i].append(self._carreau(30 + j * 40,
+                                                                              30 + i // 2 * 40,
                                                                               fill=self.colors[coul]))
                                         self._attribue_carreau(i, j)
                             self.path_save = fichier
                             self._logreset()
                             self.is_saved = True
-                            w = 30 + (self.string_nb//2)*40 + (self.string_nb % 2)*20
-                            h = 50 + (self.row_nb//2)*40
+                            w = 30 + (self.string_nb // 2) * 40 + (self.string_nb % 2) * 20
+                            h = 50 + (self.row_nb // 2) * 40
                             self.can.configure(width=min(self.width_max, w),
                                                height=min(h, self.height_max),
                                                scrollregion=[self.can.bbox('all')[0] - 10,
                                                              self.can.bbox('all')[1] - 10,
                                                              self.can.bbox('all')[2] + 10,
                                                              self.can.bbox('all')[3] + 10])
-
-
 
                     else:  # il y a eu une erreur
                         showerror(_("Error"),
@@ -930,7 +906,7 @@ class Bicolore(Toplevel):
                 else:
                     showerror(_("Error"),
                               _("The file %(name)s does not exists.") % ({"name": fichier}),
-                             parent=self)
+                              parent=self)
                     self.del_recent_file(fichier)
 
     def clear(self, event=None):
@@ -969,8 +945,8 @@ class Bicolore(Toplevel):
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
         else:
-            initialdir=cst.CONFIG.get("General", "last_path")
-            initialfile=""
+            initialdir = cst.CONFIG.get("General", "last_path")
+            initialfile = ""
         fichier = cst.asksaveasfilename(defaultextension='.bicolor',
                                         parent=self,
                                         filetypes=[('BICOLOR', '*.bicolor')],
@@ -1024,12 +1000,12 @@ class Bicolore(Toplevel):
 
             elif txt[0] == "symmetrize":
                 if txt[1] == "horizontal":
-                    n = self.string_nb//2
+                    n = self.string_nb // 2
                     for i in range(self.string_nb - n + 1, self.string_nb):
                         self.del_string(write_log=False)
                 elif txt[1] == "vertical":
-                    l = self.row_nb//2
-                    for i in range(l//2):
+                    l = self.row_nb // 2
+                    for i in range(l // 2):
                         self.del_row(write_log=False)
 
     def redo(self, event=None):
@@ -1104,8 +1080,7 @@ class Bicolore(Toplevel):
             for i in range(self.row_nb):
                 motif.append([])
                 for c in self.carreaux[i]:
-                    motif[i].append(int(self.can.itemcget(c, "fill") ==
-                                        self.colors[1]))
+                    motif[i].append(int(self.can.itemcget(c, "fill") == self.colors[1]))
             self.withdraw()
             self.update_idletasks()
             if self.master:
@@ -1226,10 +1201,10 @@ class Bicolore(Toplevel):
             if nb >= 2:
                 diff = nb - self.row_nb
                 if diff > 0:
-                    for i in range(diff//2):
+                    for i in range(diff // 2):
                         self.add_row()
                 elif diff < 0:
-                    for i in range((-diff)//2):
+                    for i in range((-diff) // 2):
                         self.del_row()
         self.row_nb = self.row_nb
         self.focus_set()
@@ -1240,23 +1215,23 @@ class Bicolore(Toplevel):
         self.row_nb += 2
         self.carreaux.append([])
         self.motif.append([])
-        nb_noeuds = self.string_nb//2
+        nb_noeuds = self.string_nb // 2
         if motif is None:
-            motif = ["0"*nb_noeuds, "0"*(nb_noeuds - 1 + self.string_nb % 2)]
+            motif = ["0" * nb_noeuds, "0" * (nb_noeuds - 1 + self.string_nb % 2)]
         for j in range(nb_noeuds):
             coul = int(motif[0][j])
-            self.carreaux[i].append(self._carreau(30 + j*40, 30 + i//2*40,
+            self.carreaux[i].append(self._carreau(30 + j * 40, 30 + i // 2 * 40,
                                                   self.colors[coul]))
             self.motif[i].append(coul)
             self._attribue_carreau(i, j)
         self.carreaux.append([])
         self.motif.append([])
         i += 1
-        nb_noeuds = self.string_nb//2 - 1 + self.string_nb % 2
+        nb_noeuds = self.string_nb // 2 - 1 + self.string_nb % 2
         for j in range(nb_noeuds):
             coul = int(motif[1][j])
-            self.carreaux[i].append(self._carreau(50 + j*40,
-                                                  50 + i//2*40,
+            self.carreaux[i].append(self._carreau(50 + j * 40,
+                                                  50 + i // 2 * 40,
                                                   self.colors[coul]))
             self.motif[i].append(coul)
             self._attribue_carreau(i, j)
@@ -1325,23 +1300,23 @@ class Bicolore(Toplevel):
     def add_string(self, event=None, write_log=True, motif=None):
         """ ajoute un fil au bracelet"""
         if motif is None:
-            motif = "0"*(self.row_nb//2)
+            motif = "0" * (self.row_nb // 2)
         self.string_nb += 1
-        nb = self.string_nb//2 - 1
+        nb = self.string_nb // 2 - 1
 
         if self.string_nb % 2:
             for i in range(1, self.row_nb, 2):
-                coul = int(motif[i//2])
-                self.carreaux[i].append(self._carreau(50 + nb*40,
-                                                      50 + i//2*40,
+                coul = int(motif[i // 2])
+                self.carreaux[i].append(self._carreau(50 + nb * 40,
+                                                      50 + i // 2 * 40,
                                                       self.colors[coul]))
                 self.motif[i].append(coul)
                 self._attribue_carreau(i, nb)
         else:
             for i in range(0, self.row_nb, 2):
-                coul = int(motif[i//2])
-                self.carreaux[i].append(self._carreau(30 + nb*40,
-                                                      30 + i//2*40,
+                coul = int(motif[i // 2])
+                self.carreaux[i].append(self._carreau(30 + nb * 40,
+                                                      30 + i // 2 * 40,
                                                       self.colors[coul]))
                 self.motif[i].append(coul)
                 self._attribue_carreau(i, nb)

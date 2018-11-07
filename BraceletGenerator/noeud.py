@@ -229,8 +229,6 @@ class Noeud:
             self.can.coords(self.fils[3], self.x + 25, self.y + 30,
                             self.x + 10, self.y + 15)
 
-
-
     def get_color(self, fil):
         """ renvoie la color du fil
             fil: 0 = Gin, 1 = Din, 2 = Gout, 3 = Dout """

@@ -54,6 +54,7 @@ class VersionParser(HTMLParser):
         HTMLParser.feed(self, data)
         return self.version
 
+
 class UpdateChecker(Toplevel):
 
     version_parser = VersionParser()
@@ -127,6 +128,6 @@ class UpdateChecker(Toplevel):
                 self.update = False
             elif e.reason.errno == 104:
                 # connection timed out
-               self.update_available()
+                self.update_available()
             else:
                 raise e

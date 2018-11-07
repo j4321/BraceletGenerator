@@ -23,8 +23,10 @@ Color management dialog
 
 from tkinter import Toplevel, Canvas, PhotoImage
 from tkinter.ttk import Button, Label, Separator, Frame
-from BraceletGenerator.constantes import BG_COLOR, MOUSEWHEEL, set_icon, mouse_wheel, fill, askcolor, LANG
+from BraceletGenerator.constantes import BG_COLOR, MOUSEWHEEL, set_icon, \
+    mouse_wheel, fill, askcolor
 from BraceletGenerator.scrollbar import AutoScrollbar as Scrollbar
+
 
 class Couleurs(Toplevel):
     """ Toplevel de l'application principale permettant de gérer les colors
@@ -38,7 +40,7 @@ class Couleurs(Toplevel):
         # Initialisation Toplevel
         Toplevel.__init__(self, master, class_="BraceletGenerator", **options)
         self.title(_("Color Manager"))
-        self.resizable(0,1)
+        self.resizable(0, 1)
         self.transient(master)
         self.grab_set()
         self.configure(bg=BG_COLOR)
@@ -47,7 +49,7 @@ class Couleurs(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self._quitter)
 
         g, x, y = self.master.geometry().split("+")
-        self.geometry("+%s+%s" % (x,y))
+        self.geometry("+%s+%s" % (x, y))
 
         # Résultats (nouvelles colors)
         self.result = ()
@@ -56,7 +58,7 @@ class Couleurs(Toplevel):
         set_icon(self)
 
         # --- Contenu :
-        self.can = Canvas(self, bg=BG_COLOR) # pour utiliser une scrollbar
+        self.can = Canvas(self, bg=BG_COLOR)  # pour utiliser une scrollbar
         self.can.grid(row=0, column=0, sticky="nsew")
 
         fen = Frame(self)
@@ -80,32 +82,32 @@ class Couleurs(Toplevel):
         fill(self.current_default, coul_def)
         Label(fen, image=self.current_default).grid(row=2, column=1, padx=6)
         self.b_new_default = Button(fen, style='pm.TButton',
-                                    command=lambda : self.change_color(self.b_new_default))
+                                    command=lambda: self.change_color(self.b_new_default))
         self.b_new_default.image = PhotoImage(master=self, width=16, height=16)
         self.b_new_default.configure(image=self.b_new_default.image)
         fill(self.b_new_default.image, coul_def)
         self.b_new_default.grid(row=2, column=2, padx=6, pady=4)
 
         Separator(fen, orient="horizontal").grid(row=3, column=0, pady=4,
-                                                  columnspan=3, sticky="ew")
+                                                 columnspan=3, sticky="ew")
         # --- Couleurs des fils
         Label(fen, text=_("String colors")).grid(row=4, column=0, padx=6,
                                                  sticky="e")
         self.current_colors = []
         self.b_new_colors = []
-        for i,coul in enumerate(colors):
+        for i, coul in enumerate(colors):
             self.current_colors.append(PhotoImage(master=self, width=16, height=16))
             fill(self.current_colors[i], coul)
-            Label(fen, image=self.current_colors[i]).grid(row=4+i, column=1, padx=6)
+            Label(fen, image=self.current_colors[i]).grid(row=4 + i, column=1, padx=6)
             self.b_new_colors.append(Button(fen, style='pm.TButton'))
             self.b_new_colors[i].image = PhotoImage(master=self, width=16, height=16)
             fill(self.b_new_colors[i].image, coul)
             self.b_new_colors[i].configure(image=self.b_new_colors[i].image,
                                            command=lambda b=self.b_new_colors[i]: self.change_color(b))
-            self.b_new_colors[i].grid(row=4+i, column=2, padx=6, pady=4)
+            self.b_new_colors[i].grid(row=4 + i, column=2, padx=6, pady=4)
 
         Button(fen, text="Ok",
-               command=self.valide).grid(row=5+len(colors), pady=4,
+               command=self.valide).grid(row=5 + len(colors), pady=4,
                                          column=0, columnspan=3)
         self.update_idletasks()
         bbox = self.can.bbox("all")
@@ -125,7 +127,7 @@ class Couleurs(Toplevel):
 
     def change_color(self, button):
         image = button.image
-        c_coul = "#%02x%02x%02x" % image.get(0,0)
+        c_coul = "#%02x%02x%02x" % image.get(0, 0)
         n_coul = askcolor(c_coul, parent=self)
         if n_coul:
             fill(image, n_coul)
@@ -133,8 +135,8 @@ class Couleurs(Toplevel):
             button.configure(image=image)
 
     def valide(self):
-        coul_def = "#%02x%02x%02x" % self.b_new_default.image.get(0,0)
-        colors = ["#%02x%02x%02x" % b.image.get(0,0) for b in self.b_new_colors]
+        coul_def = "#%02x%02x%02x" % self.b_new_default.image.get(0, 0)
+        colors = ["#%02x%02x%02x" % b.image.get(0, 0) for b in self.b_new_colors]
         self.result = (coul_def, colors)
         self.destroy()
 
@@ -143,4 +145,3 @@ class Couleurs(Toplevel):
 
     def get_result(self):
         return self.result
-

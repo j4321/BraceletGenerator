@@ -98,7 +98,7 @@ class Bracelet(Tk):
 
         # barre de menus
         menu = Menu(self, tearoff=0, borderwidth=0,
-                         bg=cst.BG_COLOR, activeborder=0)
+                    bg=cst.BG_COLOR, activeborder=0)
         # --- -- Fichier
         self.menu_file = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.menu_recent_files = Menu(self.menu_file, tearoff=0, bg=cst.BG_COLOR)
@@ -170,23 +170,23 @@ class Bracelet(Tk):
                                    accelerator="Ctrl+-")
         self.menu_edit.add_separator()
         self.menu_edit.add_command(label=_("Create a Two-Colored Motif"),
-                                      image=self.m_bicolore, compound="left",
-                                      command=self.bicolore,
-                                      accelerator="Ctrl+B")
+                                   image=self.m_bicolore, compound="left",
+                                   command=self.bicolore,
+                                   accelerator="Ctrl+B")
         self.menu_edit.add_separator()
         self.menu_edit.add_command(label=_("Vertical Symmetry"),
-                                      image=self.m_sym_vertical, compound="left",
-                                      command=lambda: self.symmetrize("vertical"),
-                                      accelerator="Ctrl+V")
+                                   image=self.m_sym_vertical, compound="left",
+                                   command=lambda: self.symmetrize("vertical"),
+                                   accelerator="Ctrl+V")
         self.menu_edit.add_command(label=_("Horizontal Symmetry"),
-                                      image=self.m_sym_horizontal, compound="left",
-                                      command=lambda: self.symmetrize("horizontal"),
-                                      accelerator="Ctrl+H")
+                                   image=self.m_sym_horizontal, compound="left",
+                                   command=lambda: self.symmetrize("horizontal"),
+                                   accelerator="Ctrl+H")
         self.menu_edit.add_separator()
         self.menu_edit.add_command(label=_("Color Manager"),
-                                      image=self.m_color, compound="left",
-                                      command=self.manage_colors,
-                                      accelerator="Ctrl+C")
+                                   image=self.m_color, compound="left",
+                                   command=self.manage_colors,
+                                   accelerator="Ctrl+C")
         # --- -- Langue
         self.menu_language = Menu(menu, tearoff=0, bg=cst.BG_COLOR)
         self.langue = StringVar(self)
@@ -239,8 +239,8 @@ class Bracelet(Tk):
         TooltipWrapper(b_open, text=_("Open"))
         b_open.grid(column=1, row=0)
         self.save_button = Button(toolbar, image=self.icon_save,
-                                   command=self.save,
-                                   style='flat.TButton')
+                                  command=self.save,
+                                  style='flat.TButton')
         TooltipWrapper(self.save_button, text=_("Save"))
         self.save_button.grid(column=2, row=0)
         b_export = Button(toolbar, image=self.icon_export, command=self.export,
@@ -277,16 +277,16 @@ class Bracelet(Tk):
 
         # --- toolbar2
         toolbar2 = Frame(pattern_frame, height=24)
-        toolbar2.grid(row=0, column=0, sticky="ew", pady=(8,4))
+        toolbar2.grid(row=0, column=0, sticky="ew", pady=(8, 4))
         self.icon_plus = cst.open_image(master=self, file=cst.IM_PLUS)
         self.icon_moins = cst.open_image(master=self, file=cst.IM_MOINS)
 
         Label(toolbar2, text=_("Rows: ")).grid(row=0, column=0,
-                                               sticky="e", padx=(5,0))
+                                               sticky="e", padx=(5, 0))
         self.row_nb_entry = Entry(toolbar2, width=3,
-                                   validatecommand=(self._okfct, '%d', '%S'),
-                                   validate='key', justify="center")
-        self.row_nb_entry.grid(row=0, column=1, sticky="nsw", padx=(0,5))
+                                  validatecommand=(self._okfct, '%d', '%S'),
+                                  validate='key', justify="center")
+        self.row_nb_entry.grid(row=0, column=1, sticky="nsw", padx=(0, 5))
         b_pl = Button(toolbar2, image=self.icon_plus, style="pm.TButton",
                       command=self.add_row)
         TooltipWrapper(b_pl, text=_("Add Row"))
@@ -296,11 +296,11 @@ class Bracelet(Tk):
         TooltipWrapper(b_ml, text=_("Delete Row"))
         b_ml.grid(row=0, column=3, padx=2, sticky="ewsn")
         Label(toolbar2, text=_("Strings: ")).grid(row=0, column=4,
-                                                  sticky="e", padx=(5,0))
+                                                  sticky="e", padx=(5, 0))
         self.string_nb_entry = Entry(toolbar2, width=3,
                                      validatecommand=(self._okfct, '%d', '%S'),
                                      validate='key', justify="center")
-        self.string_nb_entry.grid(row=0, column=5, sticky="ens", padx=(0,5))
+        self.string_nb_entry.grid(row=0, column=5, sticky="ens", padx=(0, 5))
         b_pf = Button(toolbar2, image=self.icon_plus, style="pm.TButton",
                       command=self.add_string)
         TooltipWrapper(b_pf, text=_("Add String"))
@@ -314,7 +314,7 @@ class Bracelet(Tk):
         # color par défaut
         self.color = color
         # le nombre de lignes est toujours pair
-        self.row_nb = (row_nb//2)*2
+        self.row_nb = (row_nb // 2) * 2
         self.string_nb = string_nb
         # savoir si l'éditeur de motifs bicolores est ouvert
         self.bicolore_on = False
@@ -408,13 +408,13 @@ class Bracelet(Tk):
         """ gestion de la modification attributs, en particulier
             les nombres de fils et de lignes ainsi que la sauvegarde """
         if name == "string_nb":
-            self.string_nb_entry.delete(0,"end")
+            self.string_nb_entry.delete(0, "end")
             self.string_nb_entry.insert(0, value)
         elif name == "row_nb":
-            self.row_nb_entry.delete(0,"end")
+            self.row_nb_entry.delete(0, "end")
             self.row_nb_entry.insert(0, value)
         elif name == "is_saved":
-            dico = {"True":"disabled", "False":"normal"}
+            dico = {"True": "disabled", "False": "normal"}
             self.save_button.configure(state=dico[str(value)])
             self.menu_file.entryconfigure(5, state=dico[str(value)])
         elif name == "path_save":
@@ -452,7 +452,7 @@ class Bracelet(Tk):
             affichage des noeuds ... """
         self.can.delete("all")
         # largeur sur le canvas du patron interactif
-        self.fin_noeud = 50 + (self.string_nb//2)*60 + 30*(self.string_nb % 2)
+        self.fin_noeud = 50 + (self.string_nb // 2) * 60 + 30 * (self.string_nb % 2)
         # noeuds du bracelets
         self.noeuds = []
         # carrés de sélection de la couleur des fils
@@ -463,7 +463,7 @@ class Bracelet(Tk):
         self.row_numbers = []
         # carreaux affichant le motif à droite du patron
         self.motif = []
-        for i in range(self.row_nb*4):
+        for i in range(self.row_nb * 4):
             self.motif.append([])
         # info sur la couleur des fils de gauche et de droite de chaque
         # noeud du 2e quart
@@ -471,19 +471,18 @@ class Bracelet(Tk):
         # info sur la couleur des fils de gauche et de droite de chaque
         # noeud du 3e quart
         self.motif3 = []
-        w = self.fin_noeud + 28 + (self.string_nb//2)*16 + (self.string_nb % 2)*8
-        self.can.configure(width=min(self.width_max,
-                                     max(w + 20, 230)),
-                           height=min(30 + (self.row_nb + 2)*30, self.height_max))
+        w = self.fin_noeud + 28 + (self.string_nb // 2) * 16 + (self.string_nb % 2) * 8
+        self.can.configure(width=min(self.width_max, max(w + 20, 230)),
+                           height=min(30 + (self.row_nb + 2) * 30, self.height_max))
 
         # création des carrés pour sélectionner la couleur des fils
         for i in range(self.string_nb):
-            self.string_numbers.append(self.can.create_text(45 + 30*i, 9,
+            self.string_numbers.append(self.can.create_text(45 + 30 * i, 9,
                                                             text="%i" % (i + 1),
                                                             anchor="s",
                                                             font=("Arial", '12')))
-            self.colors.append(self.can.create_rectangle(41 + 30*i, 13,
-                                                         49 + 30*i, 21,
+            self.colors.append(self.can.create_rectangle(41 + 30 * i, 13,
+                                                         49 + 30 * i, 21,
                                                          fill=self.color,
                                                          activefill=cst.active_color(self.color)))
             self._attribue_carre(i)
@@ -494,43 +493,42 @@ class Bracelet(Tk):
             self.motif2.append([])
             self.motif3.append([])
             if i % 2:  # ligne impaire
-                self.row_numbers.append(self.can.create_text(10, 25 + (i + 1)*30,
+                self.row_numbers.append(self.can.create_text(10, 25 + (i + 1) * 30,
                                                              text="%i" % (i + 1),
                                                              anchor="e",
                                                              font=("Arial", '12')))
-                nb_noeuds = self.string_nb//2 - 1 + self.string_nb % 2
+                nb_noeuds = self.string_nb // 2 - 1 + self.string_nb % 2
                 for j in range(nb_noeuds):
-                    self.noeuds[i].append(Noeud(self.can, 80 + j*60,
-                                                10 + (i + 1)*30,
+                    self.noeuds[i].append(Noeud(self.can, 80 + j * 60,
+                                                10 + (i + 1) * 30,
                                                 color_d=self.color,
                                                 color_g=self.color))
                     self._attribue_noeud(i, j)
-                    self.motif[i].append(self._carreau(self.fin_noeud + 28 +
-                                                       j*16, 28 + i//2*16))
-                    self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                                        28 + (i + self.row_nb)//2*16))
-                    self.motif[i + 2*self.row_nb].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                                          28 + (i + 2*self.row_nb)//2*16))
-                    self.motif[i + 3*self.row_nb].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                                          28 + (i + 3*self.row_nb)//2*16))
+                    self.motif[i].append(self._carreau(self.fin_noeud + 28 + j * 16, 28 + i // 2 * 16))
+                    self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                                     28 + (i + self.row_nb) // 2 * 16))
+                    self.motif[i + 2 * self.row_nb].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                                         28 + (i + 2 * self.row_nb) // 2 * 16))
+                    self.motif[i + 3 * self.row_nb].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                                         28 + (i + 3 * self.row_nb) // 2 * 16))
                     self.motif2[i].append([self.color, self.color])
                     self.motif3[i].append([self.color, self.color])
             else:  # ligne paire
-                nb_noeuds = self.string_nb//2
+                nb_noeuds = self.string_nb // 2
                 for j in range(nb_noeuds):
-                    self.noeuds[i].append(Noeud(self.can, 50 + j*60,
-                                                10 + (i + 1)*30,
+                    self.noeuds[i].append(Noeud(self.can, 50 + j * 60,
+                                                10 + (i + 1) * 30,
                                                 color_d=self.color,
                                                 color_g=self.color))
                     self._attribue_noeud(i, j)
-                    self.motif[i].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                       20 + i//2*16))
-                    self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                                        20 + (i + self.row_nb)//2*16))
-                    self.motif[i + 2*self.row_nb].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                                          20 + (i + 2*self.row_nb)//2*16))
-                    self.motif[i + 3*self.row_nb].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                                          20 + (i + 3*self.row_nb)//2*16))
+                    self.motif[i].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                       20 + i // 2 * 16))
+                    self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                                     20 + (i + self.row_nb) // 2 * 16))
+                    self.motif[i + 2 * self.row_nb].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                                         20 + (i + 2 * self.row_nb) // 2 * 16))
+                    self.motif[i + 3 * self.row_nb].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                                         20 + (i + 3 * self.row_nb) // 2 * 16))
                     self.motif2[i].append([self.color, self.color])
                     self.motif3[i].append([self.color, self.color])
         # gestion des bords
@@ -609,22 +607,21 @@ class Bracelet(Tk):
         """ choix de la couleur du fil j """
         coul0 = self.can.itemcget(self.colors[j], "fill")
         if color is None:
-            color = cst.askcolor(coul0, parent=self) # color choisie en hexadécimal
+            color = cst.askcolor(coul0, parent=self)  # color choisie en hexadécimal
         if color:
             if write_log:
                 self._log()
                 with open(cst.BRACELET_LOG, "a") as log:
-                    log.write("change_color %i %s %s\n" % (j, coul0,
-                                                             color))
+                    log.write("change_color %i %s %s\n" % (j, coul0, color))
 
             self.can.itemconfigure(self.colors[j], fill=color,
                                    activefill=cst.active_color(color))
             if j < self.string_nb - 1 or j % 2:
-                self._change_color(0, j//2, j % 2, color)
+                self._change_color(0, j // 2, j % 2, color)
             else:
                 # le dernier fil ne sert pas à faire de noeud sur la
                 # première ligne
-                self._change_color(1, j//2 - 1, 1, color)
+                self._change_color(1, j // 2 - 1, 1, color)
             self._actualise_motif()
 
     def _change_color(self, i, j, fil, color):
@@ -666,7 +663,7 @@ class Bracelet(Tk):
             elif motif == 2:
                 self.motif3[i][j][fil] = color
             if fil == n.get_fil_noeud():
-                self.can.itemconfig(self.motif[i + self.row_nb*motif][j],
+                self.can.itemconfig(self.motif[i + self.row_nb * motif][j],
                                     fill=color)
             if fil:
                 sortie = not n.g_out
@@ -677,124 +674,100 @@ class Bracelet(Tk):
                     j2 = j + sortie
                     if (j2 < len(self.noeuds[i])) or (not self.string_nb % 2):
                         self._change_color_virtuel(i + 1, j2, not sortie,
-                                                     color, motif)
+                                                   color, motif)
                     elif not n.get_bords("sans_noeud_fin"):
-                        self._change_color_virtuel(i + 2, j, 1, color,
-                                                     motif)
+                        self._change_color_virtuel(i + 2, j, 1, color, motif)
                 else:
                     j2 = j - 1 + sortie
                     if j2 >= 0 and j2 < len(self.noeuds[i + 1]):
                         self._change_color_virtuel(i + 1, j2, not sortie,
-                                                     color, motif)
+                                                   color, motif)
                     elif not n.get_bords("sans_noeud_fin"):
                         self._change_color_virtuel(i + 2, j, sortie,
-                                                     color, motif)
+                                                   color, motif)
 
     def _actualise_motif(self):
         """ met à jour le motif en répercutant les changement de noeuds
             sur tous les rangs suivants """
         nb = len(self.noeuds[0])
 
-        # 2e quart du motif
-
+        # --- 2e quart du motif
         # extrémités
         n = self.noeuds[-2][0]
         self._change_color_virtuel(0, 0, 0, n.get_color(n.get_g_out()), 1)
         if self.string_nb % 2 == 0:
             n = self.noeuds[-2][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         n.get_color(not n.get_g_out()), 1)
+                                       n.get_color(not n.get_g_out()), 1)
             # les autres noeuds
             for j, n in enumerate(self.noeuds[-1]):
                 self._change_color_virtuel(0, j, 1,
-                                             n.get_color(n.get_g_out()), 1)
+                                           n.get_color(n.get_g_out()), 1)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             n.get_color(not n.get_g_out()),
-                                             1)
+                                           n.get_color(not n.get_g_out()), 1)
         else:
             n = self.noeuds[-1][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         n.get_color(n.get_g_out()), 1)
+                                       n.get_color(n.get_g_out()), 1)
             self._change_color_virtuel(1, nb - 1, 1,
-                                         n.get_color(not n.get_g_out()), 1)
+                                       n.get_color(not n.get_g_out()), 1)
             for j, n in list(enumerate(self.noeuds[-1]))[:-1]:
                 self._change_color_virtuel(0, j, 1,
-                                             n.get_color(n.get_g_out()), 1)
+                                           n.get_color(n.get_g_out()), 1)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             n.get_color(not n.get_g_out()),
-                                             1)
-
-        # 3e quart du motif
-
+                                           n.get_color(not n.get_g_out()), 1)
+        # --- 3e quart du motif
         # extrémités
         n = self.noeuds[-2][0]
-        self._change_color_virtuel(0, 0, 0,
-                                     self.motif2[-2][0][n.get_g_out()], 2)
+        self._change_color_virtuel(0, 0, 0, self.motif2[-2][0][n.get_g_out()], 2)
         if self.string_nb % 2 == 0:
             n = self.noeuds[-2][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         self.motif2[-2][-1][not n.get_g_out()],
-                                         2)
+                                       self.motif2[-2][-1][not n.get_g_out()], 2)
             # les autres noeuds
             for j, n in enumerate(self.noeuds[-1]):
                 self._change_color_virtuel(0, j, 1,
-                                             self.motif2[-1][j][n.get_g_out()],
-                                             2)
+                                           self.motif2[-1][j][n.get_g_out()], 2)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             self.motif2[-1][j][not n.get_g_out()],
-                                             2)
+                                           self.motif2[-1][j][not n.get_g_out()], 2)
         else:
             n = self.noeuds[-1][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         self.motif2[-1][-1][n.get_g_out()],
-                                         2)
+                                       self.motif2[-1][-1][n.get_g_out()], 2)
             self._change_color_virtuel(1, nb - 1, 1,
-                                         self.motif2[-1][-1][not n.get_g_out()],
-                                         2)
+                                       self.motif2[-1][-1][not n.get_g_out()], 2)
 
             for j, n in list(enumerate(self.noeuds[-1]))[:-1]:
                 self._change_color_virtuel(0, j, 1,
-                                             self.motif2[-1][j][n.get_g_out()],
-                                             2)
+                                           self.motif2[-1][j][n.get_g_out()], 2)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             self.motif2[-1][j][not n.get_g_out()],
-                                             2)
-
-        # 4e quart du motif
-
+                                           self.motif2[-1][j][not n.get_g_out()], 2)
+        # --- 4e quart du motif
         # extrémités
         n = self.noeuds[-2][0]
-        self._change_color_virtuel(0, 0, 0,
-                                     self.motif3[-2][0][n.get_g_out()],
-                                     3)
+        self._change_color_virtuel(0, 0, 0, self.motif3[-2][0][n.get_g_out()], 3)
         if self.string_nb % 2 == 0:
             n = self.noeuds[-2][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         self.motif3[-2][-1][not n.get_g_out()],
-                                         3)
+                                       self.motif3[-2][-1][not n.get_g_out()], 3)
             # les autres noeuds
             for j, n in enumerate(self.noeuds[-1]):
                 self._change_color_virtuel(0, j, 1,
-                                             self.motif3[-1][j][n.get_g_out()],
-                                             3)
+                                           self.motif3[-1][j][n.get_g_out()], 3)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             self.motif3[-1][j][not n.get_g_out()],
-                                             3)
+                                           self.motif3[-1][j][not n.get_g_out()], 3)
         else:
             n = self.noeuds[-1][-1]
             self._change_color_virtuel(0, nb - 1, 1,
-                                         self.motif3[-1][-1][n.get_g_out()],
-                                         3)
+                                       self.motif3[-1][-1][n.get_g_out()], 3)
             self._change_color_virtuel(1, nb - 1, 1,
-                                         self.motif3[-1][-1][not n.get_g_out()],
-                                         3)
+                                       self.motif3[-1][-1][not n.get_g_out()], 3)
             for j, n in list(enumerate(self.noeuds[-1]))[:-1]:
                 self._change_color_virtuel(0, j, 1,
-                                             self.motif3[-1][j][n.get_g_out()],
-                                             3)
+                                           self.motif3[-1][j][n.get_g_out()], 3)
                 self._change_color_virtuel(0, j + 1, 0,
-                                             self.motif3[-1][j][not n.get_g_out()],
-                                             3)
+                                           self.motif3[-1][j][not n.get_g_out()], 3)
+
     def change_row_nb(self, event=None):
         ch = self.row_nb_entry.get()
         if ch:
@@ -802,10 +775,10 @@ class Bracelet(Tk):
             if nb >= 2:
                 diff = nb - self.row_nb
                 if diff > 0:
-                    for i in range(diff//2):
+                    for i in range(diff // 2):
                         self.add_row()
                 elif diff < 0:
-                    for i in range((-diff)//2):
+                    for i in range((-diff) // 2):
                         self.del_row()
         self.row_nb = self.row_nb
         self.focus_set()
@@ -818,9 +791,9 @@ class Bracelet(Tk):
                 log.write("add_row\n")
 
         if not g_out:
-            g_out = ("1"*len(self.noeuds[0]), "1"*len(self.noeuds[1]))
+            g_out = ("1" * len(self.noeuds[0]), "1" * len(self.noeuds[1]))
         if not fil_noeud:
-            fil_noeud = ("0"*len(self.noeuds[0]), "0"*len(self.noeuds[1]))
+            fil_noeud = ("0" * len(self.noeuds[0]), "0" * len(self.noeuds[1]))
         i = self.row_nb
         self.row_nb += 2
         self.motif += [[], [], [], [], [], [], [], []]
@@ -832,50 +805,50 @@ class Bracelet(Tk):
         self.noeuds.append([])
         self.motif2.append([])
         self.motif3.append([])
-        nb_noeuds = self.string_nb//2
+        nb_noeuds = self.string_nb // 2
         for j in range(nb_noeuds):
-            self.noeuds[i].append(Noeud(self.can, 50 + j*60, 10 + (i + 1)*30,
+            self.noeuds[i].append(Noeud(self.can, 50 + j * 60, 10 + (i + 1) * 30,
                                         color_d=self.color,
                                         color_g=self.color))
             n = self.noeuds[i][-1]
             n.set_g_out(int(g_out[0][j]))
             n.set_fil_noeud(int(fil_noeud[0][j]))
             self._attribue_noeud(i, j)
-            self.motif[k - 8].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                   20 + (k - 8)//2*16))
-            self.motif[k - 6].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                   20 + (k - 6)//2*16))
-            self.motif[k - 4].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                   20 + (k - 4)//2*16))
-            self.motif[k - 2].append(self._carreau(self.fin_noeud + 20 + j*16,
-                                                   20 + (k - 2)//2*16))
+            self.motif[k - 8].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                   20 + (k - 8) // 2 * 16))
+            self.motif[k - 6].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                   20 + (k - 6) // 2 * 16))
+            self.motif[k - 4].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                   20 + (k - 4) // 2 * 16))
+            self.motif[k - 2].append(self._carreau(self.fin_noeud + 20 + j * 16,
+                                                   20 + (k - 2) // 2 * 16))
             self.motif2[i].append([self.color, self.color])
             self.motif3[i].append([self.color, self.color])
         self.noeuds.append([])
         self.motif2.append([])
         self.motif3.append([])
         i += 1
-        self.row_numbers.append(self.can.create_text(10, 25 + (i + 1)*30,
+        self.row_numbers.append(self.can.create_text(10, 25 + (i + 1) * 30,
                                                      text="%i" % (i + 1),
                                                      anchor="e",
                                                      font=("Arial", '12')))
-        nb_noeuds = self.string_nb//2 - 1 + self.string_nb % 2
+        nb_noeuds = self.string_nb // 2 - 1 + self.string_nb % 2
         for j in range(nb_noeuds):
-            self.noeuds[i].append(Noeud(self.can, 80 + j*60, 10 + (i + 1)*30,
+            self.noeuds[i].append(Noeud(self.can, 80 + j * 60, 10 + (i + 1) * 30,
                                         fin=True, color_d=self.color,
                                         color_g=self.color))
             self._attribue_noeud(i, j)
             n = self.noeuds[i][-1]
             n.set_g_out(int(g_out[1][j]))
             n.set_fil_noeud(int(fil_noeud[1][j]))
-            self.motif[k - 7].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                   28 + (k - 7)//2*16))
-            self.motif[k - 5].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                   28 + (k - 5)//2*16))
-            self.motif[k - 3].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                   28 + (k - 3)//2*16))
-            self.motif[k - 1].append(self._carreau(self.fin_noeud + 28 + j*16,
-                                                   28 + (k - 1)//2*16))
+            self.motif[k - 7].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                   28 + (k - 7) // 2 * 16))
+            self.motif[k - 5].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                   28 + (k - 5) // 2 * 16))
+            self.motif[k - 3].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                   28 + (k - 3) // 2 * 16))
+            self.motif[k - 1].append(self._carreau(self.fin_noeud + 28 + j * 16,
+                                                   28 + (k - 1) // 2 * 16))
             self.motif2[i].append([self.color, self.color])
             self.motif3[i].append([self.color, self.color])
         self.noeuds[-2][0].set_bords(bord_g=True, sans_noeud_fin=True)
@@ -888,9 +861,9 @@ class Bracelet(Tk):
             self._change_color(i - 2, j, 1, n.get_color(1))
         n = self.noeuds[i - 3][0]
         self._change_color(i - 3, 0, n.get_g_out(),
-                             n.get_color(n.get_g_out()))
+                           n.get_color(n.get_g_out()))
         if self.string_nb % 2 == 0:
-            j = self.string_nb//2 - 1
+            j = self.string_nb // 2 - 1
             n = self.noeuds[i - 3][j]
             gout = n.get_g_out()
             self._change_color(i - 3, j, not gout, n.get_color(not gout))
@@ -903,7 +876,6 @@ class Bracelet(Tk):
                                          bbox[3] + 10])
         self._actualise_motif()
         self.is_saved = False
-
 
     def del_row(self, event=None, write_log=True):
         """ efface deux lignes """
@@ -980,90 +952,88 @@ class Bracelet(Tk):
         if not color:
             color = self.color
         if not g_out:
-            g_out = "1"*(self.row_nb//2)
+            g_out = "1" * (self.row_nb // 2)
         if not fil_noeud:
-            fil_noeud = "0"*(self.row_nb//2)
+            fil_noeud = "0" * (self.row_nb // 2)
         if write_log:
             self._log()
             with open(cst.BRACELET_LOG, "a") as log:
                 log.write("add_string\n")
         self.string_nb += 1
-        self.fin_noeud = (self.string_nb - 1)*30 + 80
+        self.fin_noeud = (self.string_nb - 1) * 30 + 80
         nb = self.string_nb - 1
 
         # décalage du motif
         for i in range(len(self.motif)):
             for j in range(len(self.motif[i])):
                 if i % 2:
-                    self._translate_carreau(i, j, self.fin_noeud + 28 + j*16,
-                                            28 + i//2*16)
+                    self._translate_carreau(i, j, self.fin_noeud + 28 + j * 16,
+                                            28 + i // 2 * 16)
                 else:
-                    self._translate_carreau(i, j, self.fin_noeud + 20 + j*16,
-                                            20 + i//2*16)
-        nb_noeuds = self.string_nb//2 - 1
+                    self._translate_carreau(i, j, self.fin_noeud + 20 + j * 16,
+                                            20 + i // 2 * 16)
+        nb_noeuds = self.string_nb // 2 - 1
         if self.string_nb % 2:
             for i in range(1, self.row_nb, 2):
                 self.noeuds[i - 1][-1].set_bords(bord_d=False)
-                self.noeuds[i].append(Noeud(self.can, 80 + nb_noeuds*60,
-                                            10 + (i + 1)*30, bord_d=True,
+                self.noeuds[i].append(Noeud(self.can, 80 + nb_noeuds * 60,
+                                            10 + (i + 1) * 30, bord_d=True,
                                             color_d=color,
                                             color_g=color))
                 n = self.noeuds[i][-1]
-                n.set_g_out(int(g_out[i//2]))
-                n.set_fil_noeud(int(fil_noeud[i//2]))
+                n.set_g_out(int(g_out[i // 2]))
+                n.set_fil_noeud(int(fil_noeud[i // 2]))
                 self._attribue_noeud(i, nb_noeuds)
                 self.motif2[i].append([color, color])
                 self.motif3[i].append([color, color])
-                self.motif[i].append(self._carreau(self.fin_noeud + 28 +
-                                                   nb_noeuds*16,
-                                                   28 + i//2*16))
-                self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds*16,
-                                                                    28 + (i + self.row_nb)//2*16))
-                self.motif[i + 2*self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds*16,
-                                                                      28 + (i + self.row_nb*2)//2*16))
-                self.motif[i + 3*self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds*16,
-                                                                      28 + (i + self.row_nb*3)//2*16))
+                self.motif[i].append(self._carreau(self.fin_noeud + 28 + nb_noeuds * 16,
+                                                   28 + i // 2 * 16))
+                self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds * 16,
+                                                                 28 + (i + self.row_nb) // 2 * 16))
+                self.motif[i + 2 * self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds * 16,
+                                                                     28 + (i + self.row_nb * 2) // 2 * 16))
+                self.motif[i + 3 * self.row_nb].append(self._carreau(self.fin_noeud + 28 + nb_noeuds * 16,
+                                                                     28 + (i + self.row_nb * 3) // 2 * 16))
             self.noeuds[1][-1].set_bords(sans_noeud_deb=True)
             self.noeuds[-1][-1].set_bords(fin=True)
 
         else:
             for i in range(0, self.row_nb, 2):
                 self.noeuds[i + 1][-1].set_bords(bord_d=False)
-                self.noeuds[i].append(Noeud(self.can, 50 + nb//2*60,
-                                            10 + (i + 1)*30, bord_d=True,
+                self.noeuds[i].append(Noeud(self.can, 50 + nb // 2 * 60,
+                                            10 + (i + 1) * 30, bord_d=True,
                                             color_d=self.color,
                                             color_g=self.color))
                 n = self.noeuds[i][-1]
-                n.set_g_out(int(g_out[i//2]))
-                n.set_fil_noeud(int(fil_noeud[i//2]))
-                self._attribue_noeud(i, nb//2)
+                n.set_g_out(int(g_out[i // 2]))
+                n.set_fil_noeud(int(fil_noeud[i // 2]))
+                self._attribue_noeud(i, nb // 2)
                 self.motif2[i].append([color, color])
                 self.motif3[i].append([color, color])
-                self.motif[i].append(self._carreau(self.fin_noeud + 20 +
-                                                   nb_noeuds*16,
-                                                   20 + i//2*16))
-                self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds*16,
-                                                                    20 + (i + self.row_nb)//2*16))
-                self.motif[i + 2*self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds*16,
-                                                                      20 + (i + 2*self.row_nb)//2*16))
-                self.motif[i + 3*self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds*16,
-                                                                      20 + (i + 3*self.row_nb)//2*16))
+                self.motif[i].append(self._carreau(self.fin_noeud + 20 + nb_noeuds * 16,
+                                                   20 + i // 2 * 16))
+                self.motif[i + self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds * 16,
+                                                                 20 + (i + self.row_nb) // 2 * 16))
+                self.motif[i + 2 * self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds * 16,
+                                                                     20 + (i + 2 * self.row_nb) // 2 * 16))
+                self.motif[i + 3 * self.row_nb].append(self._carreau(self.fin_noeud + 20 + nb_noeuds * 16,
+                                                                     20 + (i + 3 * self.row_nb) // 2 * 16))
             self.noeuds[0][-1].set_bords(deb=True)
             self.noeuds[-2][-1].set_bords(sans_noeud_fin=True)
 
-        self.string_numbers.append(self.can.create_text(45 + 30*nb, 9,
+        self.string_numbers.append(self.can.create_text(45 + 30 * nb, 9,
                                                         text="%i" % (nb + 1),
                                                         anchor="s",
                                                         font=("Arial", '12')))
-        self.colors.append(self.can.create_rectangle(41 + 30*nb,
-                                                     13, 49 + 30*nb, 21,
+        self.colors.append(self.can.create_rectangle(41 + 30 * nb,
+                                                     13, 49 + 30 * nb, 21,
                                                      fill=color,
                                                      activefill=cst.active_color(color)))
         self._attribue_carre(nb)
 
         for j in range(len(self.noeuds[0])):
-            c0 = self.can.itemcget(self.colors[j*2], 'fill')
-            c1 = self.can.itemcget(self.colors[j*2 + 1], 'fill')
+            c0 = self.can.itemcget(self.colors[j * 2], 'fill')
+            c1 = self.can.itemcget(self.colors[j * 2 + 1], 'fill')
             self._change_color(0, j, 0, c0)
             self._change_color(0, j, 1, c1)
         if self.string_nb % 2:
@@ -1087,7 +1057,7 @@ class Bracelet(Tk):
             fil_noeud = []
             coul = self.can.itemcget(self.colors[-1], "fill")
             self.string_nb -= 1
-            self.fin_noeud = (self.string_nb - 1)*30 + 80
+            self.fin_noeud = (self.string_nb - 1) * 30 + 80
 
             self.can.delete(self.colors[-1])
             self.colors = self.colors[:-1]
@@ -1098,13 +1068,13 @@ class Bracelet(Tk):
             for i in range(len(self.motif)):
                 for j in range(len(self.motif[i])):
                     if i % 2:
-                        self._translate_carreau(i, j, self.fin_noeud + 28 + j*16,
-                                                28 + i//2*16)
+                        self._translate_carreau(i, j, self.fin_noeud + 28 + j * 16,
+                                                28 + i // 2 * 16)
                     else:
-                        self._translate_carreau(i, j, self.fin_noeud + 20 + j*16,
-                                                20 + i//2*16)
+                        self._translate_carreau(i, j, self.fin_noeud + 20 + j * 16,
+                                                20 + i // 2 * 16)
 
-            nb_noeuds = self.string_nb//2 - 1
+            nb_noeuds = self.string_nb // 2 - 1
             if self.string_nb % 2 == 0:
                 for i in range(1, self.row_nb, 2):
                     self.noeuds[i - 1][-1].set_bords(bord_d=True)
@@ -1117,12 +1087,12 @@ class Bracelet(Tk):
                     self.motif3[i] = self.motif3[i][:-1]
                     self.can.delete(self.motif[i][-1])
                     self.can.delete(self.motif[i + self.row_nb][-1])
-                    self.can.delete(self.motif[i + 2*self.row_nb][-1])
-                    self.can.delete(self.motif[i + 3*self.row_nb][-1])
+                    self.can.delete(self.motif[i + 2 * self.row_nb][-1])
+                    self.can.delete(self.motif[i + 3 * self.row_nb][-1])
                     self.motif[i] = self.motif[i][:-1]
                     self.motif[i + self.row_nb] = self.motif[i + self.row_nb][:-1]
-                    self.motif[i + 2*self.row_nb] = self.motif[i + 2*self.row_nb][:-1]
-                    self.motif[i + 3*self.row_nb] = self.motif[i + 3*self.row_nb][:-1]
+                    self.motif[i + 2 * self.row_nb] = self.motif[i + 2 * self.row_nb][:-1]
+                    self.motif[i + 3 * self.row_nb] = self.motif[i + 3 * self.row_nb][:-1]
 
                 self.noeuds[0][-1].set_bords(deb=True)
                 self.noeuds[-2][-1].set_bords(sans_noeud_fin=True)
@@ -1139,12 +1109,12 @@ class Bracelet(Tk):
                     self.motif3[i] = self.motif3[i][:-1]
                     self.can.delete(self.motif[i][-1])
                     self.can.delete(self.motif[i + self.row_nb][-1])
-                    self.can.delete(self.motif[i + 2*self.row_nb][-1])
-                    self.can.delete(self.motif[i + 3*self.row_nb][-1])
+                    self.can.delete(self.motif[i + 2 * self.row_nb][-1])
+                    self.can.delete(self.motif[i + 3 * self.row_nb][-1])
                     self.motif[i] = self.motif[i][:-1]
                     self.motif[i + self.row_nb] = self.motif[i + self.row_nb][:-1]
-                    self.motif[i + 2*self.row_nb] = self.motif[i + 2*self.row_nb][:-1]
-                    self.motif[i + 3*self.row_nb] = self.motif[i + 3*self.row_nb][:-1]
+                    self.motif[i + 2 * self.row_nb] = self.motif[i + 2 * self.row_nb][:-1]
+                    self.motif[i + 3 * self.row_nb] = self.motif[i + 3 * self.row_nb][:-1]
 
                 self.noeuds[1][-1].set_bords(sans_noeud_deb=True)
                 self.noeuds[-1][-1].set_bords(fin=True)
@@ -1175,13 +1145,13 @@ class Bracelet(Tk):
                 self._log()
                 with open(cst.BRACELET_LOG, "a") as log:
                     log.write("del_string %s %s %s\n" % (coul, txt_g_out,
-                                                      txt_fil_noeud))
+                                                         txt_fil_noeud))
 
-    def symmetrize(self,sens, write_log=True):
+    def symmetrize(self, sens, write_log=True):
         """ symétrise le motif selon l'axe sens """
         if sens == "horizontal":
             if self.string_nb % 2 == 0:
-                string_nb = self.string_nb*2
+                string_nb = self.string_nb * 2
                 fils = []
                 for noeud in self.noeuds[0]:
                     fils.append([noeud.get_color(0), noeud.get_color(1)])
@@ -1208,7 +1178,7 @@ class Bracelet(Tk):
                 self._importe(fils, g_out, fil_noeud)
 
             else:
-                string_nb = self.string_nb*2
+                string_nb = self.string_nb * 2
                 fils = []
                 for noeud in self.noeuds[0]:
                     fils.append([noeud.get_color(0), noeud.get_color(1)])
@@ -1256,25 +1226,25 @@ class Bracelet(Tk):
             txtlog = ""
             for n in g_out[-1]:
                 txtlog += str(n)
-            g_out[-1] = [0]*len(g_out[-1])
+            g_out[-1] = [0] * len(g_out[-1])
             l = [1, 0]
-            for lg,lf in zip(reversed(g_out[:-1]),reversed(fil_noeud[:-1])):
+            for lg, lf in zip(reversed(g_out[:-1]), reversed(fil_noeud[:-1])):
                 g_out.append(lg)
                 fil_noeud.append([])
-                for g,f in zip(lg,lf):
+                for g, f in zip(lg, lf):
                     if g:
                         fil_noeud[-1].append(l[f])
                     else:
                         fil_noeud[-1].append(f)
-            g_out.append(g_out[self.row_nb-1])
-            fil_noeud.append([l[k] for k in fil_noeud[self.row_nb-1]])
-            self.row_nb = self.row_nb*2
+            g_out.append(g_out[self.row_nb - 1])
+            fil_noeud.append([l[k] for k in fil_noeud[self.row_nb - 1]])
+            self.row_nb = self.row_nb * 2
             self.init_canvas()
             self._importe(fils, g_out, fil_noeud)
             if write_log:
                 self._log()
                 with open(cst.BRACELET_LOG, "a") as log:
-                    log.write("symmetrize %s %s\n" % (sens,txtlog))
+                    log.write("symmetrize %s %s\n" % (sens, txtlog))
 
         self.is_saved = False
 
@@ -1290,8 +1260,8 @@ class Bracelet(Tk):
             cst.RECENT_FILES.remove(file)
 
         cst.RECENT_FILES.insert(0, file)
-        self.menu_recent_files.insert_command(0,label=file,
-                                                  command=lambda: self.open(fichier=file))
+        self.menu_recent_files.insert_command(0, label=file,
+                                              command=lambda: self.open(fichier=file))
         if len(cst.RECENT_FILES) > 10:
             self.menu_recent_files.delete(10)
             del(cst.RECENT_FILES[-1])
@@ -1319,9 +1289,9 @@ class Bracelet(Tk):
         for j, n in enumerate(self.noeuds[0]):
             c0 = fils[j][0]
             c1 = fils[j][1]
-            self.can.itemconfigure(self.colors[2*j], fill=c0,
+            self.can.itemconfigure(self.colors[2 * j], fill=c0,
                                    activefill=cst.active_color(c0))
-            self.can.itemconfigure(self.colors[2*j + 1], fill=c1,
+            self.can.itemconfigure(self.colors[2 * j + 1], fill=c1,
                                    activefill=cst.active_color(c1))
             self._change_color(0, j, 0, c0)
             self._change_color(0, j, 1, c1)
@@ -1381,14 +1351,14 @@ class Bracelet(Tk):
         if res:
             # des colors ont été changées
             color, n_colors = res
-            dic_coul = {c:n for c,n in zip(c_colors, n_colors)}
-            for j,c in enumerate(couls):
+            dic_coul = {c: n for c, n in zip(c_colors, n_colors)}
+            for j, c in enumerate(couls):
                 self._select_color(j, write_log=False, color=dic_coul[c])
             # écriture dans le log
             self._log()
             with open(cst.BRACELET_LOG, "a") as log:
-                c = ",".join(c_colors)
-                n = ",".join(n_colors)
+                c = ", ".join(c_colors)
+                n = ", ".join(n_colors)
                 # action ancien_défaut nv_défaut c_colors n_colors
                 log.write("color_manager %s %s %s %s\n" % (self.color, color, c, n))
             self.color = color
@@ -1406,9 +1376,9 @@ class Bracelet(Tk):
         if rep is not None:
             if not fichier:
                 fichier = cst.askopenfilename(defaultextension='.bracelet',
-                                          filetypes=[('BRACELET', '*.bracelet'),
-                                                     ('BICOLOR', '*.bicolor')],
-                                          initialdir=cst.CONFIG.get("General", "last_path"))
+                                              filetypes=[('BRACELET', '*.bracelet'),
+                                                         ('BICOLOR', '*.bicolor')],
+                                              initialdir=cst.CONFIG.get("General", "last_path"))
             if fichier:
                 if os.path.exists(fichier):
                     cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
@@ -1447,12 +1417,12 @@ class Bracelet(Tk):
         if self.path_save:
             initialdir, initialfile = os.path.split(self.path_save)
         else:
-            initialdir=cst.CONFIG.get("General", "last_path")
-            initialfile=""
+            initialdir = cst.CONFIG.get("General", "last_path")
+            initialfile = ""
         fichier = cst.asksaveasfilename(defaultextension='.bracelet',
-                                    filetypes=[('BRACELET', '*.bracelet')],
-                                    initialdir=initialdir,
-                                    initialfile=initialfile)
+                                        filetypes=[('BRACELET', '*.bracelet')],
+                                        initialdir=initialdir,
+                                        initialfile=initialfile)
         if fichier:
             ext = os.path.splitext(fichier)[-1]
             self.add_recent_file(file=fichier)
@@ -1501,17 +1471,17 @@ class Bracelet(Tk):
             initialdir, initialfile = os.path.split(self.path_save)
             initialfile = os.path.splitext(initialfile)[0] + ".png"
         else:
-            initialdir=cst.CONFIG.get("General", "last_path")
-            initialfile=""
+            initialdir = cst.CONFIG.get("General", "last_path")
+            initialfile = ""
 
         fichier = cst.asksaveasfilename(title=_("Export"),
-                                    defaultextension='.png',
-                                    filetypes=[('PNG', '*.png'),
-                                               ('JPEG', '*.jpg'),
-                                               ('EPS', '*.eps'),
-                                               ('PS', '*.ps')],
-                                    initialdir=initialdir,
-                                    initialfile=initialfile)
+                                        defaultextension='.png',
+                                        filetypes=[('PNG', '*.png'),
+                                                   ('JPEG', '*.jpg'),
+                                                   ('EPS', '*.eps'),
+                                                   ('PS', '*.ps')],
+                                        initialdir=initialdir,
+                                        initialfile=initialfile)
         if fichier:
             ext = os.path.splitext(fichier)[-1]
             ext = ext[1:]
@@ -1548,14 +1518,14 @@ class Bracelet(Tk):
             initialdir, initialfile = os.path.split(self.path_save)
             initialfile = os.path.splitext(initialfile)[0] + ".txt"
         else:
-            initialdir=cst.CONFIG.get("General", "last_path")
-            initialfile=""
+            initialdir = cst.CONFIG.get("General", "last_path")
+            initialfile = ""
 
         fichier = cst.asksaveasfilename(title=_("Export"),
-                                    defaultextension='.txt',
-                                    filetypes=[('TXT', '*.txt')],
-                                    initialdir=initialdir,
-                                    initialfile=initialfile)
+                                        defaultextension='.txt',
+                                        filetypes=[('TXT', '*.txt')],
+                                        initialdir=initialdir,
+                                        initialfile=initialfile)
         if fichier:
             cst.CONFIG.set("General", "last_path", os.path.dirname(fichier))
             rows = []
@@ -1593,7 +1563,7 @@ class Bracelet(Tk):
             if bi:
                 self.row_nb, self.string_nb, colors, motif = bi
                 self.color = colors[0]
-                fils = [colors for i in range(self.string_nb//2)]
+                fils = [colors for i in range(self.string_nb // 2)]
                 if self.string_nb % 2:
                     fils.append(colors[0:1])
                 g_out = []
@@ -1658,11 +1628,11 @@ class Bracelet(Tk):
                 # color par défaut
                 self.color = txt[1]
                 # color des fils
-                c_colors = txt[3].split(",")
-                n_colors = txt[4].split(",")
-                dic_coul = {n:c for c,n in zip(c_colors, n_colors)}
+                c_colors = txt[3].split(", ")
+                n_colors = txt[4].split(", ")
+                dic_coul = {n: c for c, n in zip(c_colors, n_colors)}
                 couls = [self.can.itemcget(j, "fill") for j in self.colors]
-                for j,c in enumerate(couls):
+                for j, c in enumerate(couls):
                     self._select_color(j, write_log=False, color=dic_coul[c])
             elif txt[0] == "clic_noeud":
                 self._clic_noeud_inv(int(txt[1]), int(txt[2]), False)
@@ -1670,20 +1640,20 @@ class Bracelet(Tk):
                 self._clic_noeud(int(txt[1]), int(txt[2]), False)
             elif txt[0] == "del_string":
                 self.add_string(write_log=False, color=txt[1], g_out=txt[2],
-                             fil_noeud=txt[3])
+                                fil_noeud=txt[3])
             elif txt[0] == "del_row":
                 self.add_row(write_log=False, g_out=(txt[1], txt[2]),
-                               fil_noeud=(txt[3], txt[4]))
+                             fil_noeud=(txt[3], txt[4]))
             elif txt[0] == "symmetrize":
                 if txt[1] == "horizontal":
-                    string_nb = self.string_nb//2
+                    string_nb = self.string_nb // 2
                     for i in range(string_nb):
                         self.del_string(write_log=False)
                 elif txt[1] == "vertical":
-                    nb = self.row_nb//4
+                    nb = self.row_nb // 4
                     for i in range(nb):
                         self.del_row(write_log=False)
-                    for n,g in zip(self.noeuds[-1],txt[2]):
+                    for n, g in zip(self.noeuds[-1], txt[2]):
                         n.set_g_out(int(g))
                     self._actualise_motif()
 
@@ -1708,11 +1678,11 @@ class Bracelet(Tk):
                 # color par défaut
                 self.color = txt[2]
                 # color des fils
-                c_colors = txt[3].split(",")
-                n_colors = txt[4].split(",")
-                dic_coul = {c:n for c,n in zip(c_colors, n_colors)}
+                c_colors = txt[3].split(", ")
+                n_colors = txt[4].split(", ")
+                dic_coul = {c: n for c, n in zip(c_colors, n_colors)}
                 couls = [self.can.itemcget(j, "fill") for j in self.colors]
-                for j,c in enumerate(couls):
+                for j, c in enumerate(couls):
                     self._select_color(j, write_log=False, color=dic_coul[c])
             elif txt[0] == "clic_noeud":
                 self._clic_noeud(int(txt[1]), int(txt[2]), False)
@@ -1723,7 +1693,7 @@ class Bracelet(Tk):
             elif txt[0] == "del_row":
                 self.del_row(write_log=False)
             elif txt[0] == "symmetrize":
-                self.symmetrize(txt[1],write_log=False)
+                self.symmetrize(txt[1], write_log=False)
 
     def _logreinit(self):
         """ réinitialise le fichier log

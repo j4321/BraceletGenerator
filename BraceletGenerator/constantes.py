@@ -20,13 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 IM_QUESTION_DATA and IM_WARNING_DATA was taken from "tk8.6/icons.tcl":
 
-	A set of stock icons for use in Tk dialogs. The icons used here
-	were provided by the Tango Desktop project which provides a
-	unified set of high quality icons licensed under the
-	Creative Commons Attribution Share-Alike license
-	(http://creativecommons.org/licenses/by-sa/3.0/)
+    A set of stock icons for use in Tk dialogs. The icons used here
+    were provided by the Tango Desktop project which provides a
+    unified set of high quality icons licensed under the
+    Creative Commons Attribution Share-Alike license
+    (http://creativecommons.org/licenses/by-sa/3.0/)
 
-	See http://tango.freedesktop.org/Tango_Desktop_Project
+    See http://tango.freedesktop.org/Tango_Desktop_Project
 
     Copyright (c) 2009 Pat Thoyts <patthoyts@users.sourceforge.net>
 
@@ -38,8 +38,6 @@ Constants and global functions of Bracelet Generator
 """
 
 
-STYLE = 'clam'
-
 from locale import getdefaultlocale
 import os
 from tkinter import TclVersion
@@ -47,12 +45,13 @@ from sys import platform
 import gettext
 from configparser import ConfigParser
 from webbrowser import open as webOpen
-from subprocess import  check_output, CalledProcessError
+from subprocess import check_output, CalledProcessError
 from colorsys import hsv_to_rgb, rgb_to_hsv
 from tkinter import filedialog
 from tkinter import colorchooser
 
 PL = os.name
+STYLE = 'clam'
 
 # ---  paths
 PATH = os.path.split(__file__)[0]
@@ -321,11 +320,11 @@ def active_color(color):
 
 
 def fill(image, color):
-     """Fill image with a color=#hex."""
-     width = image.width()
-     height = image.height()
-     horizontal_line = "{" + " ".join([color]*width) + "}"
-     image.put(" ".join([horizontal_line]*height))
+    """Fill image with a color=#hex."""
+    width = image.width()
+    height = image.height()
+    horizontal_line = "{" + " ".join([color] * width) + "}"
+    image.put(" ".join([horizontal_line] * height))
 
 
 # ---  platform dependent mouse events
@@ -333,7 +332,7 @@ if PL == "nt":
 
     def mouse_wheel(event):
         """ gestion de la molette de la souris sous windows """
-        return - 1*(event.delta//120)
+        return -1 * (event.delta // 120)
 
     MOUSEWHEEL = ["<MouseWheel>"]
     RIGHT_CLICK = '<Button-3>'
@@ -341,7 +340,7 @@ elif platform == "darwin":
 
     def mouse_wheel(event):
         """ gestion de la molette de la souris """
-        return - 1*(event.delta)
+        return -1 * (event.delta)
 
     MOUSEWHEEL = ["<MouseWheel>"]
     RIGHT_CLICK = '<Button-2>'
