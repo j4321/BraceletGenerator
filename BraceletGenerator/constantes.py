@@ -131,7 +131,7 @@ if LANGUE not in ["en", "fr"]:
     CONFIG.set("General", "language", LANGUE[:2])
 
 gettext.find(APP_NAME, PATH_LOCALE)
-gettext.bind_textdomain_codeset(APP_NAME, "UTF-8")
+# gettext.bind_textdomain_codeset(APP_NAME, "UTF-8")
 gettext.bindtextdomain(APP_NAME, PATH_LOCALE)
 gettext.textdomain(APP_NAME)
 LANG = gettext.translation(APP_NAME, PATH_LOCALE,
