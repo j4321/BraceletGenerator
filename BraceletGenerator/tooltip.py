@@ -33,7 +33,7 @@ class Tooltip(Toplevel):
         if 'title' in kwargs:
             self.title(kwargs['title'])
         self.transient(parent)
-        self.attributes('-type', 'tooltip')
+        self.attributes('-toolwindow')
         self.attributes('-alpha', kwargs.get('alpha', 0.75))
         self.overrideredirect(True)
         self.configure(padx=kwargs.get('padx', 4))
